@@ -4,8 +4,8 @@ from .views import *
 app_name = 'services'
 
 urlpatterns = [
-    path('login', signIn, name='signIn'),
-    path('', SuperAdmin, name='home_superAdmin'),
+    path('', signIn, name='signIn'),
+    path('home', SuperAdmin, name='home_superAdmin'),
     path('setting-filiale/', adminAsFiliale, name='homeAdminFiliale'),
 
     # Page Utilisateur_filiale
