@@ -6,6 +6,9 @@ base_url = "http://137.184.83.80"
 # url de connexion
 signInSuperAdmin = base_url + "/superuser_login/"
 
+
+signInAdmin = base_url + "/utilisateurs/login/"
+
 # url de listing des filiale
 listeFiliale = base_url + "/filiale/"
 

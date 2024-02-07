@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import requests
 from apiRessource.endpointList import signInSuperAdmin, listeFiliale, listePole, listeUtilisateur, listeProcessus, \
-    listeActivite, listecontrole, listetypemission, listegraviterisk, listefamillerisk
+    listeActivite, listecontrole, listetypemission, listegraviterisk, listefamillerisk, signInAdmin
 
 
 # Create your views here.
@@ -14,14 +14,15 @@ def signIn(request):
                 print("========== filiale ICI ==========")
                 username = request.POST.get('username')
                 password = request.POST.get('password')
-                filiale = request.POST.get('filiale')
+                filiale = request.POST.get('filiale_id')
+                print(filiale)
 
                 data = {
                     "username": username,
                     "password": password,
                     "filiale": filiale
                 }
-                response = requests.get(signInSuperAdmin, data)
+                response = requests.get(signInAdmin, data)
 
                 if response.status_code == 200:
                     feedback = response.json()
