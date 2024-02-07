@@ -15,40 +15,40 @@ def signIn(request):
                 username = request.POST.get('username')
                 password = request.POST.get('password')
                 filiale = request.POST.get('filiale_id')
-                print(filiale)
+                print(username, password,filiale)
 
-                data = {
-                    "username": username,
-                    "password": password,
-                    "filiale": filiale
-                }
-                response = requests.get(signInAdmin, data)
+                # data = {
+                #     "username": username,
+                #     "password": password,
+                #     "filiale": filiale
+                # }
+                # response = requests.get(signInAdmin, data)
+                #
+                # if response.status_code == 200:
+                #     feedback = response.json()
+                #     print("Everything good ", feedback)
+                return redirect("services:homeAdminFiliale")
 
-                if response.status_code == 200:
-                    feedback = response.json()
-                    print("Everything good ", feedback)
-                    return redirect("services:homeAdminFiliale")
-
-                else:
-                    print("L'erreur est la suivante: ", response.text)
+                # else:
+                #     print("L'erreur est la suivante: ", response.text)
             elif 'sAdmin_btn' in request.POST:
                 print("========== Admin ICI ==========")
                 username = request.POST.get('username')
                 password = request.POST.get('password')
                 print(f"l'username est {username} et le mot de passe est {password}")
-                data = {
-                    "username": username,
-                    "password": password
-                }
-                response = requests.get(signInSuperAdmin, json=data)
+                # data = {
+                #     "username": username,
+                #     "password": password
+                # }
+                # response = requests.get(signInSuperAdmin, auth=(username, password))
+                #
+                # if response.status_code == 200:
+                #     feedback = response.json()
+                #     print("Everything good ", feedback)
+                return redirect("services:home_superAdmin")
 
-                if response.status_code == 200:
-                    feedback = response.json()
-                    print("Everything good ", feedback)
-                    return redirect("services:home_superAdmin")
-
-                else:
-                    print("Le message est la suivant: ", response.text)
+                # else:
+                #     print("Le message est la suivant: ", response.text)
     else:
         print("Le message est la suivant: ", get_filiale.text)
 
