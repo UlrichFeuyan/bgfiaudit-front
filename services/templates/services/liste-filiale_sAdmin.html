@@ -1,4 +1,4 @@
-{% extends 'services/index_filiale.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {%block title %} Liste Filiale {% endblock %}
@@ -76,14 +76,12 @@
                                                                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                                             </div>
                                                         </th>
-<!--                                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary"></a></td>-->
-                                                        <td class="customer_name">{{ list.code_user }}</td>
-                                                        <td class="email">{{ list.first_name }}</td>
-                                                        <td class="phone">{{ list.email_user }}</td>
-                                                        <td class="date">{{ list.idprofil_user }}</td>
-                                                        <td class="status"><span class="badge badge-soft-success text-uppercase">{{ list.idprofil_user }}</span></td>
-                                                        <td class="status"><span class="badge badge-soft-success text-uppercase">{{ list.idfiliale }}</span></td>
-
+                                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">{{ list.idfiliale }}</a></td>
+                                                        <td class="customer_name">{{ list.sigle_filiale }}</td>
+                                                        <td class="email">{{ list.sigle_filiale }}</td>
+                                                        <td class="phone">{{ list.sigle_filiale }}</td>
+                                                        <td class="date">{{ list.sigle_filiale }}</td>
+                                                        <td class="status"><span class="badge badge-soft-success text-uppercase">{{ list.adresse_filiale }}</span></td>
                                                         <td>
                                                             <div class="d-flex gap-2">
                                                                 <div class="edit">

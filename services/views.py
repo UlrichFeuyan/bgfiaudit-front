@@ -21,7 +21,7 @@ def signIn(request):
                     "password": password,
                     "filiale": filiale
                 }
-                response = requests.get(signInSuperAdmin, auth=(username, password, filiale))
+                response = requests.get(signInSuperAdmin, data)
 
                 if response.status_code == 200:
                     feedback = response.json()
@@ -39,7 +39,7 @@ def signIn(request):
                     "username": username,
                     "password": password
                 }
-                response = requests.post(signInSuperAdmin, json=data)
+                response = requests.get(signInSuperAdmin, json=data)
 
                 if response.status_code == 200:
                     feedback = response.json()

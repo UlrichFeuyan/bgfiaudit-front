@@ -21,8 +21,8 @@ urlpatterns = [
     #Page super Utilisateur
     path('gestion-filiale/', gestFiliale, name='gestion_filiale'),
     path('utilisateur/', gestutilisateur, name='liste-utilisateur'),
-    path('risque-famille/', gestFiliale, name='risque_famille'),
-    path('gravite-risque/', gestutilisateur, name='gravite_risque'),
-    path('type-mission/', gestFiliale, name='type_mission'),
-    path('corps-control/', gestutilisateur, name='corps_control'),
+    path('risque-famille/', risqueFamille, name='risque_famille'),
+    path('gravite-risque/', graviteRisque, name='gravite_risque'),
+    path('type-mission/', typeMission, name='type_mission'),
+    path('corps-control/', corpsControl, name='corps_control'),
 ]

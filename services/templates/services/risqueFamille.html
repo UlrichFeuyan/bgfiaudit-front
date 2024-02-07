@@ -1,7 +1,7 @@
-{% extends 'services/index_filiale.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
-{%block title %} Liste Filiale {% endblock %}
+{%block title %} Liste risque famille {% endblock %}
 
 {% block central  %}
      <div class="page-content">
@@ -69,6 +69,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody class="list form-check-all">
+                                                 {% for list in filialeList %}
                                                     <tr>
                                                         <th scope="row">
                                                             <div class="form-check">
@@ -92,6 +93,7 @@
                                                             </div>
                                                         </td>
                                                     </tr>
+                                                    {% endfor %}
                                                 </tbody>
                                             </table>
                                             <div class="noresult" style="display: none">
