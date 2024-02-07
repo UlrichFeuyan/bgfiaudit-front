@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import requests
 from apiRessource.endpointList import signInSuperAdmin, listeFiliale, listePole, listeUtilisateur, listeProcessus, \
-    listeActivite, listecontrole, listetypemission, listegraviterisk, listefamillerisk, signInAdmin
+    listeActivite, listecontrole, listetypemission, listegraviterisk, listefamillerisk, signInAdmin, listeprofil
 
 
 # Create your views here.
@@ -95,7 +95,7 @@ def gestprocessus(request):
 def gestutilisateur_spAdmin(request):
     get_filiale = requests.get(listeUtilisateur)
     filialeList = get_filiale.json()
-    return render(request, 'services/liste_utilisateur.html', locals())
+    return render(request, 'services/liste_utilisateur_sAdmin.html', locals())
 
 
 def gestutilisateur(request):
@@ -137,3 +137,11 @@ def activite(request):
     filialeList = get_filiale.json()
     print(filialeList)
     return render(request, 'services/activite.html',locals())
+
+
+
+def profileSAdmin(request):
+    get_filiale = requests.get(listeprofil)
+    filialeList = get_filiale.json()
+    print(filialeList)
+    return render(request, 'services/profil_sAdmin.html',locals())

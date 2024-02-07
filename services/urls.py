@@ -25,4 +25,6 @@ urlpatterns = [
     path('gravite-risque/', graviteRisque, name='gravite_risque'),
     path('type-mission/', typeMission, name='type_mission'),
     path('corps-control/', corpsControl, name='corps_control'),
+
+    path('profil-sAdmin/', profileSAdmin, name='profil_sAdmin'),
 ]

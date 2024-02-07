@@ -36,3 +36,6 @@ listefamillerisk = base_url + "/famillerisk/"
 
 # url de listing typeMission
 listetypemission = base_url +"/typemission/"
+
+#url de la liste des profils
+listeprofil = base_url +"/profiluser/"
