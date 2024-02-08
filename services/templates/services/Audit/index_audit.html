@@ -38,45 +38,14 @@
                     </div>
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menu</span></li>
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Paramétrages Filiale</span>
-                            </a>
-                            <div class="collapse menu-dropdown" id="sidebarDashboards">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="{% url 'services:liste-pole' %}" class="nav-link" data-key="t-analytics"> Pole </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{% url 'services:liste-processus' %}" class="nav-link" data-key="t-crm"> Processus </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link" data-key="t-projects"> Matrice de competence </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link" data-key="t-analytics"> Catalogue de formation </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </li> <!-- end Dashboard Menu -->
-                        <li class="nav-item">
+                         <li class="nav-item">
                             <a class="nav-link menu-link" href="{% url 'services:gestion_filiale' %}"  role="button"
                                 aria-expanded="false" aria-controls="sidebarApps">
-                                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Gestions des Filiales</span>
+                                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Dashboard</span>
                             </a>
 
                         </li>
-
                          <li class="nav-item">
-                            <a class="nav-link menu-link" href="{% url 'services:liste-utilisateur' %}"  role="button"
-                                aria-expanded="false" aria-controls="sidebarApps">
-                                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Utilisateurs</span>
-                            </a>
-
-                        </li>
-
-                        <li class="nav-item">
                             <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button"
                                 aria-expanded="false" aria-controls="sidebarLayouts">
                                 <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Auditeurs</span>
@@ -93,22 +62,28 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li> <!-- end Dashboard Menu -->
-
+                        </li>
                          <li class="nav-item">
+                            <a class="nav-link menu-link" href="#"  role="button"
+                                aria-expanded="false" aria-controls="sidebarApps">
+                                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Document</span>
+                            </a>
+
+                        </li>
+                        <li class="nav-item">
                                         <a href="#sidebarEcommerce" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEcommerce" data-key="t-ecommerce">
                                             Activités et Risques
                                         </a>
                                         <div class="collapse menu-dropdown" id="sidebarEcommerce">
                                             <ul class="nav nav-sm flex-column">
                                                 <li class="nav-item">
-                                                    <a href="{% url 'services:activite' %}" class="nav-link" data-key="t-products"> Activités </a>
+                                                    <a href="#" class="nav-link" data-key="t-products"> Activités </a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link" data-key="t-product-Details"> Risques </a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="{% url 'services:corps_control' %}" class="nav-link" data-key="t-create-product">Contrôles</a>
+                                                    <a href="#" class="nav-link" data-key="t-create-product">Contrôles</a>
                                                 </li>
                                                 <li class="nav-item">
                                                     <a href="#" class="nav-link" data-key="t-orders">
@@ -118,22 +93,58 @@
                                             </ul>
                                         </div>
                                     </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Mission</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarDashboards">
+                                <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="#sidebarProjects" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProjects" data-key="t-projects">
-                                            Documents
-                                        </a>
-                                        <div class="collapse menu-dropdown" id="sidebarProjects">
-                                            <ul class="nav nav-sm flex-column">
-
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link" data-key="t-overview"> Categories de Documents </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link" data-key="t-create-project"> Liste de Documents </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <a href="#" class="nav-link" data-key="t-analytics"> Initialisation </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link" data-key="t-crm"> Execution </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link" data-key="t-projects"> Finalisation </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link" data-key="t-analytics"> Mise a jour TPA </a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li> <!-- end Dashboard Menu -->
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#"  role="button"
+                                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Suivi et Recommandations</span>
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#"  role="button"
+                                <i class="ri-apps-2-line"></i> <span data-key="t-apps">Traitement de jutifs</span>
+                            </a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="sidebarLanding">
+                                <i class="ri-rocket-line"></i> <span data-key="t-landing">Reporting et statistique</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarLanding">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link" data-key="t-one-page"> Reporting </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link"> <span data-key="t-nft-landing">Statistique</span>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
 
                     </ul>
                 </div>

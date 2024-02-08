@@ -1,7 +1,7 @@
-{% extends 'services/index_filiale.html' %}
+{% extends 'services/filiale/index_filiale.html' %}
 {% load static %}
 
-{%block title %} Liste activités {% endblock %}
+{%block title %} Liste pole {% endblock %}
 
 {% block central  %}
      <div class="page-content">
@@ -11,12 +11,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                <h4 class="mb-sm-0">Liste de activités</h4>
+                                <h4 class="mb-sm-0">Liste de Poles</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                        <li class="breadcrumb-item active">Liste de activités</li>
+                                        <li class="breadcrumb-item active">Liste de Poles</li>
                                     </ol>
                                 </div>
 
@@ -60,11 +60,8 @@
                                                                 <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                                             </div>
                                                         </th>
-                                                        <th class="sort" data-sort="customer_name">Code Processus</th>
-                                                        <th class="sort" data-sort="email">Nom Processus</th>
-                                                        <th class="sort" data-sort="phone">Pilote</th>
-                                                        <th class="sort" data-sort="date">Code Filiale</th>
-
+                                                        <th class="sort" data-sort="customer_name">Pole</th>
+                                                        <th class="sort" data-sort="email">Manager Pole</th>
                                                         <th class="sort" data-sort="action">Action</th>
                                                     </tr>
                                                 </thead>
@@ -76,11 +73,8 @@
                                                                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                                             </div>
                                                         </th>
-                                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">{{ list.codeprocessus }}</a></td>
-                                                        <td class="customer_name">{{ list.codeprocessus }}</td>
-                                                        <td class="email">{{ list.libprocessus }}</td>
-                                                        <td class="phone">{{ list.piloteprocessus }}</td>
-                                                        <td class="date">{{ list.codefiliale }}</td>
+                                                        <td class="customer_name">{{ list.libpole }}</td>
+                                                        <td class="email">{{ list.managerpole }}</td>
                                                         <td>
                                                             <div class="d-flex gap-2">
                                                                 <div class="edit">

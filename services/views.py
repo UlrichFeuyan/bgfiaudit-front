@@ -56,11 +56,11 @@ def signIn(request):
 
 
 def SuperAdmin(request):
-    return render(request, 'services/index.html', locals())
+    return render(request, 'services/superAdmin/index.html', locals())
 
 
 def adminAsFiliale(request):
-    return render(request, 'services/index_filiale.html', locals())
+    return render(request, 'services/filiale/index_filiale.html', locals())
 
 
 def gestFilialeSAdmin(request):
@@ -70,73 +70,73 @@ def gestFilialeSAdmin(request):
     filialeList = get_filiale.json()
     # else:
     #     print("Le message est ========> ",get_filiale.text)
-    return render(request, 'services/liste-filiale_sAdmin.html', locals())
+    return render(request, 'services/superAdmin/liste-filiale_sAdmin.html', locals())
 
 
 def gestFiliale(request):
     get_filiale = requests.get(listeFiliale)
     filialeList = get_filiale.json()
-    return render(request, 'services/liste-filiale.html', locals())
+    return render(request, 'services/filiale/liste-filiale.html', locals())
 
 
 def gestpole(request):
     get_filiale = requests.get(listePole)
     filialeList = get_filiale.json()
-    return render(request, 'services/liste_pole.html', locals())
+    return render(request, 'services/filiale/liste_pole.html', locals())
 
 
 def gestprocessus(request):
     get_filiale = requests.get(listeProcessus)
     filialeList = get_filiale.json()
     print(filialeList)
-    return render(request, 'services/liste_processus.html', locals())
+    return render(request, 'services/filiale/liste_processus.html', locals())
 
 
 def gestutilisateur_spAdmin(request):
     get_filiale = requests.get(listeUtilisateur)
     filialeList = get_filiale.json()
-    return render(request, 'services/liste_utilisateur_sAdmin.html', locals())
+    return render(request, 'services/superAdmin/liste_utilisateur_sAdmin.html', locals())
 
 
 def gestutilisateur(request):
     get_filiale = requests.get(listeUtilisateur)
     filialeList = get_filiale.json()
     print(filialeList)
-    return render(request, 'services/liste_utilisateur.html', locals())
+    return render(request, 'services/filiale/liste_utilisateur.html', locals())
 
 
 def risqueFamille(request):
     get_filiale = requests.get(listefamillerisk)
     filialeList = get_filiale.json()
     print(filialeList)
-    return render(request, 'services/risqueFamille.html')
+    return render(request, 'services/superAdmin/risqueFamille.html')
 
 
 def graviteRisque(request):
     get_filiale = requests.get(listegraviterisk)
     filialeList = get_filiale.json()
     print(filialeList)
-    return render(request, 'services/graviteRisque.html')
+    return render(request, 'services/superAdmin/graviteRisque.html')
 
 
 def typeMission(request):
     get_filiale = requests.get(listetypemission)
     filialeList = get_filiale.json()
     print(filialeList)
-    return render(request, 'services/typeMission.html')
+    return render(request, 'services/superAdmin/typeMission.html')
 
 
 def corpsControl(request):
     get_filiale = requests.get(listecontrole)
     filialeList = get_filiale.json()
     print(filialeList)
-    return render(request, 'services/corpsControl.html')
+    return render(request, 'services/superAdmin/corpsControl.html')
 
 def activite(request):
     get_filiale = requests.get(listeActivite)
     filialeList = get_filiale.json()
     print(filialeList)
-    return render(request, 'services/activite.html',locals())
+    return render(request, 'services/filiale/activite.html',locals())
 
 
 
@@ -144,4 +144,4 @@ def profileSAdmin(request):
     get_filiale = requests.get(listeprofil)
     filialeList = get_filiale.json()
     print(filialeList)
-    return render(request, 'services/profil_sAdmin.html',locals())
+    return render(request, 'services/superAdmin/profil_sAdmin.html',locals())
