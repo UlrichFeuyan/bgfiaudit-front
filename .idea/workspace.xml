@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3603acbe-89a5-4162-a835-13c191bd178d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/services/templates/services/profil_filiale.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/templates/services/profil_sAdmin.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apiRessource/endpointList.py" beforeDir="false" afterPath="$PROJECT_DIR$/apiRessource/endpointList.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/templates/services/signIn/signIn.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/templates/services/signIn/signIn.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
