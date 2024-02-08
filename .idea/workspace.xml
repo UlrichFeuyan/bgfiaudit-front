@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3603acbe-89a5-4162-a835-13c191bd178d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/services/templates/services/superAdmin/liste_utilisateur_sAdmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/templates/services/superAdmin/liste_utilisateur_sAdmin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/templates/services/Audit/index_audit.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/templates/services/Audit/index_audit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/templates/services/ROM/index_rmo.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/templates/services/ROM/index_rmo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/templates/services/filiale/index_filiale.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/templates/services/filiale/index_filiale.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/templates/services/filiale/liste_utilisateur.html" beforeDir="false" afterPath="$PROJECT_DIR$/services/templates/services/filiale/liste_utilisateur.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
