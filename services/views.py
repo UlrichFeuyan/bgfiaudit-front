@@ -145,3 +145,11 @@ def profileSAdmin(request):
     filialeList = get_filiale.json()
     print(filialeList)
     return render(request, 'services/superAdmin/profil_sAdmin.html',locals())
+
+
+def settingAudit(request):
+    return render(request, 'services/Audit/index_audit.html', locals())
+
+
+def settingRMO(request):
+    return render(request, 'services/ROM/index_rmo.html', locals())

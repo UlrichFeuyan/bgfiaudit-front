@@ -39,3 +39,6 @@ listetypemission = base_url +"/typemission/"
 
 #url de la liste des profils
 listeprofil = base_url +"/profiluser/"
+
+#url de la liste des profils
+listeprofil = base_url +"/corpsdecontrole/"

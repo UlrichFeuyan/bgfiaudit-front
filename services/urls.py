@@ -27,4 +27,7 @@ urlpatterns = [
     path('corps-control/', corpsControl, name='corps_control'),
 
     path('profil-sAdmin/', profileSAdmin, name='profil_sAdmin'),
+
+    path('setting-Audit/', settingAudit, name='settingAudit'),
+    path('setting-RMO/', settingRMO, name='settingRMO'),
 ]

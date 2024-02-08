@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{%block title %} Liste Filiale {% endblock %}
+{%block title %} Liste Corps de controle {% endblock %}
 
 {% block central  %}
      <div class="page-content">
@@ -11,12 +11,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                                <h4 class="mb-sm-0">Liste de Filiales</h4>
+                                <h4 class="mb-sm-0">Liste Corps de controle</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                        <li class="breadcrumb-item active">Liste de Filiales</li>
+                                        <li class="breadcrumb-item active">Liste Corps de controle</li>
                                     </ol>
                                 </div>
 
@@ -60,11 +60,11 @@
                                                                 <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                                             </div>
                                                         </th>
-                                                        <th class="sort" data-sort="customer_name">Customer</th>
-                                                        <th class="sort" data-sort="email">Email</th>
-                                                        <th class="sort" data-sort="phone">Phone</th>
-                                                        <th class="sort" data-sort="date">Joining Date</th>
-                                                        <th class="sort" data-sort="status">Delivery Status</th>
+                                                        <th class="sort" data-sort="customer_name">ID</th>
+                                                        <th class="sort" data-sort="email">Sigle</th>
+                                                        <th class="sort" data-sort="phone">Nom</th>
+                                                        <th class="sort" data-sort="date">Pays</th>
+                                                        <th class="sort" data-sort="status">Directeur Général</th>
                                                         <th class="sort" data-sort="action">Action</th>
                                                     </tr>
                                                 </thead>
@@ -75,12 +75,11 @@
                                                                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                                             </div>
                                                         </th>
-                                                        <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
-                                                        <td class="customer_name">Mary Cousar</td>
-                                                        <td class="email">marycousar@velzon.com</td>
-                                                        <td class="phone">580-464-4694</td>
-                                                        <td class="date">06 Apr, 2021</td>
-                                                        <td class="status"><span class="badge badge-soft-success text-uppercase">Active</span></td>
+                                                        <td class="customer_name">1</td>
+                                                        <td class="email">BGFI</td>
+                                                        <td class="phone">N/A</td>
+                                                        <td class="date">N/A</td>
+                                                        <td class="status"><span class="badge badge-soft-success text-uppercase">N/A</span></td>
                                                         <td>
                                                             <div class="d-flex gap-2">
                                                                 <div class="edit">
