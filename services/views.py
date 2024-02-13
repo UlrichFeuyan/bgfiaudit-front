@@ -50,6 +50,7 @@ def deconnexion(request):
 
 @login_required_api
 def homeDashboard(request):
+
     return render(request, 'services/superAdmin/index.html', locals())
 
 
