@@ -5,7 +5,8 @@ base_url = "http://137.184.83.80"
 
 # url de connexion
 signInSuperAdmin = base_url + "/superuser_login/"
-
+loginUrl = f"{base_url}/authentication/login/"
+logoutUrl = f"{base_url}/authentication/logout/"
 
 signInAdmin = base_url + "/utilisateurs/login/"
 
@@ -22,8 +23,7 @@ listeProcessus = base_url + "/processus/"
 listeUtilisateur = base_url + "/utilisateurs/"
 
 # url de listing des activite
-listeActivite = base_url +"/activites/"
-
+listeActivite = base_url + "/activites/"
 
 # url de listing corpsControle
 listecontrole = base_url + "/corpsdecontrole/"
@@ -35,10 +35,14 @@ listegraviterisk = base_url + "/graviterisk/"
 listefamillerisk = base_url + "/famillerisk/"
 
 # url de listing typeMission
-listetypemission = base_url +"/typemission/"
+listetypemission = base_url + "/typemission/"
 
-#url de la liste des profils
-listeprofil = base_url +"/profiluser/"
+# url de la liste des profils
+listeprofil = base_url + "/profiluser/"
 
-#url de la liste des profils
-listeprofil = base_url +"/corpsdecontrole/"
+# url de la liste des profils
+listeprofil = base_url + "/corpsdecontrole/"
+
+# url pour recuperer l'user connecté
+get_user = f"{base_url}/utilisateurs/"
+
