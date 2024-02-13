@@ -5,8 +5,8 @@ app_name = 'services'
 
 urlpatterns = [
     path('login/', signIn, name='signIn'),
-    path('accueil/', SuperAdmin, name='home_superAdmin'),
-    path('setting-filiale/', adminAsFiliale, name='homeAdminFiliale'),
+    path('', homeDashboard, name='home_superAdmin'),
+    # path('', adminAsFiliale, name='homeAdminFiliale'),
     path('authentication/logout/', deconnexion, name='deconnexion'),
 
     # Page Utilisateur_filiale

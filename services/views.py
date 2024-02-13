@@ -27,9 +27,7 @@ def signIn(request):
                 request.session['access_token'] = user_data['auth_token']
                 request.session['username'] = user_data['code_user']
                 request.session['profile_label'] = user_data['idutilisateurs']
-                request.session['id_filiale'] = user_data['idfiliale']
-                print(request.session['access_token'], request.session['username'], request.session['profile_label'])
-                return redirect('services:homeAdminFiliale')
+                return redirect('services:home_superAdmin')
             else:
                 messages.error(request, 'Login failed. Please try again.')
     return render(request, 'services/signIn/signIn.html', locals())
@@ -37,24 +35,30 @@ def signIn(request):
 
 def deconnexion(request):
     response = requests.post(logoutUrl)
-    if response.status_code == 201:
-        return redirect('service:signIn')
+    if 'access_token' in request.session:
+        del request.session['access_token']
+
+        # Supprimer la clé 'username' de la session
+    if 'username' in request.session:
+        del request.session['username']
+
+        # Supprimer la clé 'profile_label' de la session
+    if 'profile_label' in request.session:
+        del request.session['profile_label']
     return render(request, 'services/signIn/signIn.html', locals())
 
 
-
-def SuperAdmin(request):
+@login_required_api
+def homeDashboard(request):
     return render(request, 'services/superAdmin/index.html', locals())
 
-@login_required_api
+
 def adminAsFiliale(request):
     current_user = request.session.get('profile_label')
     print("This is the user Online =====>",current_user)
     currentUserEndpoint = f"{get_user}{current_user}/"
     User_instance = requests.get(currentUserEndpoint)
     theWholeUser = User_instance.json()
-    print(theWholeUser['is_admin'])
-
     # print(User_instance.json())
     return render(request, 'services/filiale/index_filiale.html', locals())
 

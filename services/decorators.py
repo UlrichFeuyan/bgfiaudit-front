@@ -1,5 +1,7 @@
 from functools import wraps
 from django.http import JsonResponse
+from django.shortcuts import redirect
+
 
 def login_required_api(view_func):
     @wraps(view_func)
@@ -8,6 +10,6 @@ def login_required_api(view_func):
         access_token = request.session.get('access_token')
         if not access_token:
             # Rediriger ou renvoyer une réponse d'erreur selon vos besoins
-            return JsonResponse({'error': 'L\'utilisateur n\'est pas connecté'}, status=401)
+            return redirect('services:signIn')
         return view_func(request, *args, **kwargs)
     return _wrapped_view

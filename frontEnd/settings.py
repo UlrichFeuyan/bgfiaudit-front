@@ -68,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'services.context_processors.add_variable_to_Context',
             ],
         },
     },
@@ -137,4 +138,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login/'
 LOGOUT_URL = 'authentication/logout/'
-LOGIN_REDIRECT_URL = 'setting-filiale/'
+LOGIN_REDIRECT_URL = '/'
