@@ -1,0 +1,333 @@
+{% load static %}
+<!-- ========== App Menu ========== -->
+<!-- ========== App Menu ========== -->
+<div class="app-menu navbar-menu">
+    <!-- LOGO -->
+    <div class="navbar-brand-box">
+        <!-- Dark Logo-->
+        <a # class="logo logo-dark">
+            <span class="logo-sm">
+                <img src="{% static 'assets/images/fav-icon.png' %}" alt="" height="22">
+            </span>
+            <span class="logo-lg">
+                <img src="{% static 'assets/images/horizontal_logo.jpeg' %}" alt="" width="200px" height="auto">
+            </span>
+        </a>
+        <!-- Light Logo-->
+        <a # class="logo logo-light">
+            <span class="logo-sm">
+                <img src="{% static 'assets/images/fav-icon.png' %}" alt="" height="22">
+            </span>
+            <span class="logo-lg">
+                <img src="{% static 'assets/images/horizontal_logo.jpeg' %}" alt="" width="200px" height="auto">
+            </span>
+        </a>
+        <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+            <i class="ri-record-circle-line"></i>
+        </button>
+    </div>
+    <div id="scrollbar">
+        <!--                   Debut SideBar Menu Adaptatif    -->
+        <div class="container-fluid">
+            <div id="two-column-menu">
+            </div>
+            <br/>
+            <ul class="navbar-nav" id="navbar-nav">
+                {% if superuser == 'True' %}
+                    <li class="menu-title"><span data-key="t-menu">Menu super Administrateur </span></li>
+                {% endif %}
+                {% if menu_rmo == 'True' %}
+                    <li class="menu-title"><span data-key="t-menu">Menu RMO</span></li>
+                {% endif %}
+                {% if menu_admin_filiale == 'True' %}
+                    <li class="menu-title"><span data-key="t-menu">Menu Admin Filiale</span></li>
+                {% endif %}
+                {% if dashbord == 'True' %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if dashboard_active == 'True' %}active{% endif %} menu-link" href="{% url 'services:gestion_filiale_admin' %}" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                            <i class="ri-apps-2-line"></i> <span data-key="t-apps">Dashboard</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if parametre_generaux == 'True' %}
+                    {% if dropdown_parametre_generaux == 'True' %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed active" href="#sidebarParametreGeneraux" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarParametreGeneraux">
+                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Paramétrages Généraux</span>
+                            </a>
+                            <div class="collapse menu-dropdown show" id="sidebarParametreGeneraux">
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarParametreGeneraux" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarParametreGeneraux">
+                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Paramétrages Généraux</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarParametreGeneraux">
+                    {% endif %}
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{% url 'services:repertoire_racine' %}" class="nav-link {% if repertoire_racine_active == 'True' %}active{% endif %}" data-key="t-analytics"> Repertoire Racine </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:famille_de_risques' %}" class="nav-link {% if famille_risque_active == 'True' %}active{% endif %}" data-key="t-crm"> Famille de risques </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:gravite_de_risques' %}" class="nav-link {% if gravite_risque_active == 'True' %}active{% endif %}" data-key="t-projects"> Gravité de Risques </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:evaluations_impact_risque' %}" class="nav-link {% if evaluation_impact_risque_active == 'True' %}active{% endif %}" data-key="t-analytics"> Evaluations Impact risque </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:corps_de_controles' %}" class="nav-link {% if corps_control_active == 'True' %}active{% endif %}" data-key="t-crm"> Corps de Controles </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:type_de_missions' %}" class="nav-link {% if type_mission_active == 'True' %}active{% endif %}" data-key="t-projects"> Type de Missions </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> <!-- end Dashboard Menu -->
+                {% endif %}
+                {% if gestion_filiale == 'True' %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if gestion_filiale_active == 'True' %}active{% endif %}" href="{% url 'services:gestions_des_filiales' %}" role="button">
+                            <i class="ri-apps-2-line"></i> <span data-key="t-apps">Gestions des Filiales</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if profils == 'True' %}
+                    {% if dropdown_profils == 'True' %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed active" href="#sidebarprofils" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarprofils">
+                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Profils</span>
+                            </a>
+                            <div class="collapse menu-dropdown show" id="sidebarprofils">
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarprofils" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarprofils">
+                                <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Profils</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarprofils">
+                    {% endif %}
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{% url 'services:profil_utilisateur' %}"  class="nav-link {% if profile_utilisateur_active == 'True' %}active{% endif %}" data-key="t-horizontal">Profil Utilisateur</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:profil_auditeur' %}"  class="nav-link {% if profile_auditeur_active == 'True' %}active{% endif %}" data-key="t-detached">Profil Auditeur</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> <!-- end Dashboard Menu -->
+                {% endif %}
+                {% if utilisateur == 'True' %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if utilisateurs_active == 'True' %}active{% endif %} menu-link" href="{% url 'services:utilisateurs' %}" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                            <i class="ri-account-circle-line"></i> <span data-key="t-apps">Utilisateurs</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if parametre_filiale == 'True' %}
+                    {% if dropdown_parametre_filiale == 'True' %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed active" href="#sidebarParametreFiliale" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarParametreFiliale">
+                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Paramétrages Filiale</span>
+                            </a>
+                            <div class="collapse menu-dropdown show" id="sidebarParametreFiliale">
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarParametreFiliale" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarParametreFiliale">
+                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Paramétrages Filiale</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarParametreFiliale">
+                    {% endif %}
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{% url 'services:pole' %}" class="nav-link {% if pole_active == 'True' %}active{% endif %}"> Pole </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:processus' %}" class="nav-link {% if processus_active == 'True' %}active{% endif %}"> Processus </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:matrice_de_competence' %}" class="nav-link {% if matrice_competence_active == 'True' %}active{% endif %}"> Matrice de competence </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:catalogue_de_formation' %}" class="nav-link {% if catalogue_formation_active == 'True' %}active{% endif %}"> Catalogue de formation </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> <!-- end Dashboard Menu -->
+                {% endif %}
+                {% if gestion_filiale == 'True' %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if gestion_filiale_active == 'True' %}active{% endif %}" href="{% url 'services:gestions_des_filiales' %}">
+                            <i class="ri-apps-2-line"></i> <span data-key="t-apps">Gestions des Filiales</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if auditeur == 'True' %}
+                    {% if dropdown_auditeur %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed active" href="#sidebarAuditeur" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarAuditeur">
+                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Auditeurs</span>
+                            </a>
+                            <div class="collapse menu-dropdown show" id="sidebarAuditeur">
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarAuditeur" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuditeur">
+                                <i class="ri-layout-3-line"></i> <span data-key="t-layouts">Auditeurs</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarAuditeur">
+                    {% endif %}
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{% url 'services:matrice_de_competence' %}"  class="nav-link {% if matrice_competence_active == 'True' %}active{% endif %}" data-key="t-horizontal">Matrice de Competence </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:formation' %}"  class="nav-link {% if formation_active == 'True' %}active{% endif %}" data-key="t-detached">Formation</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> <!-- end Dashboard Menu -->
+                {% endif %}
+                {% if activite_risque == 'True' %}
+                    {% if dropdown_activite_risque %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed active" href="#sidebarActiviteRisque" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarActiviteRisque">
+                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Activités et Risques</span>
+                            </a>
+                            <div class="collapse menu-dropdown show" id="sidebarActiviteRisque">
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="#sidebarActiviteRisque" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarActiviteRisque" data-key="t-ecommerce">
+                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Activités et Risques</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarActiviteRisque">
+                    {% endif %}
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{% url 'services:activites' %}" class="nav-link {% if activite_active == 'True' %}active{% endif %}" data-key="t-products"> Activités </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:risques' %}" class="nav-link {% if risque_active == 'True' %}active{% endif %}" data-key="t-product-Details"> Risques </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:controles' %}" class="nav-link {% if controle_active == 'True' %}active{% endif %}" data-key="t-create-product">Contrôles</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:repertoire_racine' %}" class="nav-link {% if suivi_plan_couverture_active == 'True' %}active{% endif %}" data-key="t-orders">
+                                        Suivi plan de couverture </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if document == 'True' %}
+                    {% if dropdown_document == 'True' %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed active" href="#sidebarDocument" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarDocument">
+                                <i class="ri-pages-line"></i><span data-key="t-advance-ui"> Documents</span>
+                            </a>
+                            <div class="collapse menu-dropdown show" id="sidebarDocument">
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="#sidebarDocument" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDocument" data-key="t-projects">
+                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Documents</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarDocument">
+                    {% endif %}
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{% url 'services:categories_de_documents' %}" class="nav-link {% if categorie_document_active == 'True' %}active{% endif %}" data-key="t-overview"> Categories de Documents </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:liste_de_documents' %}" class="nav-link {% if liste_document_active == 'True' %}active{% endif %}" data-key="t-create-project"> Liste de Documents </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if mission == 'True' %}
+                    {% if dropdown_mission == 'True' %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed active" href="#sidebarMission" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarMission">
+                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Mission</span>
+                            </a>
+                            <div class="collapse menu-dropdown show" id="sidebarMission">
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarMission" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMission">
+                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Mission</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarMission">
+                    {% endif %}
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{% url 'services:initialisation' %}" class="nav-link {% if initialisation_active == 'True' %}active{% endif %}" data-key="t-analytics"> Initialisation </a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a href="{% url 'services:execution' %}" class="nav-link {% if execution_active == 'True' %}active{% endif %}" data-key="t-crm"> Execution </a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a href="{% url 'services:finalisation' %}" class="nav-link {% if finalisation_active == 'True' %}active{% endif %}" data-key="t-projects"> Finalisation </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:mise_a_jour_tpa' %}" class="nav-link {% if mise_a_jour_tpa_active == 'True' %}active{% endif %}" data-key="t-analytics"> Mise a jour TPA </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> <!-- end Dashboard Menu -->
+                {% endif %}
+                {% if suivi_recommandation == 'True' %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if suivi_recommandation_active == 'True' %}active{% endif %} menu-link" href="{% url 'services:suivi_des_recommandations' %}" role="button">
+                            <i class="ri-apps-2-line"></i> <span data-key="t-apps">Suivi des Recommandations</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if traitement_justif == 'True' %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if transmission_justif_active == 'True' %}active{% endif %} menu-link" href="{% url 'services:transmission_justificatifs' %}" role="button">
+                            <i class="ri-apps-2-line"></i> <span data-key="t-apps">Transmission justificatifs</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if reporting_statistique == 'True' %}
+                    {% if dropdown_reporting_statistique == 'True' %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed active" href="#sidebarReportingStatistique" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarReportingStatistique">
+                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Reporting et statistique</span>
+                            </a>
+                            <div class="collapse menu-dropdown show" id="sidebarReportingStatistique">
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarReportingStatistique" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarReportingStatistique">
+                                <i class="ri-rocket-line"></i> <span data-key="t-landing">Reporting et statistique</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarReportingStatistique">
+                    {% endif %}
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{% url 'services:reporting' %}" class="nav-link {% if reporting_active == 'True' %}active{% endif %}" data-key="t-one-page"> Reporting </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:statistiques' %}" class="nav-link {% if statistique_active == 'True' %}active{% endif %}"> <span data-key="t-nft-landing">Statistique</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if statistique == 'True' %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if stats_active == 'True' %}active{% endif %}" href="{% url 'services:statistiques' %}" role="button">
+                            <i class="ri-pie-chart-line"></i> <span data-key="t-apps">Statistiques</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- Fin SideBar Menu Adaptatif -->
+    </div>
+    <div class="sidebar-background"></div>
+</div>
+<!-- Left Sidebar End -->
+<!-- Vertical Overlay-->
+<div class="vertical-overlay"></div>
