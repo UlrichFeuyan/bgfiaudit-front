@@ -36,6 +36,7 @@ def signIn(request):
                 messages.error(request, 'Login failed. Please try again.')
         elif 'sAdmin_btn' in request.POST:
             if code_user == 'admin' and password == 'admin' and (filiale not in filialeList):
+                request.session['token'] = "token_admin"
                 request.session['username'] = 'US001'
                 request.session['profil'] = 'SUPER_ADMIN'
                 return redirect('services:home_superAdmin')
