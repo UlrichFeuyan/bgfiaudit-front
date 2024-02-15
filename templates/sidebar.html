@@ -33,14 +33,17 @@
             </div>
             <br/>
             <ul class="navbar-nav" id="navbar-nav">
-                {% if superuser == 'True' %}
+                {% if menu_super_admin == 'True' %}
                     <li class="menu-title"><span data-key="t-menu">Menu super Administrateur </span></li>
                 {% endif %}
-                {% if menu_rmo == 'True' %}
-                    <li class="menu-title"><span data-key="t-menu">Menu RMO</span></li>
+                {% if menu_auditeur_filiale == 'True' %}
+                    <li class="menu-title"><span data-key="t-menu">Menu Auditeur Filiale</span></li>
+                {% endif %}
+                {% if menu_rmo_filiale == 'True' %}
+                    <li class="menu-title"><span data-key="t-menu">Menu RMO Filiale</span></li>
                 {% endif %}
                 {% if menu_admin_filiale == 'True' %}
-                    <li class="menu-title"><span data-key="t-menu">Menu Admin Filiale</span></li>
+                    <li class="menu-title"><span data-key="t-menu">Menu Administrateur Filiale</span></li>
                 {% endif %}
                 {% if dashbord == 'True' %}
                     <li class="nav-item">
@@ -86,6 +89,37 @@
                         </div>
                     </li> <!-- end Dashboard Menu -->
                 {% endif %}
+                {% if parametre_filiale == 'True' %}
+                    {% if dropdown_parametre_filiale == 'True' %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed active" href="#sidebarParametreFiliale" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarParametreFiliale">
+                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Paramétrages Filiale</span>
+                            </a>
+                            <div class="collapse menu-dropdown show" id="sidebarParametreFiliale">
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link" href="#sidebarParametreFiliale" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarParametreFiliale">
+                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Paramétrages Filiale</span>
+                            </a>
+                            <div class="collapse menu-dropdown" id="sidebarParametreFiliale">
+                    {% endif %}
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{% url 'services:pole' %}" class="nav-link {% if pole_active == 'True' %}active{% endif %}"> Pole </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:processus' %}" class="nav-link {% if processus_active == 'True' %}active{% endif %}"> Processus </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:matrice_de_competence' %}" class="nav-link {% if matrice_competence_active == 'True' %}active{% endif %}"> Matrice de competence </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:catalogue_de_formation' %}" class="nav-link {% if catalogue_formation_active == 'True' %}active{% endif %}"> Catalogue de formation </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> <!-- end Dashboard Menu -->
+                {% endif %}
                 {% if gestion_filiale == 'True' %}
                     <li class="nav-item">
                         <a class="nav-link {% if gestion_filiale_active == 'True' %}active{% endif %}" href="{% url 'services:gestions_des_filiales' %}" role="button">
@@ -125,44 +159,6 @@
                         </a>
                     </li>
                 {% endif %}
-                {% if parametre_filiale == 'True' %}
-                    {% if dropdown_parametre_filiale == 'True' %}
-                        <li class="nav-item">
-                            <a class="nav-link menu-link collapsed active" href="#sidebarParametreFiliale" data-bs-toggle="collapse" role="button" aria-expanded="true" aria-controls="sidebarParametreFiliale">
-                                <i class="ri-stack-line"></i> <span data-key="t-advance-ui">Paramétrages Filiale</span>
-                            </a>
-                            <div class="collapse menu-dropdown show" id="sidebarParametreFiliale">
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarParametreFiliale" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarParametreFiliale">
-                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Paramétrages Filiale</span>
-                            </a>
-                            <div class="collapse menu-dropdown" id="sidebarParametreFiliale">
-                    {% endif %}
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a href="{% url 'services:pole' %}" class="nav-link {% if pole_active == 'True' %}active{% endif %}"> Pole </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'services:processus' %}" class="nav-link {% if processus_active == 'True' %}active{% endif %}"> Processus </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'services:matrice_de_competence' %}" class="nav-link {% if matrice_competence_active == 'True' %}active{% endif %}"> Matrice de competence </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{% url 'services:catalogue_de_formation' %}" class="nav-link {% if catalogue_formation_active == 'True' %}active{% endif %}"> Catalogue de formation </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li> <!-- end Dashboard Menu -->
-                {% endif %}
-                {% if gestion_filiale == 'True' %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if gestion_filiale_active == 'True' %}active{% endif %}" href="{% url 'services:gestions_des_filiales' %}">
-                            <i class="ri-apps-2-line"></i> <span data-key="t-apps">Gestions des Filiales</span>
-                        </a>
-                    </li>
-                {% endif %}
                 {% if auditeur == 'True' %}
                     {% if dropdown_auditeur %}
                         <li class="nav-item">
@@ -187,6 +183,13 @@
                             </ul>
                         </div>
                     </li> <!-- end Dashboard Menu -->
+                {% endif %}
+                {% if documents == 'True' %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if documents_active == 'True' %}active{% endif %} menu-link" href="{% url 'services:documents' %}" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                            <i class="ri-account-circle-line"></i> <span data-key="t-apps">Documents</span>
+                        </a>
+                    </li>
                 {% endif %}
                 {% if activite_risque == 'True' %}
                     {% if dropdown_activite_risque %}

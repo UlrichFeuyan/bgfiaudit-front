@@ -15,11 +15,13 @@ from apiRessource.endpointList import *
 
 # Create your views here.
 def signIn(request):
+    get_filiale = requests.get(listeFiliale)
+    filialeList = get_filiale.json()
     if request.method == 'POST':
+        code_user = request.POST.get('username')
+        password = request.POST.get('password')
+        filiale = request.POST.get('filiale_id')
         if 'filiale_btn' in request.POST:
-            print("==========  ICI Admin ==========")
-            code_user = request.POST.get('username')
-            password = request.POST.get('password')
             data = {'code_user': code_user, 'password': password}
             response = requests.post(loginUrl, data=data)
             if response.status_code == 200:
@@ -32,6 +34,15 @@ def signIn(request):
                 return redirect('services:home_superAdmin')
             else:
                 messages.error(request, 'Login failed. Please try again.')
+        elif 'sAdmin_btn' in request.POST:
+            if code_user == 'admin' and password == 'admin' and (filiale not in filialeList):
+                request.session['username'] = 'US001'
+                request.session['profil'] = 'SUPER_ADMIN'
+                return redirect('services:home_superAdmin')
+            else:
+                messages.error(request, 'Login failed. Please try again.')
+        else:
+            messages.error(request, 'Login failed. Please try again.')
     return render(request, 'services/signIn/signIn.html', locals())
 
 def login(request):
@@ -67,7 +78,7 @@ def deconnexion(request):
         # Supprimer la clé 'profile_label' de la session
     if 'profile_label' in request.session:
         del request.session['profile_label']
-    return render(request, 'services/signIn/signIn.html', locals())
+    return redirect('services:signIn')
 
 
 def repertoire_racine(request):
@@ -163,6 +174,10 @@ def formation(request):
     formation_active = 'True'
     return render(request, 'services/formation.html', locals())
 
+def documents(request):
+    documents_active = 'True'
+    return render(request, 'services/documents.html', locals())
+
 def activites(request):
     dropdown_activite_risque = 'True'
     activite_active = 'True'
@@ -183,7 +198,7 @@ def suivi_plan_de_couverture(request):
     suivi_plan_couverture_active = 'True'
     return render(request, 'services/controles.html', locals())
 
-def documents(request):
+def document(request):
     return render(request, 'services/documents.html', locals())
 
 def categories_de_documents(request):
