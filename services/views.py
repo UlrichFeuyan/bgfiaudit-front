@@ -1,12 +1,14 @@
+import json
 import requests
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from rest_framework.decorators import api_view
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.db.models import Sum, Count
 from django.views.generic import TemplateView, ListView
+import sweetify
 
 from apiRessource.authenticate_user import authenticate_user
 from .decorators import *
@@ -39,33 +41,13 @@ def signIn(request):
                 request.session['token'] = "token_admin"
                 request.session['username'] = 'US001'
                 request.session['profil'] = 'SUPER_ADMIN'
+                sweetify.info(request, "Connexion réussit!", showConfirmButton=False, timer=2000, allowOutsideClick=True, confirmButtonText="OK", toast=True, timerProgressBar=True, position="top")
                 return redirect('services:home_superAdmin')
             else:
                 messages.error(request, 'Login failed. Please try again.')
         else:
             messages.error(request, 'Login failed. Please try again.')
     return render(request, 'services/signIn/signIn.html', locals())
-
-def login(request):
-    if request.method == 'POST':
-        if 'filiale_btn' in request.POST:
-            print("==========  ICI Admin ==========")
-            code_user = request.POST.get('username')
-            password = request.POST.get('password')
-            data = {'code_user': code_user, 'password': password}
-            response = requests.post(loginUrl, data=data)
-            if response.status_code == 200:
-                user_data = response.json()
-                # Inclure le jeton d'accès dans l'en-tête de chaque requête ultérieure
-
-                request.session['token'] = user_data['auth_token']
-                request.session['username'] = user_data['code_user']
-                request.session['profil'] = user_data['profil_user']
-                return redirect('services:home_superAdmin')
-            else:
-                messages.error(request, 'Login failed. Please try again.')
-    return render(request, 'services/signIn/signIn.html', locals())
-
 
 def deconnexion(request):
     response = requests.post(logoutUrl)
@@ -157,10 +139,6 @@ def catalogue_de_formation(request):
     dropdown_parametre_filiale = 'True'
     catalogue_formation_active = 'True'
     return render(request, 'services/catalogue_de_formation.html', locals())
-
-def gestions_des_filiales(request):
-    gestion_filiale_active = 'True'
-    return render(request, 'services/gestions_des_filiales.html', locals())
 
 def auditeurs(request):
     return render(request, 'services/auditeurs.html', locals())
@@ -261,6 +239,253 @@ def stats(request):
     return render(request, 'services/statistiques.html', locals())
 
 
+
+
+
+
+
+
+# class RepertoireRacine(TemplateView):
+#     template_name = 'services/repertoire_racine.html'
+
+#     def dispatch(self, request, *args, **kwargs):
+#         profil = request.session.get('profil')
+#         if not profil == 'ADMIN':
+#             return redirect('services:signIn')
+#         return super().dispatch(request, *args, **kwargs)
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['parametre_generaux'] = 'True'
+#         context['dropdown_parametre_generaux'] = 'True'
+#         context['active_repertoire_racine'] = 'True'
+#         return context
+
+# def adminAsFiliale(request):
+#     current_user = request.session.get('profile_label')
+#     print("This is the user Online =====>",current_user)
+#     currentUserEndpoint = f"{get_user}{current_user}/"
+#     User_instance = requests.get(currentUserEndpoint)
+#     theWholeUser = User_instance.json()
+#     # print(User_instance.json())
+#     return render(request, 'services/filiale/index_filiale.html', locals())
+
+
+# def gestFilialeSAdmin(request):
+#     get_filiale = requests.get(listeFiliale)
+#     print(get_filiale.json())
+
+#     filialeList = get_filiale.json()
+#     # else:
+#     #     print("Le message est ========> ",get_filiale.text)
+#     return render(request, 'services/superAdmin/liste-filiale_sAdmin.html', locals())
+
+
+
+
+
+
+
+def list_repertoire_racine(request):
+    get_data = requests.get(listeParametrages)
+    data_list = get_data.json()
+    return render(request, 'services/lists/list_repertoire_racine.html', locals())
+
+def list_famille_de_risques(request):
+    get_data = requests.get(listefamillerisk)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_famille_de_risques.html", locals())
+
+def list_gravite_de_risques(request):
+    get_data = requests.get(listegraviterisk)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_gravite_de_risques.html", locals())
+
+def list_evaluations_impact_risque(request):
+    get_data = requests.get(evalimpactrisk)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_evaluations_impact_risque.html", locals())
+
+def list_corps_de_controles(request):
+    get_data = requests.get(corpsdecontrole)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_corps_de_controles.html", locals())
+
+def list_type_de_missions(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_type_de_missions.html", locals())
+
+def list_profils(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_profils.html", locals())
+
+def list_profil_utilisateur(request):
+    get_data = requests.get(listeprofil)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_profil_utilisateur.html", locals())
+
+def list_profil_auditeur(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_profil_auditeur.html", locals())
+
+def list_utilisateurs(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_utilisateurs.html", locals())
+
+def list_parametrages_filiale(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_parametrages_filiale.html", locals())
+
+def list_pole(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_pole.html", locals())
+
+def list_processus(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_processus.html", locals())
+
+def list_matrice_de_competence(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_matrice_de_competence.html", locals())
+
+def list_catalogue_de_formation(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_catalogue_de_formation.html", locals())
+
+def list_gestions_des_filiales(request):
+    get_data = requests.get(gestfiliale)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_gestions_des_filiales.html", locals())
+
+def list_auditeurs(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_auditeurs.html", locals())
+
+def list_matrice_de_competence(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_matrice_de_competence.html", locals())
+
+def list_formation(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_formation.html", locals())
+
+def list_documents(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_documents.html", locals())
+
+def list_activites(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_activites.html", locals())
+
+def list_risques(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_risques.html", locals())
+
+def list_controles(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_controles.html", locals())
+
+def list_suivi_plan_de_couverture(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_suivi_plan_de_couverture.html", locals())
+
+def list_document(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_document.html", locals())
+
+def list_categories_de_documents(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_categories_de_documents.html", locals())
+
+def list_liste_de_documents(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_liste_de_documents.html", locals())
+
+def list_menu_auditeur(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_menu_auditeur.html", locals())
+
+def list_mission(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_mission.html", locals())
+
+def list_initialisation(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_initialisation.html", locals())
+
+def list_execution(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_execution.html", locals())
+
+def list_finalisation(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_finalisation.html", locals())
+
+def list_mise_a_jour_tpa(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_mise_a_jour_tpa.html", locals())
+
+def list_suivi_des_recommandations(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_suivi_des_recommandations.html", locals())
+
+def list_transmission_justificatifs(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_transmission_justificatifs.html", locals())
+
+def list_reporting(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_reporting.html", locals())
+
+def list_statistiques(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_statistiques.html", locals())
+
+def list_stats(request):
+    get_data = requests.get(typemission)
+    data_list = get_data.json()
+    return render(request, "services/lists/list_stats.html", locals())
+
+
+
+
+
+
+
+
+
+
+
 @login_required_api
 def homeDashboard(request):
 
@@ -315,123 +540,2232 @@ class Dashboard(TemplateView):
         # context['dashbord_active'] = 'True'
         return context
 
+def edit_repertoire_racine(request, pk):
+    get_famillerisk = requests.get(f"{listeParametrages}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('racine_rep')
+         # Données à envoyer dans la requête POST
+        data = {
+                "racine_rep": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.patch(f"{listeParametrages}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_repertoire_racine.html", locals())
+
+def edit_famille_de_risques(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_famille_de_risques.html", locals())
+
+def edit_gravite_de_risques(request, pk):
+    get_famillerisk = requests.get(f"{listegraviterisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libgraviterisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listegraviterisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_gravite_de_risques.html", locals())
+
+def edit_evaluations_impact_risque(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_evaluations_impact_risque.html", locals())
+
+def edit_corps_de_controles(request, pk):
+    get_famillerisk = requests.get(f"{listecontrole}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libcorpsdecontrole": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listecontrole}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_corps_de_controles.html", locals())
+
+def edit_type_de_missions(request, pk):
+    get_famillerisk = requests.get(f"{typemission}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libtypemiss": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{typemission}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_type_de_missions.html", locals())
+
+def edit_gestions_des_filiales(request, pk):
+    get_famillerisk = requests.get(f"{gestfiliale}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        sigle_filiale = request.POST.get('sigle_filiale')
+        nom_filiale = request.POST.get('nom_filiale')
+        pays_filiale = request.POST.get('pays_filiale')
+        dg_filiale = request.POST.get('dg_filiale')
+        adresse_filiale = request.POST.get('adresse_filiale')
+         # Données à envoyer dans la requête POST
+        data = {
+                "sigle_filiale": sigle_filiale,
+                "nom_filiale": nom_filiale,
+                "pays_filiale": pays_filiale,
+                "dg_filiale": dg_filiale,
+                "adresse_filiale": adresse_filiale,
+                }
+        # Faire une requête POST à l'API
+        response = requests.patch(f"{gestfiliale}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_gestions_des_filiales.html", locals())
+
+def edit_profils(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_profils.html", locals())
+
+def edit_profil_utilisateur(request, pk):
+    get_famillerisk = requests.get(f"{listeprofil}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "lib_profil_user": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listeprofil}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_profil_utilisateur.html", locals())
+
+def edit_profil_auditeur(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_profil_auditeur.html", locals())
+
+def edit_utilisateurs(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_utilisateurs.html", locals())
+
+def edit_parametrages_filiale(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_parametrages_filiale.html", locals())
+
+def edit_pole(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_pole.html", locals())
+
+def edit_processus(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_processus.html", locals())
+
+def edit_matrice_de_competence(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_matrice_de_competence.html", locals())
+
+def edit_catalogue_de_formation(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_catalogue_de_formation.html", locals())
+
+def edit_auditeurs(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_auditeurs.html", locals())
+
+def edit_matrice_de_competence(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_matrice_de_competence.html", locals())
+
+def edit_formation(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_formation.html", locals())
+
+def edit_documents(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_documents.html", locals())
+
+def edit_activites(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_activites.html", locals())
+
+def edit_risques(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_risques.html", locals())
+
+def edit_controles(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_controles.html", locals())
+
+def edit_suivi_plan_de_couverture(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_suivi_plan_de_couverture.html", locals())
+
+def edit_document(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_document.html", locals())
+
+def edit_categories_de_documents(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_categories_de_documents.html", locals())
+
+def edit_liste_de_documents(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_liste_de_documents.html", locals())
+
+def edit_menu_auditeur(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_menu_auditeur.html", locals())
+
+def edit_mission(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_mission.html", locals())
+
+def edit_initialisation(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_initialisation.html", locals())
+
+def edit_execution(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_execution.html", locals())
+
+def edit_finalisation(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_finalisation.html", locals())
+
+def edit_mise_a_jour_tpa(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_mise_a_jour_tpa.html", locals())
+
+def edit_suivi_des_recommandations(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_suivi_des_recommandations.html", locals())
+
+def edit_transmission_justificatifs(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_transmission_justificatifs.html", locals())
+
+def edit_reporting(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_reporting.html", locals())
+
+def edit_statistiques(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_statistiques.html", locals())
+
+def edit_stats(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        return HttpResponse(
+            status=204,
+            headers={
+                'HX-Trigger': json.dumps({
+                    "ListChanged": None,
+                    "showMessage": f"famille de risque N°Modifié."
+                })
+            }
+        )
+    return render(request, "services/modals/form_stats.html", locals())
 
 
-class RepertoireRacine(TemplateView):
-    template_name = 'services/repertoire_racine.html'
 
-    def dispatch(self, request, *args, **kwargs):
-        profil = request.session.get('profil')
-        if not profil == 'ADMIN':
-            return redirect('services:signIn')
-        return super().dispatch(request, *args, **kwargs)
+# class RepertoireRacine(TemplateView):
+#     template_name = 'services/repertoire_racine.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['parametre_generaux'] = 'True'
-        context['dropdown_parametre_generaux'] = 'True'
-        context['active_repertoire_racine'] = 'True'
-        return context
+#     def dispatch(self, request, *args, **kwargs):
+#         profil = request.session.get('profil')
+#         if not profil == 'ADMIN':
+#             return redirect('services:signIn')
+#         return super().dispatch(request, *args, **kwargs)
 
-def adminAsFiliale(request):
-    current_user = request.session.get('profile_label')
-    print("This is the user Online =====>",current_user)
-    currentUserEndpoint = f"{get_user}{current_user}/"
-    User_instance = requests.get(currentUserEndpoint)
-    theWholeUser = User_instance.json()
-    # print(User_instance.json())
-    return render(request, 'services/filiale/index_filiale.html', locals())
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['parametre_generaux'] = 'True'
+#         context['dropdown_parametre_generaux'] = 'True'
+#         context['active_repertoire_racine'] = 'True'
+#         return context
 
-
-def gestFilialeSAdmin(request):
-    get_filiale = requests.get(listeFiliale)
-    print(get_filiale.json())
-
-    filialeList = get_filiale.json()
-    # else:
-    #     print("Le message est ========> ",get_filiale.text)
-    return render(request, 'services/superAdmin/liste-filiale_sAdmin.html', locals())
+# def adminAsFiliale(request):
+#     current_user = request.session.get('profile_label')
+#     print("This is the user Online =====>",current_user)
+#     currentUserEndpoint = f"{get_user}{current_user}/"
+#     User_instance = requests.get(currentUserEndpoint)
+#     theWholeUser = User_instance.json()
+#     # print(User_instance.json())
+#     return render(request, 'services/filiale/index_filiale.html', locals())
 
 
-def gestFiliale(request):
-    get_filiale = requests.get(listeFiliale)
-    filialeList = get_filiale.json()
-    return render(request, 'services/filiale/liste-filiale.html', locals())
+# def gestFilialeSAdmin(request):
+#     get_filiale = requests.get(listeFiliale)
+#     print(get_filiale.json())
+
+#     filialeList = get_filiale.json()
+#     # else:
+#     #     print("Le message est ========> ",get_filiale.text)
+#     return render(request, 'services/superAdmin/liste-filiale_sAdmin.html', locals())
 
 
-def gestpole(request):
-    get_filiale = requests.get(listePole)
-    filialeList = get_filiale.json()
-    return render(request, 'services/filiale/liste_pole.html', locals())
+def add_famille_de_risques(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_famille_de_risques.html", locals())
+
+def add_gravite_de_risques(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libgraviterisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listegraviterisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_gravite_de_risques.html", locals())
+
+def add_evaluations_impact_risque(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_evaluations_impact_risque.html", locals())
+
+def add_corps_de_controles(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libcorpsdecontrole": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listecontrole}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_corps_de_controles.html", locals())
+
+def add_type_de_missions(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libtypemiss": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{typemission}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_type_de_missions.html", locals())
+
+def add_gestions_des_filiales(request):
+    if request.method == "POST":
+        sigle_filiale = request.POST.get('sigle_filiale')
+        nom_filiale = request.POST.get('nom_filiale')
+        pays_filiale = request.POST.get('pays_filiale')
+        dg_filiale = request.POST.get('dg_filiale')
+        adresse_filiale = request.POST.get('adresse_filiale')
+         # Données à envoyer dans la requête POST
+        data = {
+                "sigle_filiale": sigle_filiale,
+                "nom_filiale": nom_filiale,
+                "pays_filiale": pays_filiale,
+                "dg_filiale": dg_filiale,
+                "adresse_filiale": adresse_filiale,
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{gestfiliale}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_gestions_des_filiales.html", locals())
+
+def add_profils(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_profils.html", locals())
+
+def add_profil_utilisateur(request):
+    if request.method == "POST":
+        value = request.POST.get('listeprofil')
+         # Données à envoyer dans la requête POST
+        data = {
+                "lib_profil_user": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_profil_utilisateur.html", locals())
+
+def add_profil_auditeur(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_profil_auditeur.html", locals())
+
+def add_utilisateurs(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_utilisateurs.html", locals())
+
+def add_parametrages_filiale(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_parametrages_filiale.html", locals())
+
+def add_pole(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_pole.html", locals())
+
+def add_processus(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_processus.html", locals())
+
+def add_matrice_de_competence(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_matrice_de_competence.html", locals())
+
+def add_catalogue_de_formation(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_catalogue_de_formation.html", locals())
+
+def add_auditeurs(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_auditeurs.html", locals())
+
+def add_matrice_de_competence(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_matrice_de_competence.html", locals())
+
+def add_formation(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_formation.html", locals())
+
+def add_documents(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_documents.html", locals())
+
+def add_activites(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_activites.html", locals())
+
+def add_risques(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_risques.html", locals())
+
+def add_controles(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_controles.html", locals())
+
+def add_suivi_plan_de_couverture(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_suivi_plan_de_couverture.html", locals())
+
+def add_document(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_document.html", locals())
+
+def add_categories_de_documents(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_categories_de_documents.html", locals())
+
+def add_liste_de_documents(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_liste_de_documents.html", locals())
+
+def add_menu_auditeur(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_menu_auditeur.html", locals())
+
+def add_mission(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_mission.html", locals())
+
+def add_initialisation(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_initialisation.html", locals())
+
+def add_execution(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_execution.html", locals())
+
+def add_finalisation(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_finalisation.html", locals())
+
+def add_mise_a_jour_tpa(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_mise_a_jour_tpa.html", locals())
+
+def add_suivi_des_recommandations(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_suivi_des_recommandations.html", locals())
+
+def add_transmission_justificatifs(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_transmission_justificatifs.html", locals())
+
+def add_reporting(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_reporting.html", locals())
+
+def add_statistiques(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_statistiques.html", locals())
+
+def add_stats(request):
+    if request.method == "POST":
+        value = request.POST.get('libfamillerisk')
+         # Données à envoyer dans la requête POST
+        data = {
+                "libfamillerisk": f"{value}"
+                }
+        # Faire une requête POST à l'API
+        response = requests.post(f"{listefamillerisk}", data=data)
+        return HttpResponse(
+                status=204,
+                headers={
+                    'HX-Trigger': json.dumps({
+                        "ListChanged": None,
+                        "showMessage": f"Enregistrement ajouter."
+                    })
+                }
+            )
+    return render(request, "services/modals/form_stats.html", locals())
 
 
-def gestprocessus(request):
-    get_filiale = requests.get(listeProcessus)
-    filialeList = get_filiale.json()
-    print(filialeList)
-    return render(request, 'services/filiale/liste_processus.html', locals())
 
 
-def gestutilisateur_spAdmin(request):
-    get_filiale = requests.get(listeUtilisateur)
-    filialeList = get_filiale.json()
-    return render(request, 'services/superAdmin/liste_utilisateur_sAdmin.html', locals())
+
+# class RepertoireRacine(TemplateView):
+#     template_name = 'services/repertoire_racine.html'
+
+#     def dispatch(self, request, *args, **kwargs):
+#         profil = request.session.get('profil')
+#         if not profil == 'ADMIN':
+#             return redirect('services:signIn')
+#         return super().dispatch(request, *args, **kwargs)
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['parametre_generaux'] = 'True'
+#         context['dropdown_parametre_generaux'] = 'True'
+#         context['active_repertoire_racine'] = 'True'
+#         return context
+
+# def adminAsFiliale(request):
+#     current_user = request.session.get('profile_label')
+#     print("This is the user Online =====>",current_user)
+#     currentUserEndpoint = f"{get_user}{current_user}/"
+#     User_instance = requests.get(currentUserEndpoint)
+#     theWholeUser = User_instance.json()
+#     # print(User_instance.json())
+#     return render(request, 'services/filiale/index_filiale.html', locals())
 
 
-def gestutilisateur(request):
-    get_filiale = requests.get(listeUtilisateur)
-    filialeList = get_filiale.json()
-    print(filialeList)
-    return render(request, 'services/filiale/liste_utilisateur.html', locals())
+# def gestFilialeSAdmin(request):
+#     get_filiale = requests.get(listeFiliale)
+#     print(get_filiale.json())
+
+#     filialeList = get_filiale.json()
+#     # else:
+#     #     print("Le message est ========> ",get_filiale.text)
+#     return render(request, 'services/superAdmin/liste-filiale_sAdmin.html', locals())
 
 
-def risqueFamille(request):
-    get_filiale = requests.get(listefamillerisk)
-    filialeList = get_filiale.json()
-    print(filialeList)
-    return render(request, 'services/superAdmin/risqueFamille.html')
 
 
-def graviteRisque(request):
-    get_filiale = requests.get(listegraviterisk)
-    filialeList = get_filiale.json()
-    print(filialeList)
-    return render(request, 'services/superAdmin/graviteRisque.html')
 
 
-def typeMission(request):
-    get_filiale = requests.get(listetypemission)
-    filialeList = get_filiale.json()
-    print(filialeList)
-    return render(request, 'services/superAdmin/typeMission.html')
+def del_famille_de_risques(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        # sweetify.info(request, "Enregistrement supprimé", showConfirmButton=False, timer=2000, allowOutsideClick=True, confirmButtonText="OK", toast=True, timerProgressBar=True, position="top")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_famille_de_risques.html", locals())
 
+def del_gravite_de_risques(request, pk):
+    get_famillerisk = requests.get(f"{listegraviterisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listegraviterisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_gravite_de_risques.html", locals())
 
-def corpsControl(request):
-    get_filiale = requests.get(listecontrole)
-    filialeList = get_filiale.json()
-    print(filialeList)
-    return render(request, 'services/superAdmin/corpsControl.html')
+def del_evaluations_impact_risque(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_evaluations_impact_risque.html", locals())
 
+def del_corps_de_controles(request, pk):
+    get_famillerisk = requests.get(f"{listecontrole}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listecontrole}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_corps_de_controles.html", locals())
 
-def activite(request):
-    get_filiale = requests.get(listeActivite)
-    filialeList = get_filiale.json()
-    dropdown_activite_risque = 'True'
-    activite_active = 'True'
-    print(filialeList)
-    return render(request, 'services/filiale/activite.html', locals())
+def del_type_de_missions(request, pk):
+    get_famillerisk = requests.get(f"{typemission}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{typemission}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_type_de_missions.html", locals())
 
+def del_gestions_des_filiales(request, pk):
+    get_famillerisk = requests.get(f"{gestfiliale}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{gestfiliale}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_gestions_des_filiales.html", locals())
 
-def profileSAdmin(request):
-    get_filiale = requests.get(listeprofil)
-    filialeList = get_filiale.json()
-    print(filialeList)
-    return render(request, 'services/superAdmin/profil_sAdmin.html', locals())
+def del_profils(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_profils.html", locals())
 
+def del_profil_utilisateur(request, pk):
+    get_famillerisk = requests.get(f"{listeprofil}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listeprofil}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_profil_utilisateur.html", locals())
 
-def settingAudit(request):
-    return render(request, 'services/Audit/index_audit.html', locals())
+def del_profil_auditeur(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_profil_auditeur.html", locals())
 
+def del_utilisateurs(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_utilisateurs.html", locals())
 
-def settingRMO(request):
-    return render(request, 'services/ROM/index_rmo.html', locals())
+def del_parametrages_filiale(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_parametrages_filiale.html", locals())
+
+def del_pole(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_pole.html", locals())
+
+def del_processus(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_processus.html", locals())
+
+def del_matrice_de_competence(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_matrice_de_competence.html", locals())
+
+def del_catalogue_de_formation(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_catalogue_de_formation.html", locals())
+
+def del_auditeurs(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_auditeurs.html", locals())
+
+def del_matrice_de_competence(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_matrice_de_competence.html", locals())
+
+def del_formation(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_formation.html", locals())
+
+def del_documents(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_documents.html", locals())
+
+def del_activites(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_activites.html", locals())
+
+def del_risques(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_risques.html", locals())
+
+def del_controles(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_controles.html", locals())
+
+def del_suivi_plan_de_couverture(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_suivi_plan_de_couverture.html", locals())
+
+def del_document(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_document.html", locals())
+
+def del_categories_de_documents(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_categories_de_documents.html", locals())
+
+def del_liste_de_documents(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_liste_de_documents.html", locals())
+
+def del_menu_auditeur(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_menu_auditeur.html", locals())
+
+def del_mission(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_mission.html", locals())
+
+def del_initialisation(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_initialisation.html", locals())
+
+def del_execution(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_execution.html", locals())
+
+def del_finalisation(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_finalisation.html", locals())
+
+def del_mise_a_jour_tpa(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_mise_a_jour_tpa.html", locals())
+
+def del_suivi_des_recommandations(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_suivi_des_recommandations.html", locals())
+
+def del_transmission_justificatifs(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_transmission_justificatifs.html", locals())
+
+def del_reporting(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_reporting.html", locals())
+
+def del_statistiques(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_statistiques.html", locals())
+
+def del_stats(request, pk):
+    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.delete(f"{listefamillerisk}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/del/del_stats.html", locals())

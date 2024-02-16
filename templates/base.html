@@ -21,7 +21,8 @@
     <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
-
+    {% block special_css %}
+    {% endblock special_css %}
 </head>
 
 <body>
@@ -112,7 +113,7 @@
         <!-- ============================================================== -->
         <!-- Debut de la partie centrale du dashboard -->
         <!-- ============================================================== -->
-     <div class="main-content">
+    <div class="main-content">
        {% block central  %}
 
         {% endblock %}
@@ -140,8 +141,8 @@
          <!-- Fin du footer-->
     </div>
 
-    </div>
-    <!-- END layout-wrapper -->
+</div>
+<!-- END layout-wrapper -->
 
 
 {% block features_back_to_top %}
@@ -150,17 +151,25 @@
         <i class="ri-arrow-up-line" style="color: white;"></i>
     </button>
     <!--end back-to-top-->
-
 {% endblock %}
 
-    {% block script %}
+ <!-- Placeholder for the modal -->
+<div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" hx-target="this" id="edit_dialog" role="document"></div>
+</div>
+
+{% block script %}
     <!-- JAVASCRIPT -->
+    <script src="{% static 'plugins/htmx/htmx.min.js' %} "></script>
     <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
     <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
     <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>
     <script src="{% static 'assets/js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
     <script src="{% static 'assets/js/plugins.js' %}"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="{% static 'plugins/sweetalert2/11.6.5/sweetalert2.all.min.js' %}"></script>
 
     <!-- apexcharts -->
     <script src="{% static 'assets/libs/apexcharts/apexcharts.min.js' %}"></script>
@@ -170,6 +179,12 @@
 
     <!-- App js -->
     <script src="{% static 'assets/js/app.js' %}"></script>
+
+    {% block special_js %}
+    {% endblock special_js %}
+
+    {% load sweetify %}
+    {% sweetify %}
 </body>
 </html>
 {% endblock %}

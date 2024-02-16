@@ -3,46 +3,55 @@ from os.path import join
 
 base_url = "http://137.184.83.80"
 
-# url de connexion
+# url connexion
 signInSuperAdmin = base_url + "/superuser_login/"
 loginUrl = f"{base_url}/authentication/login/"
 logoutUrl = f"{base_url}/authentication/logout/"
 
 signInAdmin = base_url + "/utilisateurs/login/"
 
-# url de listing des filiale
+# urls parametrages
+listeParametrages = base_url + "/parametrages/"
+
+# urls filiale
 listeFiliale = base_url + "/filiale/"
 
-# url de listing des pole
+# urls pole
 listePole = base_url + "/pole/"
 
-# url de listing des processus
+# urls processus
 listeProcessus = base_url + "/processus/"
 
-# url de listing des utilisateurs
+# urls utilisateurs
 listeUtilisateur = base_url + "/utilisateurs/"
 
-# url de listing des activite
+# urls activite
 listeActivite = base_url + "/activites/"
 
-# url de listing corpsControle
+# urls corpsControle
 listecontrole = base_url + "/corpsdecontrole/"
 
-# url de listing GraviteRisque
+# urls GraviteRisque
 listegraviterisk = base_url + "/graviterisk/"
 
-# url de listing des risqueFamille
+# urls risqueFamille
 listefamillerisk = base_url + "/famillerisk/"
 
-# url de listing typeMission
-listetypemission = base_url + "/typemission/"
+# urls typeMission
+typemission = base_url + "/typemission/"
 
-# url de la liste des profils
+# urls typeMission
+gestfiliale = base_url + "/filiale/"
+
+# urls profils
 listeprofil = base_url + "/profiluser/"
 
-# url de la liste des profils
-listeprofil = base_url + "/corpsdecontrole/"
+# urls corpsdecontrole
+corpsdecontrole = base_url + "/corpsdecontrole/"
 
-# url pour recuperer l'user connecté
+# urls evaluations_impact_risque
+evalimpactrisk = base_url + "/evalimpactrisk/"
+
+# urls pour recuperer connecté
 get_user = f"{base_url}/utilisateurs/"
 
