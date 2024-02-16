@@ -7,17 +7,17 @@
     {% csrf_token %}
     <div class="modal-body">
         <div class="mb-3" id="modal-id">
-            <label for="libfamillerisk" class="form-label">Famille de Risque </label>
-            <input type="text" id="libfamillerisk" name="libfamillerisk" value="{{data.libfamillerisk}}" class="form-control" placeholder="Famille de rique" />
+            <label for="lib_profil_user" class="form-label">Profile Utilisateur </label>
+            <input type="text" id="lib_profil_user" name="lib_profil_user" value="{{data.lib_profil_user}}" class="form-control" placeholder="Famille de rique" />
         </div>
     </div>
     <div class="modal-footer">
         <div class="hstack gap-2 justify-content-end">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
             {% if not data %}
-                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_famille_de_risques' %}" hx-indicator="#loader">Ajouter</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_profil_utilisateur' %}" hx-indicator="#loader">Ajouter</button>
             {% else %}
-                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_famille_de_risques' pk=data.idfamillerisk %}" hx-indicator="#loader" id="edit-btn">modifier</button>
+                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_profil_utilisateur' pk=data.idprofil_user %}" hx-indicator="#loader" id="edit-btn">modifier</button>
             {% endif %}
         </div>
     </div>

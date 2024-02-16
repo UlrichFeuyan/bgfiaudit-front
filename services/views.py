@@ -728,7 +728,7 @@ def edit_profil_utilisateur(request, pk):
     get_famillerisk = requests.get(f"{listeprofil}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
-        value = request.POST.get('libfamillerisk')
+        value = request.POST.get('lib_profil_user')
          # Données à envoyer dans la requête POST
         data = {
                 "lib_profil_user": f"{value}"
@@ -1572,13 +1572,13 @@ def add_profils(request):
 
 def add_profil_utilisateur(request):
     if request.method == "POST":
-        value = request.POST.get('listeprofil')
+        value = request.POST.get('lib_profil_user')
          # Données à envoyer dans la requête POST
         data = {
                 "lib_profil_user": f"{value}"
                 }
         # Faire une requête POST à l'API
-        response = requests.post(f"{listefamillerisk}", data=data)
+        response = requests.post(f"{listeprofil}", data=data)
         return HttpResponse(
                 status=204,
                 headers={
