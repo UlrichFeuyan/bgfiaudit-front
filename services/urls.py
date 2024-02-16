@@ -7,6 +7,7 @@ urlpatterns = [
     path('login/', signIn, name='signIn'),
     path('', homeDashboard, name='home_superAdmin'),
     # path('', adminAsFiliale, name='homeAdminFiliale'),
+    path('gestion-filiale_sAdmin/', gestFilialeSAdmin, name='gestion_filiale_admin'),
     path('authentication/logout/', deconnexion, name='deconnexion'),
 
     # Main

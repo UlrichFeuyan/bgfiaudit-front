@@ -270,17 +270,14 @@ def stats(request):
 #     # print(User_instance.json())
 #     return render(request, 'services/filiale/index_filiale.html', locals())
 
+def gestFilialeSAdmin(request):
+    get_filiale = requests.get(listeFiliale)
+    print(get_filiale.json())
 
-# def gestFilialeSAdmin(request):
-#     get_filiale = requests.get(listeFiliale)
-#     print(get_filiale.json())
-
-#     filialeList = get_filiale.json()
-#     # else:
-#     #     print("Le message est ========> ",get_filiale.text)
-#     return render(request, 'services/superAdmin/liste-filiale_sAdmin.html', locals())
-
-
+    filialeList = get_filiale.json()
+    # else:
+    #     print("Le message est ========> ",get_filiale.text)
+    return render(request, 'services/superAdmin/liste-filiale_sAdmin.html', locals())
 
 
 
