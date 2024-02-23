@@ -6,13 +6,6 @@
             </div>
         </th>
         <td class="date">{{ item.lib_competences }}</td>
-        <td class="date">
-            {% for utilisateur in utilisateurs %}
-                {% if utilisateur.idprofil_user == 2 %}
-                    {{ utilisateur.username }}
-                {% endif %}
-            {% endfor %}
-        </td>
         <td>
             <div class="d-flex gap-2">
                 <div class="edit">

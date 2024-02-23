@@ -9,8 +9,22 @@
         <td class="text"> {% if item.last_name %} {{ item.last_name }} {% else %} - {% endif %} </td>
         <td class="text"> {% if item.first_name %} {{ item.first_name }} {% else %} - {% endif %} </td>
         <td class="text"> {% if item.email %} {{ item.email }} {% else %} - {% endif %} </td>
-        <td class="text"> {% if item.idprofil_user %} {{ item.idprofil_user.lib_profil_user }} {% else %} - {% endif %} </td>
-        <td class="text"> {% if item.idfiliale %} {{ item.idfiliale.sigle_filiale }} {% else %} - {% endif %} </td>
+        {% if item.idprofil_user == 1 %}
+            <td class="text">ADMIN</td>
+        {% elif item.idprofil_user == 2 %}
+            <td class="text">AUDITEUR</td>
+        {% elif item.idprofil_user == 3 %}
+            <td class="text">RMO</td>
+        {% else %}
+            <td class="text"></td>
+        {% endif %}
+        {% if item.idfiliale == 1 %}
+            <td class="text">BGFIGA</td>
+        {% elif item.idfiliale == 2 %}
+            <td class="text">BGFICM</td>
+        {% else %}
+            <td class="text"></td>
+        {% endif %}
         <td>
             <div class="d-flex gap-2">
                 <div class="edit">

@@ -1,24 +1,54 @@
-{% for item in data_list %}
-    <tr  id="movie-{{ item.pk }}">
-        <th scope="row">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-            </div>
-        </th>
-        <td class="text">{{ item.sigle_filiale }}</td>
-        <td class="text">{{ item.nom_filiale }}</td>
-        <td class="text">{{ item.pays_filiale }}</td>
-        <td class="text">{{ item.dg_filiale }}</td>
-        <td class="text">{{ item.adresse_filiale }}</td>
-        <td>
-            <div class="d-flex gap-2">
-                <div class="edit">
-                    <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:edit_gestions_des_filiales' pk=item.idfiliale %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
+{% if userFiliale %}
+    {% for item in data_list %}
+        {% if item.sigle_filiale == userFiliale %}
+            <tr  id="movie-{{ item.pk }}">
+                <th scope="row">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                    </div>
+                </th>
+                <td class="text">{{ item.sigle_filiale }}</td>
+                <td class="text">{{ item.nom_filiale }}</td>
+                <td class="text">{{ item.pays_filiale }}</td>
+                <td class="text">{{ item.dg_filiale }}</td>
+                <td class="text">{{ item.adresse_filiale }}</td>
+                <td>
+                    <div class="d-flex gap-2">
+                        <div class="edit">
+                            <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:edit_gestions_des_filiales' pk=item.idfiliale %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
+                        </div>
+                        <div class="remove">
+                            <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_gestions_des_filiales' pk=item.idfiliale %}" hx-target="#delete_data" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+{% else %}
+    {% for item in data_list %}
+        <tr  id="movie-{{ item.pk }}">
+            <th scope="row">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                 </div>
-                <div class="remove">
-                    <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_gestions_des_filiales' pk=item.idfiliale %}" hx-target="#delete_data" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
+            </th>
+            <td class="text">{{ item.sigle_filiale }}</td>
+            <td class="text">{{ item.nom_filiale }}</td>
+            <td class="text">{{ item.pays_filiale }}</td>
+            <td class="text">{{ item.dg_filiale }}</td>
+            <td class="text">{{ item.adresse_filiale }}</td>
+            <td>
+                <div class="d-flex gap-2">
+                    <div class="edit">
+                        <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:edit_gestions_des_filiales' pk=item.idfiliale %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
+                    </div>
+                    <div class="remove">
+                        <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_gestions_des_filiales' pk=item.idfiliale %}" hx-target="#delete_data" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
+                    </div>
                 </div>
-            </div>
-        </td>
-    </tr>
-{% endfor %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endif %}
+
