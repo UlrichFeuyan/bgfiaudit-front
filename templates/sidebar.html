@@ -111,10 +111,13 @@
                                     <a href="{% url 'services:processus' %}" class="nav-link {% if processus_active == 'True' %}active{% endif %}"> Processus </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{% url 'services:matrice_de_competence' %}" class="nav-link {% if matrice_competence_active == 'True' %}active{% endif %}"> Matrice de competence </a>
+                                    <a href="{% url 'services:matrice_de_competence_param' %}" class="nav-link {% if matrice_competence_param_active == 'True' %}active{% endif %}"> Matrice de competence </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{% url 'services:catalogue_de_formation' %}" class="nav-link {% if catalogue_formation_active == 'True' %}active{% endif %}"> Catalogue de formation </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:type_de_missions' %}" class="nav-link {% if type_mission_active == 'True' %}active{% endif %}" data-key="t-projects"> Type de Missions </a>
                                 </li>
                             </ul>
                         </div>
@@ -178,7 +181,7 @@
                                     <a href="{% url 'services:matrice_de_competence' %}"  class="nav-link {% if matrice_competence_active == 'True' %}active{% endif %}" data-key="t-horizontal">Matrice de Competence </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{% url 'services:formation' %}"  class="nav-link {% if formation_active == 'True' %}active{% endif %}" data-key="t-detached">Formation</a>
+                                    <a href="{% url 'services:matrice_de_competence' %}"  class="nav-link {% if formation_active == 'True' %}active{% endif %}" data-key="t-detached">Formation</a>
                                 </li>
                             </ul>
                         </div>

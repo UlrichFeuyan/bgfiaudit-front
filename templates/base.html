@@ -77,7 +77,7 @@
 
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text" style="color:white;">{{ userName }}</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text" style="color:white;">{{ userRole }}</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text" style="color:white;">{{ userRole }}{% if userFiliale %} - {{ userFiliale }} {% endif %}</span>
                             </span>
                         </span>
                     </button>

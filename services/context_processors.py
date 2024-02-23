@@ -54,6 +54,7 @@ def profil_context_processor(request):
             context.update(side_bar_admin_filiale)
     context["userName"] = request.session.get('username')
     context["userRole"] = request.session.get('profil')
+    context["userFiliale"] = request.session.get('filiale')
     return context
 
 

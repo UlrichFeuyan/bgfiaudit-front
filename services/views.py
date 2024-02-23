@@ -34,6 +34,7 @@ def signIn(request):
                 request.session['token'] = user_data['auth_token']
                 request.session['username'] = user_data['code_user']
                 request.session['profil'] = user_data['idprofil_user']
+                request.session['filiale'] = user_data['idfiliale']
 
                 request.session['nom_user'] = user_data['nom_user']
                 request.session['prenom_user'] = user_data['prenom_user']
@@ -99,6 +100,10 @@ def deconnexion(request):
         # Supprimer la clé 'profile_label' de la session
     if 'profile_label' in request.session:
         del request.session['profile_label']
+
+        # Supprimer la clé 'filiale' de la session
+    if 'filiale' in request.session:
+        del request.session['filiale']
     return redirect('services:signIn')
 
 
@@ -129,6 +134,7 @@ def corps_de_controles(request):
 
 def type_de_missions(request):
     dropdown_parametre_generaux = 'True'
+    dropdown_parametre_filiale = 'True'
     type_mission_active = 'True'
     return render(request, 'services/type_de_missions.html', locals())
 
@@ -168,10 +174,10 @@ def processus(request):
     processus_active = 'True'
     return render(request, 'services/processus.html', locals())
 
-def matrice_de_competence(request):
+def matrice_de_competence_param(request):
     dropdown_parametre_filiale = 'True'
-    matrice_competence_active = 'True'
-    return render(request, 'services/matrice_de_competence.html', locals())
+    matrice_competence_param_active = 'True'
+    return render(request, 'services/matrice_de_competence_param.html', locals())
 
 def catalogue_de_formation(request):
     dropdown_parametre_filiale = 'True'
@@ -367,6 +373,8 @@ def list_profil_auditeur(request):
     return render(request, "services/lists/list_profil_auditeur.html", locals())
 
 def list_utilisateurs(request):
+    get_filiale_liste = requests.get(listeFiliale)
+    filiale_liste = get_filiale_liste.json()
     get_data = requests.get(ges_user)
     data_list = get_data.json()
     return render(request, "services/lists/list_utilisateurs.html", locals())
@@ -377,19 +385,22 @@ def list_parametrages_filiale(request):
     return render(request, "services/lists/list_parametrages_filiale.html", locals())
 
 def list_pole(request):
-    get_data = requests.get(typemission)
+    get_data = requests.get(listePole)
     data_list = get_data.json()
+
+    get_data_filiale = requests.get(gestfiliale)
+    data_filiale_list = get_data.json()
     return render(request, "services/lists/list_pole.html", locals())
 
 def list_processus(request):
-    get_data = requests.get(typemission)
+    get_data = requests.get(listeProcessus)
     data_list = get_data.json()
     return render(request, "services/lists/list_processus.html", locals())
 
-def list_matrice_de_competence(request):
-    get_data = requests.get(typemission)
+def list_matrice_de_competence_param(request):
+    get_data = requests.get(listeCompetences)
     data_list = get_data.json()
-    return render(request, "services/lists/list_matrice_de_competence.html", locals())
+    return render(request, "services/lists/list_matrice_de_competence_param.html", locals())
 
 def list_catalogue_de_formation(request):
     get_data = requests.get(typemission)
@@ -407,7 +418,9 @@ def list_auditeurs(request):
     return render(request, "services/lists/list_auditeurs.html", locals())
 
 def list_matrice_de_competence(request):
-    get_data = requests.get(typemission)
+    get_utilisateurs = requests.get(listeUtilisateur)
+    utilisateurs = get_utilisateurs.json()
+    get_data = requests.get(listeCompetences)
     data_list = get_data.json()
     return render(request, "services/lists/list_matrice_de_competence.html", locals())
 
@@ -872,7 +885,7 @@ def edit_parametrages_filiale(request, pk):
     return render(request, "services/modals/form_parametrages_filiale.html", locals())
 
 def edit_pole(request, pk):
-    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    get_famillerisk = requests.get(f"{listePole}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
         value = request.POST.get('libfamillerisk')
@@ -881,7 +894,7 @@ def edit_pole(request, pk):
                 "libfamillerisk": f"{value}"
                 }
         # Faire une requête POST à l'API
-        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        response = requests.put(f"{listePole}{pk}/", data=data)
         return HttpResponse(
             status=204,
             headers={
@@ -894,7 +907,7 @@ def edit_pole(request, pk):
     return render(request, "services/modals/form_pole.html", locals())
 
 def edit_processus(request, pk):
-    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    get_famillerisk = requests.get(f"{listeProcessus}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
         value = request.POST.get('libfamillerisk')
@@ -903,7 +916,7 @@ def edit_processus(request, pk):
                 "libfamillerisk": f"{value}"
                 }
         # Faire une requête POST à l'API
-        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        response = requests.put(f"{listeProcessus}{pk}/", data=data)
         return HttpResponse(
             status=204,
             headers={
@@ -915,8 +928,8 @@ def edit_processus(request, pk):
         )
     return render(request, "services/modals/form_processus.html", locals())
 
-def edit_matrice_de_competence(request, pk):
-    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+def edit_matrice_de_competence_param(request, pk):
+    get_famillerisk = requests.get(f"{listeCompetences}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
         value = request.POST.get('libfamillerisk')
@@ -925,7 +938,7 @@ def edit_matrice_de_competence(request, pk):
                 "libfamillerisk": f"{value}"
                 }
         # Faire une requête POST à l'API
-        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        response = requests.put(f"{listeCompetences}{pk}/", data=data)
         return HttpResponse(
             status=204,
             headers={
@@ -935,7 +948,7 @@ def edit_matrice_de_competence(request, pk):
                 })
             }
         )
-    return render(request, "services/modals/form_matrice_de_competence.html", locals())
+    return render(request, "services/modals/form_matrice_de_competence_param.html", locals())
 
 def edit_catalogue_de_formation(request, pk):
     get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
@@ -982,7 +995,7 @@ def edit_auditeurs(request, pk):
     return render(request, "services/modals/form_auditeurs.html", locals())
 
 def edit_matrice_de_competence(request, pk):
-    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    get_famillerisk = requests.get(f"{listeCompetences}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
         value = request.POST.get('libfamillerisk')
@@ -991,7 +1004,7 @@ def edit_matrice_de_competence(request, pk):
                 "libfamillerisk": f"{value}"
                 }
         # Faire une requête POST à l'API
-        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        response = requests.put(f"{listeCompetences}{pk}/", data=data)
         return HttpResponse(
             status=204,
             headers={
@@ -1742,7 +1755,7 @@ def add_pole(request):
                 "libfamillerisk": f"{value}"
                 }
         # Faire une requête POST à l'API
-        response = requests.post(f"{listefamillerisk}", data=data)
+        response = requests.post(f"{listePole}", data=data)
         return HttpResponse(
                 status=204,
                 headers={
@@ -1762,7 +1775,7 @@ def add_processus(request):
                 "libfamillerisk": f"{value}"
                 }
         # Faire une requête POST à l'API
-        response = requests.post(f"{listefamillerisk}", data=data)
+        response = requests.post(f"{listeProcessus}", data=data)
         return HttpResponse(
                 status=204,
                 headers={
@@ -1774,7 +1787,7 @@ def add_processus(request):
             )
     return render(request, "services/modals/form_processus.html", locals())
 
-def add_matrice_de_competence(request):
+def add_matrice_de_competence_param(request):
     if request.method == "POST":
         value = request.POST.get('libfamillerisk')
          # Données à envoyer dans la requête POST
@@ -1782,7 +1795,7 @@ def add_matrice_de_competence(request):
                 "libfamillerisk": f"{value}"
                 }
         # Faire une requête POST à l'API
-        response = requests.post(f"{listefamillerisk}", data=data)
+        response = requests.post(f"{listeCompetences}", data=data)
         return HttpResponse(
                 status=204,
                 headers={
@@ -1792,7 +1805,7 @@ def add_matrice_de_competence(request):
                     })
                 }
             )
-    return render(request, "services/modals/form_matrice_de_competence.html", locals())
+    return render(request, "services/modals/form_matrice_de_competence_param.html", locals())
 
 def add_catalogue_de_formation(request):
     if request.method == "POST":
@@ -1842,7 +1855,7 @@ def add_matrice_de_competence(request):
                 "libfamillerisk": f"{value}"
                 }
         # Faire une requête POST à l'API
-        response = requests.post(f"{listefamillerisk}", data=data)
+        response = requests.post(f"{listeCompetences}", data=data)
         return HttpResponse(
                 status=204,
                 headers={
@@ -2465,10 +2478,10 @@ def del_parametrages_filiale(request, pk):
     return render(request, "services/del/del_parametrages_filiale.html", locals())
 
 def del_pole(request, pk):
-    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    get_famillerisk = requests.get(f"{listePole}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
-        response = requests.delete(f"{listefamillerisk}{pk}")
+        response = requests.delete(f"{listePole}{pk}")
         return HttpResponse(
         status=204,
         headers={
@@ -2480,10 +2493,10 @@ def del_pole(request, pk):
     return render(request, "services/del/del_pole.html", locals())
 
 def del_processus(request, pk):
-    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    get_famillerisk = requests.get(f"{listeProcessus}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
-        response = requests.delete(f"{listefamillerisk}{pk}")
+        response = requests.delete(f"{listeProcessus}{pk}")
         return HttpResponse(
         status=204,
         headers={
@@ -2494,11 +2507,11 @@ def del_processus(request, pk):
         })
     return render(request, "services/del/del_processus.html", locals())
 
-def del_matrice_de_competence(request, pk):
-    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+def del_matrice_de_competence_param(request, pk):
+    get_famillerisk = requests.get(f"{listeCompetences}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
-        response = requests.delete(f"{listefamillerisk}{pk}")
+        response = requests.delete(f"{listeCompetences}{pk}")
         return HttpResponse(
         status=204,
         headers={
@@ -2507,7 +2520,7 @@ def del_matrice_de_competence(request, pk):
                 "showMessage": f"enregistrement Supprimé."
             })
         })
-    return render(request, "services/del/del_matrice_de_competence.html", locals())
+    return render(request, "services/del/del_matrice_de_competence_param.html", locals())
 
 def del_catalogue_de_formation(request, pk):
     get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
@@ -2540,10 +2553,10 @@ def del_auditeurs(request, pk):
     return render(request, "services/del/del_auditeurs.html", locals())
 
 def del_matrice_de_competence(request, pk):
-    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    get_famillerisk = requests.get(f"{listeCompetences}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
-        response = requests.delete(f"{listefamillerisk}{pk}")
+        response = requests.delete(f"{listeCompetences}{pk}")
         return HttpResponse(
         status=204,
         headers={
