@@ -132,3 +132,6 @@ dmypy.json
 /README_test.md
 .idea/
 staticfiles/
+
+apiRessource/endpointList.py
+frontEnd/settings.py
