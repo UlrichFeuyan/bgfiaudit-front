@@ -1,8 +1,8 @@
 # list des url
 from os.path import join
 
-base_url = "http://127.0.0.1:8004"
-# base_url = "http://137.184.83.80"
+# base_url = "http://127.0.0.1:8004"
+base_url = "http://162.240.41.72:89"
 
 # url connexion
 signInSuperAdmin = base_url + "/superuser_login/"
