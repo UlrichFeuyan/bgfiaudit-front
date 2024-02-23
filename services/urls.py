@@ -9,6 +9,9 @@ urlpatterns = [
     # path('', adminAsFiliale, name='homeAdminFiliale'),
     path('gestion-filiale_sAdmin/', gestFilialeSAdmin, name='gestion_filiale_admin'),
     path('authentication/logout/', deconnexion, name='deconnexion'),
+    path('profil/', profil, name='profil'),
+    path('change_password/', change_password, name='change_password'),
+    path('reset_password/<int:pk>', reset_password, name='reset_password'),
 
     # Main
     path('repertoire_racine', repertoire_racine, name='repertoire_racine'),

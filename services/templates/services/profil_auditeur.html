@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{%block title %} Famille de risque {% endblock %}
+{% block title %} Profile Auditeur {% endblock %}
 {% block central %}
 <div class="page-content">
     <div class="container-fluid">
@@ -8,11 +8,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Familles de risque</h4>
+                    <h4 class="mb-sm-0">Profile Auditeur</h4>
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Familles de risque</li>
+                            <li class="breadcrumb-item active">Profile Auditeur</li>
                         </ol>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                             <div class="row g-4 mb-3">
                                 <div class="col-sm-auto">
                                     <div>
-                                        <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:add_famille_de_risques' %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i>Ajouter</button>
+                                        <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:add_profil_auditeur' %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i>Ajouter</button>
                                     </div>
                                 </div>
                                 <div class="col-sm">
@@ -50,11 +50,11 @@
                                                     <input class="form-check-input" type="checkbox" id="checkAll" value="option">
                                                 </div>
                                             </th>
-                                            <th class="sort" data-sort="repertoire_racine">Familles de risque</th>
+                                            <th class="sort" data-sort="repertoire_racine">Profile Auditeur</th>
                                             <th class="sort" data-sort="action">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="list form-check-all" hx-get="{% url 'services:list_famille_de_risques' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
+                                    <tbody class="list form-check-all" hx-get="{% url 'services:list_profil_auditeur' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
                                         <tr>
                                             <div class="d-flex justify-content-center htmx-indicator" id="loader">
                                                 <div class="spinner-border" role="status">

@@ -5,14 +5,22 @@
                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
             </div>
         </th>
-        <td class="date">{{ item.libfamillerisk }}</td>
+        <td class="text"> {% if item.username %} {{ item.username }} {% else %} - {% endif %} </td>
+        <td class="text"> {% if item.last_name %} {{ item.last_name }} {% else %} - {% endif %} </td>
+        <td class="text"> {% if item.first_name %} {{ item.first_name }} {% else %} - {% endif %} </td>
+        <td class="text"> {% if item.email %} {{ item.email }} {% else %} - {% endif %} </td>
+        <td class="text"> {% if item.idprofil_user %} {{ item.idprofil_user.lib_profil_user }} {% else %} - {% endif %} </td>
+        <td class="text"> {% if item.idfiliale %} {{ item.idfiliale.sigle_filiale }} {% else %} - {% endif %} </td>
         <td>
             <div class="d-flex gap-2">
                 <div class="edit">
-                    <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:edit_famille_de_risques' pk=item.idfamillerisk %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
+                    <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:edit_utilisateurs' pk=item.idutilisateurs %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
+                </div>
+                <div class="reset_password">
+                    <button class="btn btn-sm btn-warning reset-item-btn" hx-get="{% url 'services:reset_password' pk=item.idutilisateurs %}" hx-target="#reset_data" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">réinitialiser</button>
                 </div>
                 <div class="remove">
-                    <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_famille_de_risques' pk=item.idfamillerisk %}" hx-target="#delete_data" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
+                    <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_utilisateurs' pk=item.idutilisateurs %}" hx-target="#delete_data" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
                 </div>
             </div>
         </td>

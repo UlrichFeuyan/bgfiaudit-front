@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Profile {% endblock %}
+{% block central %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Profile</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Profile de l'utilistateur</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        <div class="row mt-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary text-center">{{ userName }}</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="text-center mt-2">
+                                    <img src="{% static 'img/photo_profil.png' %}" class="rounded-circle img-fluid mb-4" alt="photo de profil" width="200px">
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <table class="table d-inline-block text-left m-4 p-3">
+                                    {% if nom %}
+                                        <tr>
+                                            <td class="px-5 mt-1 align-bottom"><b>Nom</b></td>
+                                            <td class="align-bottom">&emsp;&emsp;{{ nom }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if prenom %}
+                                        <tr>
+                                            <td class="px-5 mt-1 align-bottom"><b>Prénom</b></td>
+                                            <td class="align-bottom">&emsp;&emsp;{{ prenom }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if userRole %}
+                                        <tr>
+                                            <td class="px-5 mt-1 align-bottom"><b>Profile</b></td>
+                                            <td class="align-bottom">&emsp;&emsp;{{ userRole }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if email %}
+                                        <tr>
+                                            <td class="px-5 mt-1 align-bottom"><b>Email</b></td>
+                                            <td class="align-bottom">&emsp;&emsp;{{ email }}</td>
+                                        </tr>
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <a href="{% url 'services:change_password' %}" class="btn btn-primary btn-user mt-4">Changer de mot de passe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- container-fluid -->
+</div>
+{% endblock %}

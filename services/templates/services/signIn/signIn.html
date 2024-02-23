@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>{%block title %} {% endblock %}</title>
+    <title>{% block title %} {% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Dashboard" name="description" />
     <meta content="Dashboard" name="author" />
@@ -105,7 +105,7 @@
                                                     <select class="form-select" aria-label="Default select example" name="filiale_id">
                                                       <option selected>--------------</option>
                                                         {% for fil in filialeList %}
-                                                          <option value="{{ fil.sigle_filiale }}" >{{ fil.sigle_filiale }}</option>
+                                                          <option value="{{ fil.idfiliale }}" >{{ fil.sigle_filiale }}</option>
                                                          {% empty %}
                                                             <option value="">Pas d'elements trouvés</option>
                                                         {% endfor %}

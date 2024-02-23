@@ -7,17 +7,67 @@
     {% csrf_token %}
     <div class="modal-body">
         <div class="mb-3" id="modal-id">
-            <label for="libfamillerisk" class="form-label">Famille de Risque </label>
-            <input type="text" id="libfamillerisk" name="libfamillerisk" value="{{data.libfamillerisk}}" class="form-control" placeholder="Famille de rique" />
+            <label for="code_user" class="form-label">Code utilisateur</label>
+            <input type="text" id="code_user" name="code_user" value="{{data.code_user}}" class="form-control" placeholder="code_user" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="nom_user" class="form-label">Nom</label>
+            <input type="text" id="nom_user" name="nom_user" value="{{data.nom_user}}" class="form-control" placeholder="nom_user" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="prenom_user" class="form-label">Prenom</label>
+            <input type="text" id="prenom_user" name="prenom_user" value="{{data.prenom_user}}" class="form-control" placeholder="prenom_user" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="email_user" class="form-label">Email</label>
+            <input type="text" id="email_user" name="email_user" value="{{data.email_user}}" class="form-control" placeholder="email_user" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="idprofil_user" class="form-label">Profil</label>
+            <select class="form-select" aria-label="Default select example" name="idprofil_user">
+                {% if not data.idprofil_user %}
+                    <option value="" selected>--------------</option>
+                    {% for profil in profilList %}
+                        <option value="{{ profil.idprofil_user }}" >{{ profil.lib_profil_user }}</option>
+                    {% empty %}
+                        <option value="">Pas d'elements trouvés</option>
+                    {% endfor %}
+                {% else %}
+                    {% for profil in profilList %}
+                        <option value="{{ profil.idprofil_user }}" {% if data.idprofil_user.idprofil_user == profil.idprofil_user %}selected{% endif %} >{{ profil.lib_profil_user }}</option>
+                    {% empty %}
+                        <option value="">Pas d'elements trouvés</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="idfiliale" class="form-label">Filiale</label>
+            <select class="form-select" aria-label="Default select example" name="idfiliale">
+                {% if not data.idfiliale %}
+                    <option selected>--------------</option>
+                    {% for filiale in filialeList %}
+                        <option value="{{ filiale.idfiliale }}" >{{ filiale.sigle_filiale }}</option>
+                    {% empty %}
+                        <option value="">Pas d'elements trouvés</option>
+                    {% endfor %}
+                {% else %}
+                    {% for filiale in filialeList %}
+                        <option value="{{ filiale.idfiliale }}" {% if data.idfiliale.idfiliale == filiale.idfiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
+                    {% empty %}
+                        <option value="">Pas d'elements trouvés</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
         </div>
     </div>
     <div class="modal-footer">
         <div class="hstack gap-2 justify-content-end">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
             {% if not data %}
-                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_famille_de_risques' %}" hx-indicator="#loader">Ajouter</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_utilisateurs' %}" hx-indicator="#loader">Ajouter</button>
             {% else %}
-                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_famille_de_risques' pk=data.idfamillerisk %}" hx-indicator="#loader" id="edit-btn">modifier</button>
+                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_utilisateurs' pk=data.idutilisateurs %}" hx-indicator="#loader" id="edit-btn">modifier</button>
             {% endif %}
         </div>
     </div>

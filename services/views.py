@@ -24,15 +24,21 @@ def signIn(request):
         password = request.POST.get('password')
         filiale = request.POST.get('filiale_id')
         if 'filiale_btn' in request.POST:
-            data = {'code_user': code_user, 'password': password}
+            data = {'username': code_user, 'password': password, 'idfiliale': int(filiale)}
             response = requests.post(loginUrl, data=data)
             if response.status_code == 200:
-                user_data = response.json()
+                reponse = response.json()
+                user_data = reponse['user']
                 # Inclure le jeton d'accès dans l'en-tête de chaque requête ultérieure
 
                 request.session['token'] = user_data['auth_token']
                 request.session['username'] = user_data['code_user']
-                request.session['profil'] = user_data['profil_user']
+                request.session['profil'] = user_data['idprofil_user']
+
+                request.session['nom_user'] = user_data['nom_user']
+                request.session['prenom_user'] = user_data['prenom_user']
+                request.session['email_user'] = user_data['email_user']
+                sweetify.info(request, "Connexion réussit!", showConfirmButton=False, timer=2000, allowOutsideClick=True, confirmButtonText="OK", toast=True, timerProgressBar=True, position="top")
                 return redirect('services:home_superAdmin')
             else:
                 messages.error(request, 'Login failed. Please try again.')
@@ -48,6 +54,38 @@ def signIn(request):
         else:
             messages.error(request, 'Login failed. Please try again.')
     return render(request, 'services/signIn/signIn.html', locals())
+
+def profil(request):
+    code_user = request.session.get('username')
+    nom = request.session.get('nom_user')
+    prenom = request.session.get('prenom_user')
+    email = request.session.get('email_user')
+    return render(request, 'services/signIn/profil.html', locals())
+
+def change_password(request):
+    # Données à envoyer dans la requête POST
+    data = {
+            "last_password": "last_password",
+            "new_password": "new_password",
+            }
+    # Faire une requête POST à l'API
+    response = requests.patch(f"{ges_user}", data=data)
+    return render(request, 'services/signIn/change_password.html', locals())
+
+def reset_password(request, pk):
+    get_famillerisk = requests.get(f"{ges_user}{pk}")
+    data = get_famillerisk.json()
+    if request.method == "POST":
+        response = requests.post(f"{ges_user}{pk}")
+        return HttpResponse(
+        status=204,
+        headers={
+            'HX-Trigger': json.dumps({
+                "ListChanged": None,
+                "showMessage": f"enregistrement Supprimé."
+            })
+        })
+    return render(request, "services/singIn/reset_password_utilisateurs.html", locals())
 
 def deconnexion(request):
     response = requests.post(logoutUrl)
@@ -264,7 +302,7 @@ def stats(request):
 # def adminAsFiliale(request):
 #     current_user = request.session.get('profile_label')
 #     print("This is the user Online =====>",current_user)
-#     currentUserEndpoint = f"{get_user}{current_user}/"
+#     currentUserEndpoint = f"{ges_user}{current_user}/"
 #     User_instance = requests.get(currentUserEndpoint)
 #     theWholeUser = User_instance.json()
 #     # print(User_instance.json())
@@ -324,12 +362,12 @@ def list_profil_utilisateur(request):
     return render(request, "services/lists/list_profil_utilisateur.html", locals())
 
 def list_profil_auditeur(request):
-    get_data = requests.get(typemission)
+    get_data = requests.get(listeprofilauditeur)
     data_list = get_data.json()
     return render(request, "services/lists/list_profil_auditeur.html", locals())
 
 def list_utilisateurs(request):
-    get_data = requests.get(typemission)
+    get_data = requests.get(ges_user)
     data_list = get_data.json()
     return render(request, "services/lists/list_utilisateurs.html", locals())
 
@@ -744,16 +782,16 @@ def edit_profil_utilisateur(request, pk):
     return render(request, "services/modals/form_profil_utilisateur.html", locals())
 
 def edit_profil_auditeur(request, pk):
-    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    get_famillerisk = requests.get(f"{listeprofilauditeur}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
         value = request.POST.get('libfamillerisk')
          # Données à envoyer dans la requête POST
         data = {
-                "libfamillerisk": f"{value}"
+                "lib_profil_audit": f"{value}"
                 }
         # Faire une requête POST à l'API
-        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        response = requests.put(f"{listeprofilauditeur}{pk}/", data=data)
         return HttpResponse(
             status=204,
             headers={
@@ -766,16 +804,40 @@ def edit_profil_auditeur(request, pk):
     return render(request, "services/modals/form_profil_auditeur.html", locals())
 
 def edit_utilisateurs(request, pk):
-    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
-    data = get_famillerisk.json()
+    get_filiale = requests.get(listeFiliale)
+    get_profil = requests.get(listeprofil)
+    filialeList = get_filiale.json()
+    profilList = get_profil.json()
+    get_user = requests.get(f"{ges_user}{pk}")
+    data = get_user.json()
     if request.method == "POST":
-        value = request.POST.get('libfamillerisk')
-         # Données à envoyer dans la requête POST
+        code_user = request.POST.get('code_user')
+        nom_user = request.POST.get('nom_user')
+        prenom_user = request.POST.get('prenom_user')
+        email_user = request.POST.get('email_user')
+        idprofil_user = request.POST.get('idprofil_user')
+        idfiliale = request.POST.get('idfiliale')
+
+        # Faire des requêtes pour récupérer le profil et la filiale
+        profil_response = requests.get(f"{listeprofil}{idprofil_user}")
+        filiale_response = requests.get(f"{gestfiliale}{idfiliale}")
+
+        # Extraire les données pertinentes des réponses
+        profil_data = profil_response.json()
+        filiale_data = filiale_response.json()
+
+        # Données à envoyer dans la requête POST
         data = {
-                "libfamillerisk": f"{value}"
+                "username": code_user,
+                "code_user": code_user,
+                "nom_user": nom_user,
+                "prenom_user": prenom_user,
+                "email_user": email_user,
+                "idprofil_user": f"{profil_data}",
+                "idfiliale": filiale_data,
                 }
         # Faire une requête POST à l'API
-        response = requests.put(f"{listefamillerisk}{pk}/", data=data)
+        response = requests.patch(f"{ges_user}{pk}/", data=data)
         return HttpResponse(
             status=204,
             headers={
@@ -1402,7 +1464,7 @@ def edit_stats(request, pk):
 # def adminAsFiliale(request):
 #     current_user = request.session.get('profile_label')
 #     print("This is the user Online =====>",current_user)
-#     currentUserEndpoint = f"{get_user}{current_user}/"
+#     currentUserEndpoint = f"{ges_user}{current_user}/"
 #     User_instance = requests.get(currentUserEndpoint)
 #     theWholeUser = User_instance.json()
 #     # print(User_instance.json())
@@ -1592,10 +1654,10 @@ def add_profil_auditeur(request):
         value = request.POST.get('libfamillerisk')
          # Données à envoyer dans la requête POST
         data = {
-                "libfamillerisk": f"{value}"
+                "lib_profil_audit": f"{value}"
                 }
         # Faire une requête POST à l'API
-        response = requests.post(f"{listefamillerisk}", data=data)
+        response = requests.post(f"{listeprofilauditeur}", data=data)
         return HttpResponse(
                 status=204,
                 headers={
@@ -1608,14 +1670,39 @@ def add_profil_auditeur(request):
     return render(request, "services/modals/form_profil_auditeur.html", locals())
 
 def add_utilisateurs(request):
+    get_filiale = requests.get(listeFiliale)
+    get_profil = requests.get(listeprofil)
+    filialeList = get_filiale.json()
+    profilList = get_profil.json()
     if request.method == "POST":
-        value = request.POST.get('libfamillerisk')
-         # Données à envoyer dans la requête POST
+        code_user = request.POST.get('code_user')
+        nom_user = request.POST.get('nom_user')
+        prenom_user = request.POST.get('prenom_user')
+        email_user = request.POST.get('email_user')
+        idprofil_user = request.POST.get('idprofil_user')
+        idfiliale = request.POST.get('idfiliale')
+
+        # Faire des requêtes pour récupérer le profil et la filiale
+        profil_response = requests.get(f"{listeprofil}{idprofil_user}")
+        filiale_response = requests.get(f"{gestfiliale}{idfiliale}")
+
+        # Extraire les données pertinentes des réponses
+        profil_data = profil_response.json()
+        filiale_data = filiale_response.json()
+
+        # Données à envoyer dans la requête POST
         data = {
-                "libfamillerisk": f"{value}"
+                "username": code_user,
+                "code_user": code_user,
+                "nom_user": nom_user,
+                "prenom_user": prenom_user,
+                "email_user": email_user,
+                "idprofil_user": profil_data,
+                "idfiliale": filiale_data,
+                "password": "",
                 }
         # Faire une requête POST à l'API
-        response = requests.post(f"{listefamillerisk}", data=data)
+        response = requests.post(f"{ges_user}", data=data)
         return HttpResponse(
                 status=204,
                 headers={
@@ -2190,7 +2277,7 @@ def add_stats(request):
 # def adminAsFiliale(request):
 #     current_user = request.session.get('profile_label')
 #     print("This is the user Online =====>",current_user)
-#     currentUserEndpoint = f"{get_user}{current_user}/"
+#     currentUserEndpoint = f"{ges_user}{current_user}/"
 #     User_instance = requests.get(currentUserEndpoint)
 #     theWholeUser = User_instance.json()
 #     # print(User_instance.json())
@@ -2333,10 +2420,10 @@ def del_profil_utilisateur(request, pk):
     return render(request, "services/del/del_profil_utilisateur.html", locals())
 
 def del_profil_auditeur(request, pk):
-    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    get_famillerisk = requests.get(f"{listeprofilauditeur}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
-        response = requests.delete(f"{listefamillerisk}{pk}")
+        response = requests.delete(f"{listeprofilauditeur}{pk}")
         return HttpResponse(
         status=204,
         headers={
@@ -2348,10 +2435,10 @@ def del_profil_auditeur(request, pk):
     return render(request, "services/del/del_profil_auditeur.html", locals())
 
 def del_utilisateurs(request, pk):
-    get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
+    get_famillerisk = requests.get(f"{ges_user}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
-        response = requests.delete(f"{listefamillerisk}{pk}")
+        response = requests.delete(f"{ges_user}{pk}")
         return HttpResponse(
         status=204,
         headers={
