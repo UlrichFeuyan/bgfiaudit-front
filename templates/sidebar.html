@@ -267,16 +267,16 @@
                     {% endif %}
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{% url 'services:initialisation' %}" class="nav-link {% if initialisation_active == 'True' %}active{% endif %}" data-key="t-analytics"> Initialisation </a>
+                                    <a href="#" class="nav-link {% if initialisation_active == 'True' %}active{% endif %}" data-key="t-analytics"> Initialisation </a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a href="{% url 'services:execution' %}" class="nav-link {% if execution_active == 'True' %}active{% endif %}" data-key="t-crm"> Execution </a>
+                                    <a href="#" class="nav-link {% if execution_active == 'True' %}active{% endif %}" data-key="t-crm"> Execution </a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a href="{% url 'services:finalisation' %}" class="nav-link {% if finalisation_active == 'True' %}active{% endif %}" data-key="t-projects"> Finalisation </a>
+                                    <a href="#" class="nav-link {% if finalisation_active == 'True' %}active{% endif %}" data-key="t-projects"> Finalisation </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{% url 'services:mise_a_jour_tpa' %}" class="nav-link {% if mise_a_jour_tpa_active == 'True' %}active{% endif %}" data-key="t-analytics"> Mise a jour TPA </a>
+                                    <a href="#" class="nav-link {% if mise_a_jour_tpa_active == 'True' %}active{% endif %}" data-key="t-analytics"> Mise a jour TPA </a>
                                 </li>
                             </ul>
                         </div>
@@ -284,14 +284,14 @@
                 {% endif %}
                 {% if suivi_recommandation == 'True' %}
                     <li class="nav-item">
-                        <a class="nav-link {% if suivi_recommandation_active == 'True' %}active{% endif %} menu-link" href="{% url 'services:suivi_des_recommandations' %}" role="button">
+                        <a class="nav-link {% if suivi_recommandation_active == 'True' %}active{% endif %} menu-link" href="#" role="button">
                             <i class="ri-apps-2-line"></i> <span data-key="t-apps">Suivi des Recommandations</span>
                         </a>
                     </li>
                 {% endif %}
                 {% if traitement_justif == 'True' %}
                     <li class="nav-item">
-                        <a class="nav-link {% if transmission_justif_active == 'True' %}active{% endif %} menu-link" href="{% url 'services:transmission_justificatifs' %}" role="button">
+                        <a class="nav-link {% if transmission_justif_active == 'True' %}active{% endif %} menu-link" href="#" role="button">
                             <i class="ri-apps-2-line"></i> <span data-key="t-apps">Transmission justificatifs</span>
                         </a>
                     </li>
@@ -312,10 +312,10 @@
                     {% endif %}
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{% url 'services:reporting' %}" class="nav-link {% if reporting_active == 'True' %}active{% endif %}" data-key="t-one-page"> Reporting </a>
+                                    <a href="#" class="nav-link {% if reporting_active == 'True' %}active{% endif %}" data-key="t-one-page"> Reporting </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{% url 'services:statistiques' %}" class="nav-link {% if statistique_active == 'True' %}active{% endif %}"> <span data-key="t-nft-landing">Statistique</span></a>
+                                    <a href="#" class="nav-link {% if statistique_active == 'True' %}active{% endif %}"> <span data-key="t-nft-landing">Statistique</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -323,7 +323,7 @@
                 {% endif %}
                 {% if statistique == 'True' %}
                     <li class="nav-item">
-                        <a class="nav-link {% if stats_active == 'True' %}active{% endif %}" href="{% url 'services:statistiques' %}" role="button">
+                        <a class="nav-link {% if stats_active == 'True' %}active{% endif %}" href="#" role="button">
                             <i class="ri-pie-chart-line"></i> <span data-key="t-apps">Statistiques</span>
                         </a>
                     </li>
