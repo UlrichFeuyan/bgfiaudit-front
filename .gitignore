@@ -134,4 +134,6 @@ dmypy.json
 staticfiles/
 
 apiRessource/endpointList.py
+apiRessource/endpointList.py*
 frontEnd/settings.py
+frontEnd/settings.py*
