@@ -6,25 +6,75 @@
 <form>
     {% csrf_token %}
     <div class="modal-body">
-        <div class="mb-3" id="modal-id">
-            <label for="sigle_filiale" class="form-label">Code filiale </label>
-            <input type="text" id="sigle_filiale" name="sigle_filiale" value="{% if data.sigle_filiale %}{{data.sigle_filiale}}{% endif %}" class="form-control" placeholder="sigle_filiale" />
-        </div>
-        <div class="mb-3" id="modal-id">
-            <label for="nom_filiale" class="form-label">Nom </label>
-            <input type="text" id="nom_filiale" name="nom_filiale" value="{% if data.nom_filiale %}{{data.nom_filiale}}{% endif %}" class="form-control" placeholder="Nom" />
-        </div>
-        <div class="mb-3" id="modal-id">
-            <label for="pays_filiale" class="form-label">Pays </label>
-            <input type="text" id="pays_filiale" name="pays_filiale" value="{% if data.pays_filiale %}{{data.pays_filiale}}{% endif %}" class="form-control" placeholder="Pays" />
-        </div>
-        <div class="mb-3" id="modal-id">
-            <label for="dg_filiale" class="form-label">Directeur Général </label>
-            <input type="text" id="dg_filiale" name="dg_filiale" value="{% if data.dg_filiale %}{{data.dg_filiale}}{% endif %}" class="form-control" placeholder="Directeur Général" />
-        </div>
-        <div class="mb-3" id="modal-id">
-            <label for="adresse_filiale" class="form-label">adresse_filiale </label>
-            <input type="text" id="adresse_filiale" name="adresse_filiale" value="{% if data.adresse_filiale %}{{data.adresse_filiale}}{% endif %}" class="form-control" placeholder="Adresse" />
+        <div class="row g-3">
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="sigle_filiale" class="form-label">SIGLE </label>
+                <input type="text" id="sigle_filiale" name="sigle_filiale" value="{% if data.sigle_filiale %}{{data.sigle_filiale}}{% endif %}" class="form-control" placeholder="SIGLE " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="nom_filiale" class="form-label">NOM FILILALE </label>
+                <input type="text" id="nom_filiale" name="nom_filiale" value="{% if data.nom_filiale %}{{data.nom_filiale}}{% endif %}" class="form-control" placeholder="NOM FILILALE " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="code_pays" class="form-label">PAYS </label>
+                <input type="text" id="code_pays" name="code_pays" value="{% if data.code_pays %}{{data.code_pays}}{% endif %}" class="form-control" placeholder="PAYS " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="dg_filiale" class="form-label">DG FILIALE </label>
+                <input type="text" id="dg_filiale" name="dg_filiale" value="{% if data.dg_filiale %}{{data.dg_filiale}}{% endif %}" class="form-control" placeholder="Directeur DG FILIALE " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="adresse_filiale" class="form-label">ADRESSE </label>
+                <input type="text" id="adresse_filiale" name="adresse_filiale" value="{% if data.adresse_filiale %}{{data.adresse_filiale}}{% endif %}" class="form-control" placeholder="ADRESSE " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="ville_filiale" class="form-label">VILLE </label>
+                <input type="text" id="ville_filiale" name="ville_filiale" value="{% if data.ville_filiale %}{{data.ville_filiale}}{% endif %}" class="form-control" placeholder="VILLE " />
+            </div>
+            <div class="mb-3 col-12" id="modal-id">
+                <label for="description_filiale" class="form-label">DESCRIPTION </label>
+                <textarea class="form-control" name="description_filiale" description_filiale name="description_filiale" id="description_filiale" rows="4">{% if data.description_filiale %}{{data.description_filiale|truncatewords:20}}{% endif %}</textarea>
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="tel_filiale" class="form-label">TELEPHONE FIXE </label>
+                <input type="text" id="tel_filiale" name="tel_filiale" value="{% if data.tel_filiale %}{{data.tel_filiale}}{% endif %}" class="form-control" placeholder="TELEPHONE FIXE " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="mob_filiale" class="form-label">TELEPHONE MOBILE </label>
+                <input type="text" id="mob_filiale" name="mob_filiale" value="{% if data.mob_filiale %}{{data.mob_filiale}}{% endif %}" class="form-control" placeholder="TELEPHONE MOBILE " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="fax_filiale" class="form-label">FAX </label>
+                <input type="text" id="fax_filiale" name="fax_filiale" value="{% if data.fax_filiale %}{{data.fax_filiale}}{% endif %}" class="form-control" placeholder="FAX " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="email_filiale" class="form-label">EMAIL </label>
+                <input type="text" id="email_filiale" name="email_filiale" value="{% if data.email_filiale %}{{data.email_filiale}}{% endif %}" class="form-control" placeholder="EMAIL " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="adresseip_smtp" class="form-label">Adresse IP Serveur SMTP </label>
+                <input type="text" id="adresseip_smtp" name="adresseip_smtp" value="{% if data.adresseip_smtp %}{{data.adresseip_smtp}}{% endif %}" class="form-control" placeholder="Adresse IP Serveur SMTP " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="port_smtp" class="form-label">PORT SMTP </label>
+                <input type="text" id="port_smtp" name="port_smtp" value="{% if data.port_smtp %}{{data.port_smtp}}{% endif %}" class="form-control" placeholder="PORT SMTP " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="j_relances" class="form-label">JOUR DES RELANCES </label>
+                <input type="text" id="j_relances" name="j_relances" value="{% if data.j_relances %}{{data.j_relances}}{% endif %}" class="form-control" placeholder="JOUR DES RELANCES " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="j_statistiques" class="form-label">JOUR DES STATISTIQUES </label>
+                <input type="text" id="j_statistiques" name="j_statistiques" value="{% if data.j_statistiques %}{{data.j_statistiques}}{% endif %}" class="form-control" placeholder="JOUR DES STATISTIQUES " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="smtp_user" class="form-label">SMTP USER </label>
+                <input type="text" id="smtp_user" name="smtp_user" value="{% if data.smtp_user %}{{data.smtp_user}}{% endif %}" class="form-control" placeholder="SMTP USER " />
+            </div>
+            <div class="mb-3 col-xxl-3 col-lg-4 col-md-6" id="modal-id">
+                <label for="smtp_password" class="form-label">SMTP PASSWORD</label>
+                <input type="text" id="smtp_password" name="smtp_password" value="{% if data.smtp_password %}{{data.smtp_password}}{% endif %}" class="form-control" placeholder="SMTP PASSWORD" />
+            </div>
         </div>
     </div>
     <div class="modal-footer">

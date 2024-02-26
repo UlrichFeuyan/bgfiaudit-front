@@ -2,16 +2,23 @@
     {% for item in data_list %}
         {% if item.sigle_filiale == userFiliale %}
             <tr  id="movie-{{ item.pk }}">
-                <th scope="row">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                    </div>
-                </th>
                 <td class="text">{% if item.sigle_filiale %} {{ item.sigle_filiale }} {% endif %}</td>
                 <td class="text">{% if item.nom_filiale %} {{ item.nom_filiale }} {% endif %}</td>
-                <td class="text">{% if item.pays_filiale %} {{ item.pays_filiale }} {% endif %}</td>
+                <td class="text">{% if item.code_pays %} {{ item.code_pays }} {% endif %}</td>
                 <td class="text">{% if item.dg_filiale %} {{ item.dg_filiale }} {% endif %}</td>
                 <td class="text">{% if item.adresse_filiale %} {{ item.adresse_filiale }} {% endif %}</td>
+                <td class="text">{% if item.ville_filiale %} {{ item.ville_filiale }} {% endif %}</td>
+                <td class="text">{% if item.description_filiale %} {{ item.description_filiale }} {% endif %}</td>
+                <td class="text">{% if item.tel_filiale %} {{ item.tel_filiale }} {% endif %}</td>
+                <td class="text">{% if item.mob_filiale %} {{ item.mob_filiale }} {% endif %}</td>
+                <td class="text">{% if item.fax_filiale %} {{ item.fax_filiale }} {% endif %}</td>
+                <td class="text">{% if item.email_filiale %} {{ item.email_filiale }} {% endif %}</td>
+                <td class="text">{% if item.adresseip_smtp %} {{ item.adresseip_smtp }} {% endif %}</td>
+                <td class="text">{% if item.port_smtp %} {{ item.port_smtp }} {% endif %}</td>
+                <td class="text">{% if item.j_relances %} {{ item.j_relances }} {% endif %}</td>
+                <td class="text">{% if item.j_statistiques %} {{ item.j_statistiques }} {% endif %}</td>
+                <td class="text">{% if item.smtp_user %} {{ item.smtp_user }} {% endif %}</td>
+                <td class="text">{% if item.smtp_password %} {{ item.smtp_password }} {% endif %}</td>
                 <td>
                     <div class="d-flex gap-2">
                         <div class="edit">
@@ -25,16 +32,23 @@
 {% else %}
     {% for item in data_list %}
         <tr  id="movie-{{ item.pk }}">
-            <th scope="row">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                </div>
-            </th>
-            <td class="text">{% if item.sigle_filiale %}{{ item.sigle_filiale }}{% endif %}</td>
-            <td class="text">{% if item.nom_filiale %}{{ item.nom_filiale }}{% endif %}</td>
-            <td class="text">{% if item.pays_filiale %}{{ item.pays_filiale }}{% endif %}</td>
-            <td class="text">{% if item.dg_filiale %}{{ item.dg_filiale }}{% endif %}</td>
-            <td class="text">{% if item.adresse_filiale %}{{ item.adresse_filiale }}{% endif %}</td>
+            <td class="text">{% if item.sigle_filiale %} {{ item.sigle_filiale }} {% endif %}</td>
+            <td class="text">{% if item.nom_filiale %} {{ item.nom_filiale }} {% endif %}</td>
+            <td class="text">{% if item.code_pays %} {{ item.code_pays }} {% endif %}</td>
+            <td class="text">{% if item.dg_filiale %} {{ item.dg_filiale }} {% endif %}</td>
+            <td class="text">{% if item.adresse_filiale %} {{ item.adresse_filiale }} {% endif %}</td>
+            <td class="text">{% if item.ville_filiale %} {{ item.ville_filiale }} {% endif %}</td>
+            <td class="text">{% if item.description_filiale %} {{ item.description_filiale|truncatewords:10 }} {% endif %}</td>
+            <td class="text">{% if item.tel_filiale %} {{ item.tel_filiale }} {% endif %}</td>
+            <td class="text">{% if item.mob_filiale %} {{ item.mob_filiale }} {% endif %}</td>
+            <td class="text">{% if item.fax_filiale %} {{ item.fax_filiale }} {% endif %}</td>
+            <td class="text">{% if item.email_filiale %} {{ item.email_filiale }} {% endif %}</td>
+            <td class="text">{% if item.adresseip_smtp %} {{ item.adresseip_smtp }} {% endif %}</td>
+            <td class="text">{% if item.port_smtp %} {{ item.port_smtp }} {% endif %}</td>
+            <td class="text">{% if item.j_relances %} {{ item.j_relances }} {% endif %}</td>
+            <td class="text">{% if item.j_statistiques %} {{ item.j_statistiques }} {% endif %}</td>
+            <td class="text">{% if item.smtp_user %} {{ item.smtp_user }} {% endif %}</td>
+            <td class="text">{% if item.smtp_password %} {{ item.smtp_password }} {% endif %}</td>
             <td>
                 <div class="d-flex gap-2">
                     <div class="edit">
@@ -48,4 +62,5 @@
         </tr>
     {% endfor %}
 {% endif %}
-
+{% load static %}
+<script src="{% static 'datatables/js/jquery-3.6.0.min.js' %}"></script>
