@@ -1,0 +1,28 @@
+{% for item in data_list %}
+    <tr  id="movie-{{ item.pk }}">
+        <th scope="row">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+            </div>
+        </th>
+        <td class="date">{{ item.libprocessus }}</td>
+        <td class="date">{{ item.piloteprocessus }}</td>
+        {% if item.idpole == 1 %}
+            <td class="date">Strategie et développement</td>
+        {% elif item.idpole == 2 %}
+            <td class="date">Support</td>
+        {% else %}
+            <td class="date"></td>
+        {% endif %}
+        <td>
+            <div class="d-flex gap-2">
+                <div class="edit">
+                    <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:edit_processus' pk=item.idprocessus %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
+                </div>
+                <div class="remove">
+                    <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_processus' pk=item.idprocessus %}" hx-target="#delete_data" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
+                </div>
+            </div>
+        </td>
+    </tr>
+{% endfor %}

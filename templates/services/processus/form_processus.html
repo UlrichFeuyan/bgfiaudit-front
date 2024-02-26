@@ -1,0 +1,32 @@
+{% load static %}
+<div class="modal-header bg-light p-3">
+    <h5 class="modal-title" id="exampleModalLabel"></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+</div>
+<form>
+    {% csrf_token %}
+    <div class="modal-body">
+        <div class="mb-3" id="modal-id">
+            <label for="libprocessus" class="form-label"> Processus </label>
+            <input type="text" id="libprocessus" name="libprocessus" value="{{data.libprocessus}}" class="form-control" placeholder="Processus" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="piloteprocessus" class="form-label"> Pilote </label>
+            <input type="text" id="piloteprocessus" name="piloteprocessus" value="{{data.piloteprocessus}}" class="form-control" placeholder="Pilote" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="idpole" class="form-label"> Pole </label>
+            <input type="text" id="idpole" name="idpole" value="{{data.idpole}}" class="form-control" placeholder="Pole" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="hstack gap-2 justify-content-end">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+            {% if not data %}
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_processus' %}" hx-indicator="#loader">Ajouter</button>
+            {% else %}
+                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_processus' pk=data.idprocessus %}" hx-indicator="#loader" id="edit-btn">modifier</button>
+            {% endif %}
+        </div>
+    </div>
+</form>

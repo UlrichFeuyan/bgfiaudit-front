@@ -1,0 +1,21 @@
+{% for item in data_list %}
+    <tr  id="movie-{{ item.pk }}">
+        <th scope="row">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+            </div>
+        </th>
+        <td class="date">{{ item.code_categorie }}</td>
+        <td class="date">{{ item.lib_categorie }}</td>
+        <td>
+            <div class="d-flex gap-2">
+                <div class="edit">
+                    <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:edit_categories_de_documents' pk=item.idcategorie_doc %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
+                </div>
+                <div class="remove">
+                    <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_categories_de_documents' pk=item.idcategorie_doc %}" hx-target="#delete_data" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
+                </div>
+            </div>
+        </td>
+    </tr>
+{% endfor %}

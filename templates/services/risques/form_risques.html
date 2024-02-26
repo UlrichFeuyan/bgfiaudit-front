@@ -1,0 +1,28 @@
+{% load static %}
+<div class="modal-header bg-light p-3">
+    <h5 class="modal-title" id="exampleModalLabel"></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+</div>
+<form>
+    {% csrf_token %}
+    <div class="modal-body">
+        <div class="mb-3" id="modal-id">
+            <label for="coderisk" class="form-label">Risque </label>
+            <input type="text" id="coderisk" name="coderisk" value="{{data.coderisk}}" class="form-control" placeholder="Risque" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="sigle_filiale" class="form-label">Famille de Risque </label>
+            <input type="text" id="sigle_filiale" name="sigle_filiale" value="{{data.sigle_filiale}}" class="form-control" placeholder="Filiale" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="hstack gap-2 justify-content-end">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+            {% if not data %}
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_risques' %}" hx-indicator="#loader">Ajouter</button>
+            {% else %}
+                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_risques' pk=data.idrisque %}" hx-indicator="#loader" id="edit-btn">modifier</button>
+            {% endif %}
+        </div>
+    </div>
+</form>

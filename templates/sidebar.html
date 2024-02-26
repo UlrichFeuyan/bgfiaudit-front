@@ -47,7 +47,7 @@
                 {% endif %}
                 {% if dashbord == 'True' %}
                     <li class="nav-item">
-                        <a class="nav-link {% if dashboard_active == 'True' %}active{% endif %} menu-link" href="{% url 'services:gestion_filiale_admin' %}" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                        <a class="nav-link {% if dashboard_active == 'True' %}active{% endif %} menu-link" href="{% url 'services:home_superAdmin' %}" role="button" aria-expanded="false" aria-controls="sidebarApps">
                             <i class="ri-apps-2-line"></i> <span data-key="t-apps">Dashboard</span>
                         </a>
                     </li>
@@ -178,7 +178,7 @@
                     {% endif %}
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{% url 'services:matrice_de_competence' %}"  class="nav-link {% if matrice_competence_active == 'True' %}active{% endif %}" data-key="t-horizontal">Matrice de Competence </a>
+                                    <a href="#"  class="nav-link {% if matrice_competence_active == 'True' %}active{% endif %}" data-key="t-horizontal">Matrice de Competence </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#"  class="nav-link {% if formation_active == 'True' %}active{% endif %}" data-key="t-detached">Formation</a>
@@ -210,13 +210,13 @@
                     {% endif %}
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link {% if activite_active == 'True' %}active{% endif %}" data-key="t-products"> Activités </a>
+                                    <a href="{% url 'services:activites' %}" class="nav-link {% if activite_active == 'True' %}active{% endif %}" data-key="t-products"> Activités </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link {% if risque_active == 'True' %}active{% endif %}" data-key="t-product-Details"> Risques </a>
+                                    <a href="{% url 'services:risques' %}" class="nav-link {% if risque_active == 'True' %}active{% endif %}" data-key="t-product-Details"> Risques </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link {% if controle_active == 'True' %}active{% endif %}" data-key="t-create-product">Contrôles</a>
+                                    <a href="{% url 'services:controles' %}" class="nav-link {% if controle_active == 'True' %}active{% endif %}" data-key="t-create-product">Contrôles</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link {% if suivi_plan_couverture_active == 'True' %}active{% endif %}" data-key="t-orders">
@@ -242,10 +242,10 @@
                     {% endif %}
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link {% if categorie_document_active == 'True' %}active{% endif %}" data-key="t-overview"> Categories de Documents </a>
+                                    <a href="{% url 'services:categories_de_documents' %}" class="nav-link {% if categorie_document_active == 'True' %}active{% endif %}" data-key="t-overview"> Categories de Documents </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link {% if liste_document_active == 'True' %}active{% endif %}" data-key="t-create-project"> Liste de Documents </a>
+                                    <a href="{% url 'services:documents' %}" class="nav-link {% if liste_document_active == 'True' %}active{% endif %}" data-key="t-create-project"> Liste de Documents </a>
                                 </li>
                             </ul>
                         </div>

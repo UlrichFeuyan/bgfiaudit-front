@@ -1,0 +1,28 @@
+{% load static %}
+<div class="modal-header bg-light p-3">
+    <h5 class="modal-title" id="exampleModalLabel"></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+</div>
+<form>
+    {% csrf_token %}
+    <div class="modal-body">
+        <div class="mb-3" id="modal-id">
+            <label for="titre_doc" class="form-label">Titre du document </label>
+            <input type="text" id="titre_doc" name="titre_doc" value="{{data.titre_doc}}" class="form-control" placeholder="Titre" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="ref_document" class="form-label">Référence </label>
+            <input type="text" id="ref_document" name="ref_document" value="{{data.ref_document}}" class="form-control" placeholder="Reférence" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="hstack gap-2 justify-content-end">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+            {% if not data %}
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_documents' %}" hx-indicator="#loader">Ajouter</button>
+            {% else %}
+                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_documents' pk=data.iddocument %}" hx-indicator="#loader" id="edit-btn">modifier</button>
+            {% endif %}
+        </div>
+    </div>
+</form>

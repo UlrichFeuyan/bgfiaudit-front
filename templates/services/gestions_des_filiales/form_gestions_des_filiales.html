@@ -1,0 +1,40 @@
+{% load static %}
+<div class="modal-header bg-light p-3">
+    <h5 class="modal-title" id="exampleModalLabel"></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+</div>
+<form>
+    {% csrf_token %}
+    <div class="modal-body">
+        <div class="mb-3" id="modal-id">
+            <label for="sigle_filiale" class="form-label">Code filiale </label>
+            <input type="text" id="sigle_filiale" name="sigle_filiale" value="{% if data.sigle_filiale %}{{data.sigle_filiale}}{% endif %}" class="form-control" placeholder="sigle_filiale" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="nom_filiale" class="form-label">Nom </label>
+            <input type="text" id="nom_filiale" name="nom_filiale" value="{% if data.nom_filiale %}{{data.nom_filiale}}{% endif %}" class="form-control" placeholder="Nom" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="pays_filiale" class="form-label">Pays </label>
+            <input type="text" id="pays_filiale" name="pays_filiale" value="{% if data.pays_filiale %}{{data.pays_filiale}}{% endif %}" class="form-control" placeholder="Pays" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="dg_filiale" class="form-label">Directeur Général </label>
+            <input type="text" id="dg_filiale" name="dg_filiale" value="{% if data.dg_filiale %}{{data.dg_filiale}}{% endif %}" class="form-control" placeholder="Directeur Général" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="adresse_filiale" class="form-label">adresse_filiale </label>
+            <input type="text" id="adresse_filiale" name="adresse_filiale" value="{% if data.adresse_filiale %}{{data.adresse_filiale}}{% endif %}" class="form-control" placeholder="Adresse" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="hstack gap-2 justify-content-end">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+            {% if not data %}
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_gestions_des_filiales' %}" hx-indicator="#loader">Ajouter</button>
+            {% else %}
+                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_gestions_des_filiales' pk=data.idfiliale %}" hx-indicator="#loader" id="edit-btn">modifier</button>
+            {% endif %}
+        </div>
+    </div>
+</form>
