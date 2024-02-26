@@ -110,7 +110,12 @@ def reset_password(request, pk):
     get_famillerisk = requests.get(f"{ges_user}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
-        response = requests.post(f"{ges_user}{pk}")
+        try:
+            response = requests.get(f"{ges_user}{pk}/reset_password")
+            if response.status_code != 200:
+                messages.error(request, f'Erreur lors de la réinitialisation')
+        except Exception as e:
+            messages.error(request, f'error: {str(e)}')
         return HttpResponse(
         status=204,
         headers={

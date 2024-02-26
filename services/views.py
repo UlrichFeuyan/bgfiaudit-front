@@ -96,11 +96,19 @@ def profil(request):
     return render(request, 'services/signIn/profil.html', locals())
 
 def change_password(request):
-    # Données à envoyer dans la requête POST
-    data = {
-            "last_password": "last_password",
-            "new_password": "new_password",
-            }
-    # Faire une requête POST à l'API
-    response = requests.patch(f"{ges_user}", data=data)
+    if request.method == "POST":
+        last_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password1')
+        new_password2 = request.POST.get('new_password2')
+        # Données à envoyer dans la requête POST
+        data = {
+                "last_password": last_password,
+                "new_password": new_password,
+                "new_password2": new_password2,
+                "token": request.session['token'],
+                }
+        # Faire une requête POST à l'API
+        response = requests.patch(f"{ges_user}change_password/", data=data)
+        sweetify.info(request, "Connexion réussit!", showConfirmButton=False, timer=2000, allowOutsideClick=True, confirmButtonText="OK", toast=True, timerProgressBar=True, position="top")
+        return redirect('services:profil')
     return render(request, 'services/signIn/change_password.html', locals())
