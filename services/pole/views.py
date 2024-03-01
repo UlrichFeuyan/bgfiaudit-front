@@ -17,12 +17,14 @@ def list_pole(request):
     data_list = get_data.json()
 
     get_data_filiale = requests.get(gestfiliale)
-    data_filiale_list = get_data.json()
+    data_filiale_list = get_data_filiale.json()
     return render(request, "services/pole/list_pole.html", locals())
 
 def edit_pole(request, pk):
     get_famillerisk = requests.get(f"{listePole}{pk}")
     data = get_famillerisk.json()
+    get_data_filiale = requests.get(gestfiliale)
+    data_filiale_list = get_data_filiale.json()
     if request.method == "POST":
         libpole = request.POST.get('libpole')
         managerpole = request.POST.get('managerpole')
@@ -47,6 +49,8 @@ def edit_pole(request, pk):
     return render(request, "services/pole/form_pole.html", locals())
 
 def add_pole(request):
+    get_data_filiale = requests.get(gestfiliale)
+    data_filiale_list = get_data_filiale.json()
     if request.method == "POST":
         libpole = request.POST.get('libpole')
         managerpole = request.POST.get('managerpole')

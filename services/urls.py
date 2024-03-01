@@ -40,6 +40,9 @@ from .suivi_plan_de_couverture.views import *
 from .superAdmin.views import *
 from .transmission_justificatifs.views import *
 from .type_de_missions.views import *
+from .site.views import *
+from .systeme.views import *
+from .sys_processus.views import *
 from .utilisateurs.views import *
 
 app_name = 'services'
@@ -290,6 +293,27 @@ urlpatterns = [
     path('add_type_de_missions', add_type_de_missions, name='add_type_de_missions'),
     path('edit_type_de_missions/<int:pk>', edit_type_de_missions, name='edit_type_de_missions'),
     path('del_type_de_missions/<int:pk>', del_type_de_missions, name='del_type_de_missions'),
+
+    # site
+    path('site', site, name='site'),
+    path('list_site', list_site, name='list_site'),
+    path('add_site', add_site, name='add_site'),
+    path('edit_site/<int:pk>', edit_site, name='edit_site'),
+    path('del_site/<int:pk>', del_site, name='del_site'),
+
+    # systeme
+    path('systeme', systeme, name='systeme'),
+    path('list_systeme', list_systeme, name='list_systeme'),
+    path('add_systeme', add_systeme, name='add_systeme'),
+    path('edit_systeme/<int:pk>', edit_systeme, name='edit_systeme'),
+    path('del_systeme/<int:pk>', del_systeme, name='del_systeme'),
+
+    # sys_processus
+    path('sys_processus', sys_processus, name='sys_processus'),
+    path('list_sys_processus', list_sys_processus, name='list_sys_processus'),
+    path('add_sys_processus', add_sys_processus, name='add_sys_processus'),
+    path('edit_sys_processus/<int:pk>', edit_sys_processus, name='edit_sys_processus'),
+    path('del_sys_processus/<int:pk>', del_sys_processus, name='del_sys_processus'),
 
     # utilisateurs
     path('utilisateurs', utilisateurs, name='utilisateurs'),

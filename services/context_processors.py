@@ -55,6 +55,7 @@ def profil_context_processor(request):
     context["userName"] = request.session.get('username')
     context["userRole"] = request.session.get('profil')
     context["userFiliale"] = request.session.get('filiale')
+    context["IdFiliale"] = request.session.get('idfiliale')
     return context
 
 

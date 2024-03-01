@@ -7,13 +7,11 @@
         </th>
         <td class="date">{{ item.libprocessus }}</td>
         <td class="date">{{ item.piloteprocessus }}</td>
-        {% if item.idpole == 1 %}
-            <td class="date">Strategie et développement</td>
-        {% elif item.idpole == 2 %}
-            <td class="date">Support</td>
-        {% else %}
-            <td class="date"></td>
-        {% endif %}
+        {% for pole in data_list_pole %}
+            {% if pole.idpole == item.idpole %}
+                <td class="date">{{pole.libpole}}</td>
+            {% endif %}
+        {% endfor %}
         <td>
             <div class="d-flex gap-2">
                 <div class="edit">

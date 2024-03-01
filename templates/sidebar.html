@@ -111,6 +111,12 @@
                                     <a href="{% url 'services:processus' %}" class="nav-link {% if processus_active == 'True' %}active{% endif %}"> Processus </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{% url 'services:systeme' %}" class="nav-link {% if systeme_active == 'True' %}active{% endif %}"> Système </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'services:site' %}" class="nav-link {% if site_active == 'True' %}active{% endif %}"> Site </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{% url 'services:matrice_de_competence_param' %}" class="nav-link {% if matrice_competence_param_active == 'True' %}active{% endif %}"> Matrice de competence </a>
                                 </li>
                                 <li class="nav-item">

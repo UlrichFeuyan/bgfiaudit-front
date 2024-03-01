@@ -5,14 +5,16 @@
                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
             </div>
         </th>
-        <td class="date">{{ item.libpole }}</td>
-        <td class="date">{{ item.managerpole }}</td>
-        {% if item.idfiliale == 1 %}
-            <td class="date">BGFIGA</td>
-        {% elif item.idfiliale == 2 %}
-            <td class="date">BGFICM</td>
+        <td class="date">{% if item.libpole %}{{ item.libpole }}{% else %} - {% endif %}</td>
+        <td class="date">{% if item.managerpole %}{{ item.managerpole }}{% else %} - {% endif %}</td>
+        {% if item.idfiliale %}
+            {% for filiale in data_filiale_list %}
+                {% if filiale.idfiliale == item.idfiliale %}
+                    <td class="date">{{filiale.sigle_filiale}}</td>
+                {% endif %}
+            {% endfor %}
         {% else %}
-            <td class="date"></td>
+            <td class="date"> - </td>
         {% endif %}
         <td>
             <div class="d-flex gap-2">

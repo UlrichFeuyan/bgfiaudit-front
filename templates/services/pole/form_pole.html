@@ -16,7 +16,23 @@
         </div>
         <div class="mb-3" id="modal-id">
             <label for="libfamillerisk" class="form-label">Filiale </label>
-            <input type="text" id="libfamillerisk" name="idfiliale" value="{{data.idfiliale}}" class="form-control" placeholder="Filiale" />
+            <select class="form-select" aria-label="Default select example" name="idfiliale">
+                {% if not data.idfiliale %}
+                    <option value="" selected>--------------</option>
+                    {% for filiale in data_filiale_list %}
+                        <option value="{{ filiale.idfiliale }}" >{{ filiale.sigle_filiale }}</option>
+                    {% empty %}
+                        <option value="">Pas d'elements trouvés</option>
+                    {% endfor %}
+                {% else %}
+                    <option value="">--------------</option>
+                    {% for filiale in data_filiale_list %}
+                        <option value="{{ filiale.idfiliale }}" {% if data.idfiliale == filiale.idfiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
+                    {% empty %}
+                        <option value="">Pas d'elements trouvés</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
         </div>
     </div>
     <div class="modal-footer">

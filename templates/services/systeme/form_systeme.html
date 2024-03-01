@@ -1,0 +1,46 @@
+{% load static %}
+<div class="modal-header bg-light p-3">
+    <h5 class="modal-title" id="exampleModalLabel"></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+</div>
+<form>
+    {% csrf_token %}
+    <div class="modal-body">
+        <div class="mb-3" id="modal-id">
+            <label for="libsys" class="form-label">Système </label>
+            <input type="text" id="libsys" name="libsys" value="{{data.libsys}}" class="form-control" placeholder="Système" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="libfamillerisk" class="form-label">Filiale </label>
+            <select class="form-select" aria-label="Default select example" name="idfiliale">
+                {% if not data.idfiliale %}
+                    {% for filiale in data_filiale_list %}
+                        {% if IdFiliale == filiale.idfiliale %}
+                            <option value="{{ IdFiliale }}" >{{ filiale.sigle_filiale }}</option>
+                        {% endif %}
+                    {% empty %}
+                        <option value="">Pas d'elements trouvés</option>
+                    {% endfor %}
+                {% else %}
+                    {% for filiale in data_filiale_list %}
+                        {% if IdFiliale == filiale.idfiliale %}
+                            <option value="{{ IdFiliale }}" {% if data.idfiliale == filiale.idfiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
+                        {% endif %}
+                    {% empty %}
+                        <option value="">Pas d'elements trouvés</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="hstack gap-2 justify-content-end">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+            {% if not data %}
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_systeme' %}" hx-indicator="#loader">Ajouter</button>
+            {% else %}
+                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_systeme' pk=data.id_sys %}" hx-indicator="#loader" id="edit-btn">modifier</button>
+            {% endif %}
+        </div>
+    </div>
+</form>

@@ -1,0 +1,63 @@
+{% if IdFiliale %}
+    {% for item in data_list %}
+        {% if IdFiliale == item.idfiliale %}
+            <tr  id="movie-{{ item.pk }}">
+                <th scope="row">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                    </div>
+                </th>
+                <td class="date">{{ item.lib_site }}</td>
+                {% if item.idfiliale %}
+                    {% for filiale in data_filiale_list %}
+                        {% if filiale.idfiliale == item.idfiliale %}
+                            <td class="date">{{filiale.sigle_filiale}}</td>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <td class="date"> - </td>
+                {% endif %}
+                <td>
+                    <div class="d-flex gap-2">
+                        <div class="edit">
+                            <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:edit_site' pk=item.id_site %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
+                        </div>
+                        <div class="remove">
+                            <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_site' pk=item.id_site %}" hx-target="#delete_data" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+{% else %}
+    {% for item in data_list %}
+        <tr  id="movie-{{ item.pk }}">
+            <th scope="row">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                </div>
+            </th>
+            <td class="date">{{ item.lib_site }}</td>
+            {% if item.idfiliale %}
+                {% for filiale in data_filiale_list %}
+                    {% if filiale.idfiliale == item.idfiliale %}
+                        <td class="date">{{filiale.sigle_filiale}}</td>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <td class="date"> - </td>
+            {% endif %}
+            <td>
+                <div class="d-flex gap-2">
+                    <div class="edit">
+                        <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:edit_site' pk=item.id_site %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
+                    </div>
+                    <div class="remove">
+                        <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_site' pk=item.id_site %}" hx-target="#delete_data" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+{% endif %}

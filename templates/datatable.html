@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} DataTable {% endblock %}
+
+{% block special_css %}
+    <link rel="stylesheet" href="{% static 'datatables/css/dataTables.bootstrap5.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'datatables/css/responsive.bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'datatables/css/buttons.dataTables.min.css' %}" />
+{% endblock special_css %}
+
+{% block central %}
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0">Filiale</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Gestion des filiales</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Basic Datatables</h5>
+                    </div>
+                    <div class="card-body">
+                        <table id="customerTable" class="table table-bordered dt-responsive nowrap table-striped align-middle">
+                            <thead>
+                                <tr>
+                                    <th class="sort" data-sort="repertoire_racine">SIGLE </th>
+                                    <th class="sort" data-sort="repertoire_racine">NOM FILILALE </th>
+                                    <th class="sort" data-sort="repertoire_racine">PAYS </th>
+                                    <th class="sort" data-sort="repertoire_racine">DG FILIALE </th>
+                                    <th class="sort" data-sort="repertoire_racine">ADRESSE </th>
+                                    <th class="sort" data-sort="repertoire_racine">VILLE </th>
+                                    <th class="sort" data-sort="repertoire_racine">DESCRIPTION </th>
+                                    <th class="sort" data-sort="repertoire_racine">TELEPHONE FIXE </th>
+                                    <th class="sort" data-sort="repertoire_racine">TELEPHONE MOBILE </th>
+                                    <th class="sort" data-sort="repertoire_racine">FAX </th>
+                                    <th class="sort" data-sort="repertoire_racine">EMAIL </th>
+                                    <th class="sort" data-sort="repertoire_racine">Adresse IP Serveur SMTP </th>
+                                    <th class="sort" data-sort="repertoire_racine">PORT SMTP </th>
+                                    <th class="sort" data-sort="repertoire_racine">JOUR DES RELANCES </th>
+                                    <th class="sort" data-sort="repertoire_racine">JOUR DES STATISTIQUES </th>
+                                    <th class="sort" data-sort="repertoire_racine">SMTP USER </th>
+                                    <th class="sort" data-sort="repertoire_racine">SMTP PASSWORD</th>
+                                    <th class="sort" data-sort="action">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody hx-get="/list_gestions_des_filiales" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader" class="">
+                                <tr id="movie-">
+                                    <td class="text"> BGFIGA </td>
+                                    <td class="text"> BGFI-GABON </td>
+                                    <td class="text"></td>
+                                    <td class="text"> Charles Mbongo </td>
+                                    <td class="text"> BP : 770 Libreville </td>
+                                    <td class="text"> Libreville </td>
+                                    <td class="text"> Description de la filiale </td>
+                                    <td class="text"> +237620452354 </td>
+                                    <td class="text"> +237699564365 </td>
+                                    <td class="text"> 242424 </td>
+                                    <td class="text"></td>
+                                    <td class="text"></td>
+                                    <td class="text"></td>
+                                    <td class="text"></td>
+                                    <td class="text"></td>
+                                    <td class="text"></td>
+                                    <td class="text"></td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <div class="edit">
+                                                <button class="btn btn-sm btn-success edit-item-btn" hx-get="/edit_gestions_des_filiales/1" hx-target="#edit_data" data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+
+
+        <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content" hx-target="this" id="edit_data">
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content" hx-target="this" id="delete_data">
+                </div>
+            </div>
+        </div>
+        <!--end modal -->
+    </div>
+    <!-- container-fluid -->
+</div>
+{% endblock %}
+
+{% block special_js %}
+    <!--datatable js-->
+    <script src="{% static 'datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'datatables/js/dataTables.bootstrap5.min.js' %}"></script>
+    <script src="{% static 'datatables/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'datatables/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'datatables/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'datatables/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'datatables/js/vfs_fonts.js' %}"></script>
+    <script src="{% static 'datatables/js/pdfmake.min.js' %}"></script>
+    <script src="{% static 'datatables/js/jszip.min.js' %}"></script>
+
+    <script src="{% static 'datatables/js/jquery-3.6.0.min.js' %}" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            $('#customerTable').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Tout"] ],
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+                language: {
+                    processing:     "Traitement en cours...",
+                    search:         "Rechercher&nbsp;:",
+                    lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+                    info:           "Affichage de _START_ &agrave; _END_ sur _TOTAL_",
+                    infoEmpty:      "Affichage de 0 &agrave; 0 sur 0",
+                    infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    infoPostFix:    "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable:     "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first:      "Premier",
+                        previous:   "Pr&eacute;c&eacute;dent",
+                        next:       "Suivant",
+                        last:       "Dernier"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock special_js %}

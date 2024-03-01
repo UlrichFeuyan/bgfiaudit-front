@@ -15,11 +15,16 @@ def processus(request):
 def list_processus(request):
     get_data = requests.get(listeProcessus)
     data_list = get_data.json()
+
+    get_data_pole = requests.get(listePole)
+    data_list_pole = get_data_pole.json()
     return render(request, "services/processus/list_processus.html", locals())
 
 def edit_processus(request, pk):
     get_famillerisk = requests.get(f"{listeProcessus}{pk}")
     data = get_famillerisk.json()
+    get_data_pole = requests.get(listePole)
+    data_list_pole = get_data_pole.json()
     if request.method == "POST":
         libprocessus = request.POST.get('libprocessus')
         piloteprocessus = request.POST.get('piloteprocessus')
@@ -47,6 +52,8 @@ def edit_processus(request, pk):
     return render(request, "services/processus/form_processus.html", locals())
 
 def add_processus(request):
+    get_data_pole = requests.get(listePole)
+    data_list_pole = get_data_pole.json()
     if request.method == "POST":
         libprocessus = request.POST.get('libprocessus')
         piloteprocessus = request.POST.get('piloteprocessus')

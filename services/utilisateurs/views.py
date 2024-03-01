@@ -121,7 +121,7 @@ def reset_password(request, pk):
         headers={
             'HX-Trigger': json.dumps({
                 "ListChanged": None,
-                "showMessage": f"enregistrement Supprimé."
+                "showMessage": f"Mot de passe réinitialisé."
             })
         })
     return render(request, "services/utilisateurs/reset_password_utilisateurs.html", locals())

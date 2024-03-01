@@ -32,7 +32,8 @@ def signIn(request):
                     request.session['token'] = user_data['auth_token']
                     request.session['username'] = user_data['code_user']
                     request.session['profil'] = user_data['idprofil_user']
-                    request.session['filiale'] = user_data['idfiliale']
+                    request.session['filiale'] = user_data['sigle_filiale']
+                    request.session['idfiliale'] = user_data['idfiliale']
 
                     request.session['nom_user'] = user_data['nom_user']
                     request.session['prenom_user'] = user_data['prenom_user']
