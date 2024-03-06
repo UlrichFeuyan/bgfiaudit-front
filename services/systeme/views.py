@@ -29,6 +29,20 @@ def edit_systeme(request, pk):
 
     get_data_filiale = requests.get(gestfiliale)
     data_filiale_list = get_data_filiale.json()
+
+    get_systeme = requests.get(f"{listesysteme}{pk}")
+    data_systeme = get_systeme.json()
+    get_systeme_processus = requests.get(f"{listesys_processus}")
+    data_systeme_processus = get_systeme_processus.json()
+    processus = []
+
+    for process_systeme in data_systeme_processus:
+        if data_systeme["id_sys"] == process_systeme["id_sys"]:
+            id_processus = process_systeme["id_processus"]
+            get_processus = requests.get(f"{listeProcessus}{id_processus}")
+            data_processus = get_processus.json()
+            processus.append(data_processus)
+
     if request.method == "POST":
         libsys = request.POST.get('libsys')
         idfiliale = request.POST.get('idfiliale')
@@ -56,6 +70,10 @@ def edit_systeme(request, pk):
 def add_systeme(request):
     get_data_filiale = requests.get(gestfiliale)
     data_filiale_list = get_data_filiale.json()
+
+    get_processus = requests.get(listeProcessus)
+    processus = get_processus.json()
+
     if request.method == "POST":
         libsys = request.POST.get('libsys')
         idfiliale = request.POST.get('idfiliale')
