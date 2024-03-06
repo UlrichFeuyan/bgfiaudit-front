@@ -25,6 +25,9 @@
                         <div class="remove">
                             <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_systeme' pk=item.id_sys %}" hx-target="#delete_data" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
                         </div>
+                        <div class="processus">
+                            <button class="btn btn-sm btn-warning detail-item-btn" hx-get="{% url 'services:detail_processus_systeme' pk=item.id_sys %}" hx-target="#processus" data-bs-toggle="modal" data-bs-target="#processusListModal">Détails</button>
+                        </div>
                     </div>
                 </td>
             </tr>

@@ -40,14 +40,17 @@
                         <option value="">Pas d'elements trouvés</option>
                     {% endfor %}
                 {% endif %}
+            </select>
+            <label for="processus_list" class="form-label mt-3"> Processus </label>
+            <div class="form-row" id="processus_list">
                 {% for processu in processus %}
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" id="formCheck{{forloop.counter}}">
+                    <div class="form-check form-switch form-check-inline my-2">
+                        <input class="form-check-input" type="checkbox" role="switch" id="formCheck{{forloop.counter}}">
                         <label class="form-check-label" for="formCheck{{forloop.counter}}">{{processu.libprocessus}}</label>
                     </div>
-                {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
+                    {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
                 {% endfor %}
-            </select>
+            </div>
         </div>
     </div>
     <div class="modal-footer">

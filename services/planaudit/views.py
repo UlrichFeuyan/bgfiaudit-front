@@ -9,9 +9,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView
-from django_tables2 import SingleTableView, Table
 from ..models import Document
-from ..tables import *
 import pandas
 import sweetify
 import unicodedata
@@ -154,23 +152,6 @@ def del_planaudit(request, pk):
 def import_excel_plan_audit(request):
     return render(request, "services/planaudit/import_excel.html", locals())
 
-class DocumentTable(Table):
-    model = Document
-    columns = ('fillale', 'annee_de_reference', 'systeme', 'processus', 'site', 'criticite_issue_de_la_cartographie_des_risques', 'annee_theorique_du_dernier_audit', 'annee_de_realisation', 'criticite_issue_de_la_mission_d_audit', 'annee_de_la_prochaine_mission_d_audit')
-    filter_fields = ('fillale', 'annee_de_reference', 'systeme')
-
-
-class DocumentListView(ListView):
-    model = Document
-    template_name = 'document_list.html'
-    table_class = DocumentTable
-
-    def get_queryset(self):
-        df = pandas.read_excel('fichier.xlsx')
-        documents = [Document(nom=row[0], fichier=row[1]) for row in df.values]
-        return documents
-
-
 def document_list(request):
     if request.method == "POST" and request.FILES.get("fichier_excel"):
         fichier_excel = request.FILES["fichier_excel"]
@@ -195,29 +176,42 @@ def document_list(request):
     }
     return render(request, 'document_list.html', context)
 
+def convert_to_int(value):
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return None
+
 def import_plan_audit(request):
     if request.method == "POST" and request.FILES.get("fichier_excel"):
         fichier_excel = request.FILES['fichier_excel']
         # Importer le fichier Excel et convertir en une liste d'objets Document
 
         df = pandas.read_excel(fichier_excel)
-        documents = [
-            Document(
-                fillale=row[0],
-                annee_de_reference=row[1],
-                systeme=row[2],
-                processus=row[3],
-                site=row[4],
-                criticite_issue_de_la_cartographie_des_risques=row[5],
-                annee_theorique_du_dernier_audit=row[6],
-                annee_de_realisation=row[7],
-                criticite_issue_de_la_mission_d_audit=row[8],
-                annee_de_la_prochaine_mission_d_audit=row[9],
-            )
-            for row in df.values
-        ]
-        Document.objects.bulk_create(documents)
-        messages.success(request, "Les données ont été importées avec succès.")
+        # Remplacer les valeurs NaN par une chaîne vide ou une autre valeur par défaut
+        df.fillna('', inplace=True)
+        # Convertir toutes les valeurs en chaînes de caractères
+        # df = df.astype(str)
+        try:
+            documents = [
+                Document(
+                    fillale=row[0],
+                    annee_de_reference=row[1],
+                    systeme=row[2],
+                    processus=row[3],
+                    site=row[4],
+                    criticite_issue_de_la_cartographie_des_risques=row[5],
+                    annee_theorique_du_dernier_audit=convert_to_int(row[6]),
+                    annee_de_realisation=convert_to_int(row[7]),
+                    criticite_issue_de_la_mission_d_audit=row[8],
+                    annee_de_la_prochaine_mission_d_audit=convert_to_int(row[9]),
+                )
+                for row in df.values
+            ]
+            Document.objects.bulk_create(documents)
+            messages.success(request, "Les données ont été importées avec succès.")
+        except Exception as e:
+            print(f"Erreur : {str(e)}")
 
         return redirect("services:validation_plan_audit")
     return render(request, "services/planaudit/import_planaudit.html", locals())
@@ -252,34 +246,52 @@ def upload_plan_audit(request):
 
     sites = requests.get(listesite)
     sites = sites.json()
-    try:
-        for document in document_list:
-            filiale = document.fillale
-            annee_de_reference = document.annee_de_reference
-            systeme = document.systeme
-            processus = document.processus
-            site = document.site
-            criticite_issue_de_la_cartographie_des_risques = document.criticite_issue_de_la_cartographie_des_risques
-            annee_theorique_du_dernier_audit = document.annee_theorique_du_dernier_audit
-            annee_de_realisation = document.annee_de_realisation
-            criticite_issue_de_la_mission_d_audit = document.criticite_issue_de_la_mission_d_audit
-            annee_de_la_prochaine_mission_d_audit = document.annee_de_la_prochaine_mission_d_audit
-            data = {
-                    "idfiliale": [f["idfiliale"] for f in filiales if remove_accents(f["sigle_filiale"].upper())==remove_accents(filiale.upper())][0],
-                    "anne_ref_cycle": annee_de_reference,
-                    "idsysteme": [s["id_sys"] for s in systemes if remove_accents(s["libsys"].upper())==remove_accents(systeme.upper())][0],
-                    "idprocessus": [p["idprocessus"] for p in process if remove_accents(p["libprocessus"].upper())==remove_accents(processus.upper())][0],
-                    "idsite": [s["id_site"] for s in sites if remove_accents(s["lib_site"].upper())==remove_accents(site.upper())][0],
-                    "criticite_carto": criticies[f"{remove_accents(criticite_issue_de_la_cartographie_des_risques.upper())}"],
-                    "annee_theo_last_audit": annee_theorique_du_dernier_audit,
-                    "annee_eff_last_audit": annee_de_realisation,
-                    "criticite_audit": criticies[f"{remove_accents(criticite_issue_de_la_mission_d_audit.upper())}"],
-                    "annee_theo_proch": annee_de_la_prochaine_mission_d_audit,
-                }
-            # Faire une requête POST à l'API
-            response = requests.post(f"{listeplanaudit}", data=data)
-    except Exception as e:
-        sweetify.info(request, f"Erreur: {str(e)}", showConfirmButton=False, timer=2000, allowOutsideClick=True, confirmButtonText="OK", toast=True, timerProgressBar=True, position="top")
+    """try:"""
+    data_list = []
+    for document in document_list:
+        filiale = document.fillale
+        annee_de_reference = document.annee_de_reference
+        systeme = document.systeme
+        processus = document.processus
+        site = document.site
+        criticite_issue_de_la_cartographie_des_risques = document.criticite_issue_de_la_cartographie_des_risques
+        annee_theorique_du_dernier_audit = document.annee_theorique_du_dernier_audit
+        annee_de_realisation = document.annee_de_realisation
+        criticite_issue_de_la_mission_d_audit = document.criticite_issue_de_la_mission_d_audit
+        annee_de_la_prochaine_mission_d_audit = document.annee_de_la_prochaine_mission_d_audit
+
+        idfiliale_list = [f["idfiliale"] for f in filiales if remove_accents(f["sigle_filiale"].upper())==remove_accents(filiale.upper())]
+        idfiliale = idfiliale_list[0] if idfiliale_list else None
+
+        idsysteme_list = [s["id_sys"] for s in systemes if remove_accents(s["libsys"].upper())==remove_accents(systeme.upper())]
+        idsysteme = idsysteme_list[0] if idsysteme_list else None
+
+        idprocessus_list = [p["idprocessus"] for p in process if remove_accents(p["libprocessus"].upper())==remove_accents(processus.upper())]
+        idprocessus = idprocessus_list[0] if idprocessus_list else None
+
+        idsite_list = [s["id_site"] for s in sites if remove_accents(s["lib_site"].upper())==remove_accents(site.upper())]
+        idsite = idsite_list[0] if idsite_list else None
+
+
+        data = {
+                "idfiliale": idfiliale,
+                "anne_ref_cycle": annee_de_reference,
+                "idsysteme": idsysteme,
+                "idprocessus": idprocessus,
+                "idsite": idsite,
+                "criticite_carto": criticies[f"{remove_accents(criticite_issue_de_la_cartographie_des_risques.upper())}"],
+                "annee_theo_last_audit": annee_theorique_du_dernier_audit,
+                "annee_eff_last_audit": annee_de_realisation,
+                "criticite_audit": criticies[f"{remove_accents(criticite_issue_de_la_mission_d_audit.upper())}"],
+                "annee_theo_proch": annee_de_la_prochaine_mission_d_audit,
+            }
+        data_list.append(data)
+    """except Exception as e:
+        print(f"erreur : {str(e)}")
+        sweetify.error(request, f"Une est survenue lors de la validation des données", showConfirmButton=False, timer=4000, allowOutsideClick=True, confirmButtonText="OK", toast=True, timerProgressBar=True, position="top")
+        return redirect('services:planaudit')"""
+    for data in data_list:
+        response = requests.post(f"{listeplanaudit}", data=data)
     sweetify.info(request, "Enregistrements Ajoutés!", showConfirmButton=False, timer=2000, allowOutsideClick=True, confirmButtonText="OK", toast=True, timerProgressBar=True, position="top")
     Document.objects.all().delete()
     return redirect('services:planaudit')

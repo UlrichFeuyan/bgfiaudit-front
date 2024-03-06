@@ -321,6 +321,8 @@ urlpatterns = [
     path('edit_systeme/<int:pk>', edit_systeme, name='edit_systeme'),
     path('del_systeme/<int:pk>', del_systeme, name='del_systeme'),
 
+    path('detail_processus_systeme/<int:pk>', detail_processus_systeme, name='detail_processus_systeme'),
+
     # sys_processus
     path('sys_processus', sys_processus, name='sys_processus'),
     path('list_sys_processus', list_sys_processus, name='list_sys_processus'),

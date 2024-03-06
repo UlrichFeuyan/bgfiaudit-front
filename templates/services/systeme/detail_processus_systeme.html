@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h4 class="card-title mb-0 flex-grow-1">Détails</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
+</div>
+<div class="modal-body">
+    <p class="text-muted">Liste de processus connecté au système - {{ data.libsys }} -</p>
+    <ul class="list-group">
+        {% for process in processus %}
+            <li class="list-group-item"><i class="ri-bill-line align-middle me-2"></i> {{process.libprocessus}} </li>
+        {% empty %}
+            <div class="text-center"> Aucun processus </div>
+        {% endfor %}
+    </ul>
+</div>
