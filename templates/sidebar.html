@@ -224,10 +224,6 @@
                                 <li class="nav-item">
                                     <a href="{% url 'services:controles' %}" class="nav-link {% if controle_active == 'True' %}active{% endif %}" data-key="t-create-product">Contrôles</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link {% if suivi_plan_couverture_active == 'True' %}active{% endif %}" data-key="t-orders">
-                                        Suivi plan de couverture </a>
-                                </li>
                             </ul>
                         </div>
                     </li>
@@ -272,6 +268,9 @@
                             <div class="collapse menu-dropdown" id="sidebarMission">
                     {% endif %}
                             <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{% url 'services:planaudit' %}" class="nav-link {% if plan_audit_active == 'True' %}active{% endif %}" data-key="t-orders">Plan d'audit </a>
+                                </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link {% if initialisation_active == 'True' %}active{% endif %}" data-key="t-analytics"> Initialisation </a>
                                 </li>

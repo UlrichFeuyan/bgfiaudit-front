@@ -1,0 +1,19 @@
+{% load static %}
+
+<!-- Bootstrap Css -->
+<link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+
+{% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+{% endfor %}
+
+<div class="modal-body">
+    {% tables_use_paginator %}
+    {% render_table table %}
+</div>
+
+
+<button class="btn btn-sm btn-warning edit-item-btn" hx-get="{% url 'services:import_plan_audit' %}" hx-target="#import_data" data-bs-toggle="modal" data-bs-target="#importExcelModal"><i class="ri-add-line align-bottom me-1"></i>Importer</button>
+<script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

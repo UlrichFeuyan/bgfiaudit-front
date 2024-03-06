@@ -44,6 +44,7 @@ from .site.views import *
 from .systeme.views import *
 from .sys_processus.views import *
 from .utilisateurs.views import *
+from .planaudit.views import *
 
 app_name = 'services'
 urlpatterns = [
@@ -300,6 +301,18 @@ urlpatterns = [
     path('add_site', add_site, name='add_site'),
     path('edit_site/<int:pk>', edit_site, name='edit_site'),
     path('del_site/<int:pk>', del_site, name='del_site'),
+
+    # plan d'audit
+    path('planaudit', planaudit, name='planaudit'),
+    path('list_planaudit', list_planaudit, name='list_planaudit'),
+    path('add_planaudit', add_planaudit, name='add_planaudit'),
+    path('edit_planaudit/<int:pk>', edit_planaudit, name='edit_planaudit'),
+    path('del_planaudit/<int:pk>', del_planaudit, name='del_planaudit'),
+
+    path('import_plan_audit', import_plan_audit, name='import_plan_audit'),
+    path('upload_plan_audit', upload_plan_audit, name='upload_plan_audit'),
+    path('save_document_plan_adit', save_document_plan_adit, name='save_document_plan_adit'),
+    path('validation_plan_audit', validationPlanAuditListView.as_view(), name='validation_plan_audit'),
 
     # systeme
     path('systeme', systeme, name='systeme'),

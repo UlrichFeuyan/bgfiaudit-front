@@ -1,4 +1,14 @@
 {% load static %}
+<!-- multi.js -->
+<script src="{% static 'assets/libs/multi.js/multi.min.js' %}"></script>
+<!-- autocomplete js -->
+<script src="{% static 'assets/libs/%40tarekraafat/autocomplete.js/autoComplete.min.js' %}"></script>
+
+<!-- init js -->
+<script src="{% static 'assets/js/pages/form-advanced.init.js' %}"></script>
+<!-- input spin init -->
+<script src="{% static 'assets/js/pages/form-input-spin.init.js' %}"></script>
+
 <div class="modal-header bg-light p-3">
     <h5 class="modal-title" id="exampleModalLabel"></h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
@@ -30,6 +40,13 @@
                         <option value="">Pas d'elements trouvés</option>
                     {% endfor %}
                 {% endif %}
+                {% for processu in processus %}
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="formCheck{{forloop.counter}}">
+                        <label class="form-check-label" for="formCheck{{forloop.counter}}">{{processu.libprocessus}}</label>
+                    </div>
+                {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
+                {% endfor %}
             </select>
         </div>
     </div>
@@ -44,3 +61,4 @@
         </div>
     </div>
 </form>
+

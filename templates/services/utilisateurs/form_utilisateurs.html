@@ -53,7 +53,7 @@
                     {% endfor %}
                 {% else %}
                     {% for filiale in filialeList %}
-                        <option value="{{ filiale.idfiliale }}" {% if data.idfiliale.idfiliale == filiale.idfiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
+                        <option value="{{ filiale.idfiliale }}" {% if data.idfiliale == filiale.idfiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
                     {% empty %}
                         <option value="">Pas d'elements trouvés</option>
                     {% endfor %}

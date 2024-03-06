@@ -8,7 +8,7 @@ from django.http import HttpResponse, JsonResponse
 
 
 def suivi_plan_de_couverture(request):
-    dropdown_activite_risque = 'True'
+    dropdown_mission = 'True'
     suivi_plan_couverture_active = 'True'
     return render(request, 'services/suivi_plan_de_couverture/controles.html', locals())
 

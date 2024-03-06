@@ -1,0 +1,310 @@
+{% load static %}
+
+{% block special_css %}
+    <!-- dropzone css -->
+    <link rel="stylesheet" href="{% static 'assets/libs/dropzone/dropzone.css' %}" type="text/css" />
+
+    <!-- Filepond css -->
+    <link rel="stylesheet" href="{% static 'assets/libs/filepond/filepond.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css' %}">
+{% endblock special_css %}
+
+<div class="modal-header bg-light p-3">
+    <h5 class="modal-title" id="exampleModalLabel"></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+</div>
+<form>
+    {% csrf_token %}
+    <div class="modal-body">
+        <div class="row">
+            <div class="col col-4">
+                <label for="idfiliale" class="form-label">Filiale </label>
+                <select class="form-select mb-3 d-none" aria-label="Default select example" id="" name="idfiliale">
+                    {% if userFiliale %}
+                        {% for filiale in data_filiale_list %}
+                            <option value="{{ filiale.idfiliale }}" {% if filiale.sigle_filiale == userFiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
+                        {% empty %}
+                            <option value="">Pas d'elements trouvés</option>
+                        {% endfor %}
+                    {% else %}
+                        {% if not data.idfiliale %}
+                            <option value="" selected>--------------</option>
+                            {% for filiale in data_filiale_list %}
+                                <option value="{{ filiale.idfiliale }}" >{{ filiale.sigle_filiale }}</option>
+                            {% empty %}
+                                <option value="">Pas d'elements trouvés</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="">--------------</option>
+                            {% for filiale in data_filiale_list %}
+                                <option value="{{ filiale.idfiliale }}" {% if data.idfiliale == filiale.idfiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
+                            {% empty %}
+                                <option value="">Pas d'elements trouvés</option>
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                </select>
+                <select class="form-select mb-3" aria-label="Default select example" id="idfiliale" name="idfiliale" {% if userFiliale %}disabled{% endif %}>
+                    {% if userFiliale %}
+                        {% for filiale in data_filiale_list %}
+                            <option value="{{ filiale.idfiliale }}" {% if filiale.sigle_filiale == userFiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
+                        {% empty %}
+                            <option value="">Pas d'elements trouvés</option>
+                        {% endfor %}
+                    {% else %}
+                        {% if not data.idfiliale %}
+                            <option value="" selected>--------------</option>
+                            {% for filiale in data_filiale_list %}
+                                <option value="{{ filiale.idfiliale }}" >{{ filiale.sigle_filiale }}</option>
+                            {% empty %}
+                                <option value="">Pas d'elements trouvés</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="">--------------</option>
+                            {% for filiale in data_filiale_list %}
+                                <option value="{{ filiale.idfiliale }}" {% if data.idfiliale == filiale.idfiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
+                            {% empty %}
+                                <option value="">Pas d'elements trouvés</option>
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                </select>
+                <div class="mb-4" id="modal-id">
+                    <label for="anne_ref_cycle" class="form-label">Année de référence </label>
+                    <input type="text" id="anne_ref_cycle" name="anne_ref_cycle" value="{% if data.anne_ref_cycle %}{{data.anne_ref_cycle}}{% endif %}" class="form-control" placeholder="Année de référence" />
+                </div>
+                <hr/>
+                <h5 class="fs-15 mb-3">Domaine à auditer</h5>
+                <div class="mb-3" id="modal-id">
+                    <label for="idsysteme" class="form-label">Système </label>
+                    <select class="form-select" aria-label="Default select example" id="idsysteme" name="idsysteme">
+                        {% if not data.idsysteme %}
+                            <option value="" selected>--------------</option>
+                            {% for systeme in data_systeme_list %}
+                                <option value="{{ systeme.id_sys }}" >{{ systeme.libsys }}</option>
+                            {% empty %}
+                                <option value="">Pas d'elements trouvés</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="">--------------</option>
+                            {% for systeme in data_systeme_list %}
+                                <option value="{{ systeme.id_sys }}" {% if data.idsysteme == systeme.id_sys %}selected{% endif %} >{{ systeme.libsys }}</option>
+                            {% empty %}
+                                <option value="">Pas d'elements trouvés</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+                <div class="mb-3" id="modal-id">
+                    <label for="idprocessus" class="form-label">Processus </label>
+                    <select class="form-select" aria-label="Default select example" id="idprocessus" name="idprocessus">
+                    {% if not data.idprocessus %}
+                            <option value="" selected>--------------</option>
+                            {% for processus in data_processus_list %}
+                                <option value="{{ processus.idprocessus }}" >{{ processus.libprocessus }}</option>
+                            {% empty %}
+                                <option value="">Pas d'elements trouvés</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="">--------------</option>
+                            {% for processus in data_processus_list %}
+                                <option value="{{ processus.idprocessus }}" {% if data.idprocessus == processus.idprocessus %}selected{% endif %} >{{ processus.libprocessus }}</option>
+                            {% empty %}
+                                <option value="">Pas d'elements trouvés</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+                <div class="mb-3" id="modal-id">
+                    <label for="idsite" class="form-label">Site </label>
+                    <select class="form-select" aria-label="Default select example" id="idsite" name="idsite">
+                        {% if not data.idsite %}
+                            <option value="" selected>--------------</option>
+                            {% for site in data_site_list %}
+                                <option value="{{ site.id_site }}" >{{ site.lib_site }}</option>
+                            {% empty %}
+                                <option value="">Pas d'elements trouvés</option>
+                            {% endfor %}
+                        {% else %}
+                            <option value="">--------------</option>
+                            {% for site in data_site_list %}
+                                <option value="{{ site.id_site }}" {% if site.id_site == data.idsite %}selected{% endif %} >{{ site.lib_site }}</option>
+                            {% empty %}
+                                <option value="">Pas d'elements trouvés</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <div class="col col-4">
+                <div class="mb-3" id="modal-id">
+                    <label for="criticite_carto" class="form-label">Criticité cartographie</label>
+                    <select class="form-select" aria-label="Default select example" id="criticite_carto" name="criticite_carto">
+                        <option value="" {% if not data.criticite_carto %}selected{% endif %}>--------------</option>
+                        <option value="1" {% if data.criticite_carto == '1'  %}selected{% endif %}>Faible</option>
+                        <option value="2" {% if data.criticite_carto == '2'  %}selected{% endif %}>Modéré</option>
+                        <option value="3" {% if data.criticite_carto == '3'  %}selected{% endif %}>Élevé</option>
+                        <option value="4" {% if data.criticite_carto == '4'  %}selected{% endif %}>Critique</option>
+                    </select>
+                </div>
+                <div class="mb-3" id="modal-id">
+                    <label for="annee_theo_last_audit" class="form-label">Année théorique du dernier audit </label>
+                    <input type="text" id="annee_theo_last_audit" name="annee_theo_last_audit" value="{% if data.annee_theo_last_audit %}{{data.annee_theo_last_audit}}{% endif %}" class="form-control" placeholder="Année théorique du dernier audit" />
+                </div>
+                <div class="mb-3" id="modal-id">
+                    <label for="annee_eff_last_audit" class="form-label">Année de réalisation  </label>
+                    <input type="text" id="annee_eff_last_audit" name="annee_eff_last_audit" value="{% if data.annee_eff_last_audit %}{{data.annee_eff_last_audit}}{% endif %}" class="form-control" placeholder="Année de réalisation" />
+                </div>
+                <div class="mb-3" id="modal-id">
+                    <label for="criticite_audit" class="form-label">Criticité mission </label>
+                    <select class="form-select" aria-label="Default select example" id="criticite_audit" name="criticite_audit">
+                        <option value="" {% if not data.criticite_audit %}selected{% endif %}>--------------</option>
+                        <option value="1" {% if data.criticite_audit == '1'  %}selected{% endif %}>Faible</option>
+                        <option value="2" {% if data.criticite_audit == '2'  %}selected{% endif %}>Modéré</option>
+                        <option value="3" {% if data.criticite_audit == '3'  %}selected{% endif %}>Élevé</option>
+                        <option value="4" {% if data.criticite_audit == '4'  %}selected{% endif %}>Critique</option>
+                    </select>
+                </div>
+                <div class="mb-3" id="modal-id">
+                    <label for="annee_theo_proch" class="form-label"> Année prochaine mission </label>
+                    <input type="text" id="annee_theo_proch" name="annee_theo_proch" value="{% if data.annee_theo_proch %}{{ data.annee_theo_proch }}{% endif %}" class="form-control" placeholder="Année prochaine mission" />
+                </div>
+            </div>
+            <div class="col col-4">
+                <div>
+                    <label for="exampleFormControlTextarea5" class="form-label">Commentaire</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea5" rows="3" disabled></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="hstack gap-2 justify-content-end">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+            {% if not data %}
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_planaudit' %}" hx-indicator="#loader">Ajouter</button>
+            {% else %}
+                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_planaudit' pk=data.id %}" hx-indicator="#loader" id="edit-btn">modifier</button>
+            {% endif %}
+        </div>
+    </div>
+</form>
+
+
+{% block special_js %}
+    <!-- dropzone min -->
+    <script src="{% static 'assets/libs/dropzone/dropzone-min.js' %}"></script>
+    <!-- filepond js -->
+    <script src="{% static 'assets/libs/filepond/filepond.min.js' %}"></script>
+    <script src="{% static 'assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js' %}"></script>
+    <script src="{% static 'assets/libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js' %}"></script>
+    <script src="{% static 'assets/libs/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js' %}"></script>
+    <script src="{% static 'assets/libs/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js' %}"></script>
+
+    <script src="{% static 'assets/js/pages/form-file-upload.init.js' %}"></script>
+    <script>
+        // Sélection des éléments de formulaire à surveiller
+        const criticiteCartoField = document.getElementById('criticite_carto');
+        const anneeTheoField = document.getElementById('annee_theo_last_audit');
+        const anneeEffField = document.getElementById('annee_eff_last_audit');
+        const criticiteAuditField = document.getElementById('criticite_audit');
+        const anneeProchField = document.getElementById('annee_theo_proch');
+
+        // Champ de commentaire
+        const commentaireField = document.getElementById('exampleFormControlTextarea5');
+
+        // Stockage des valeurs initiales des champs
+        let criticiteInitiale = criticiteCartoField.value;
+        let anneeTheoInitiale = anneeTheoField.value;
+        let anneeEffInitiale = anneeEffField.value;
+        let criticiteAuditInitiale = criticiteAuditField.value;
+        let anneeProchInitiale = anneeProchField.value;
+
+        // Fonction pour vérifier si les valeurs des champs ont changé et activer le champ de commentaire en conséquence
+        function verifierChangements() {
+            // Récupérer les valeurs actuelles des champs
+            const criticiteActuelle = criticiteCartoField.value;
+            const anneeTheoActuelle = anneeTheoField.value;
+            const anneeEffActuelle = anneeEffField.value;
+            const criticiteAuditActuelle = criticiteAuditField.value;
+            const anneeProchActuelle = anneeProchField.value;
+
+            // Vérifier si les valeurs des champs ont changé par rapport aux valeurs initiales
+            if (criticiteActuelle !== criticiteInitiale || anneeTheoActuelle !== anneeTheoInitiale || anneeEffActuelle !== anneeEffInitiale || criticiteAuditActuelle !== criticiteAuditInitiale || anneeProchActuelle !== anneeProchInitiale) {
+                // Activer le champ de commentaire si au moins une valeur a changé
+                activerCommentaire("Veuillez commenter les changements...");
+            } else {
+                // Désactiver le champ de commentaire si aucune valeur n'a changé
+                commentaireField.setAttribute('disabled', 'disabled');
+                commentaireField.placeholder = ''; // Effacer le contenu du champ de commentaire
+            }
+        }
+
+        // Fonction pour activer le champ de commentaire avec un message spécifique
+        function activerCommentaire(message) {
+            commentaireField.removeAttribute('disabled');
+            commentaireField.placeholder = message;
+        }
+
+        // Écouter les événements de modification des champs spécifiés
+        criticiteCartoField.addEventListener('input', verifierChangements);
+        anneeTheoField.addEventListener('input', verifierChangements);
+        anneeEffField.addEventListener('input', verifierChangements);
+        criticiteAuditField.addEventListener('input', verifierChangements);
+        anneeProchField.addEventListener('input', verifierChangements);
+
+        // Fonction pour activer ou désactiver le champ criticite_audit
+        function gererCriticiteAudit() {
+            // Vérifier si le champ annee_eff_last_audit est vide
+            if (anneeEffField.value === '') {
+                // Si le champ est vide, désactiver le champ criticite_audit
+                criticiteAuditField.disabled = true;
+                // Réinitialiser la valeur du champ criticite_audit à vide
+                criticiteAuditField.value = '';
+            } else {
+                // Si le champ n'est pas vide, activer le champ criticite_audit
+                criticiteAuditField.disabled = false;
+            }
+        }
+
+        // Ajouter un écouteur d'événement sur le champ annee_eff_last_audit pour surveiller les modifications de sa valeur
+        anneeEffField.addEventListener('input', gererCriticiteAudit);
+
+        // Fonction pour calculer la valeur de l'année prochaine mission
+        function calculerAnneeProchaineMission() {
+            // Récupérer les valeurs des champs impliqués dans le calcul
+            const anneeTheoValue = parseInt(anneeTheoField.value) || 0;
+            const anneeEffValue = parseInt(anneeEffField.value) || anneeTheoValue;
+            const criticiteCartoValue = parseInt(criticiteCartoField.value) || 0;
+            const criticiteAuditValue = parseInt(criticiteAuditField.value) || criticiteCartoValue;
+
+            // Vérifier si les champs anneeTheoField ou anneeEffField ne sont pas vides
+            if (anneeTheoValue !== 0 || anneeEffValue !== 0) {
+                // Déterminer la valeur de x en fonction de la criticité de l'audit
+                let x;
+                if (criticiteAuditValue === 1) {
+                    x = 3;
+                } else if (criticiteAuditValue === 2) {
+                    x = 2;
+                } else {
+                    x = 1;
+                }
+
+                // Calculer l'année prochaine mission
+                const anneeProchValue = anneeEffValue + x;
+
+                // Mettre à jour la valeur du champ "Année prochaine mission"
+                anneeProchField.value = anneeProchValue;
+            }
+        }
+
+        // Écouter les événements de modification des champs impliqués dans le calcul
+        anneeTheoField.addEventListener('input', calculerAnneeProchaineMission);
+        anneeEffField.addEventListener('input', calculerAnneeProchaineMission);
+        criticiteCartoField.addEventListener('input', calculerAnneeProchaineMission);
+        criticiteAuditField.addEventListener('input', calculerAnneeProchaineMission);
+
+        // Calculer la valeur initiale de "Année prochaine mission" au chargement de la page
+        calculerAnneeProchaineMission();
+    </script>
+{% endblock special_js %}

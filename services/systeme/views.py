@@ -23,6 +23,10 @@ def list_systeme(request):
 def edit_systeme(request, pk):
     get_famillerisk = requests.get(f"{listesysteme}{pk}")
     data = get_famillerisk.json()
+
+    get_processus = requests.get(listeProcessus)
+    processus = get_processus.json()
+
     get_data_filiale = requests.get(gestfiliale)
     data_filiale_list = get_data_filiale.json()
     if request.method == "POST":

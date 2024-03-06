@@ -1,0 +1,105 @@
+{% load static %}
+<!-- Bootstrap Css -->
+<link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+{% load render_table from django_tables2 %}
+<div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4> Validation des données</h4>
+        </div>
+        <div class="modal-body">
+            <div class="table-responsive table-card mt-3 mb-1">
+                <table class="table">
+                    <tr>
+                        <th>Filiale</th>
+                        <th>Année de référence</th>
+                        <th>Système</th>
+                        <th>Processus</th>
+                        <th>Site</th>
+                        <th>Criticité issue de la cartographie des risques</th>
+                        <th>Anéée théorique du dernier audit</th>
+                        <th>Année de réalisation</th>
+                        <th>Criticité issue de la mission d'audit</th>
+                        <th>Année de la prochaine mission d'audit</th>
+                    </tr>
+                    {% for document in documents %}
+                        <tr>
+                            <td class="editable" data-id="{{ document.id }}" data-type="fillale">{{ document.fillale }}</td>
+                            <td class="editable" data-id="{{ document.id }}" data-type="annee_de_reference">{{ document.annee_de_reference }}</td>
+                            <td class="editable" data-id="{{ document.id }}" data-type="systeme">{{ document.systeme }}</td>
+                            <td class="editable" data-id="{{ document.id }}" data-type="processus">{{ document.processus }}</td>
+                            <td class="editable" data-id="{{ document.id }}" data-type="site">{{ document.site }}</td>
+                            <td class="editable" data-id="{{ document.id }}" data-type="criticite_issue_de_la_cartographie_des_risques">{{ document.criticite_issue_de_la_cartographie_des_risques }}</td>
+                            <td class="editable" data-id="{{ document.id }}" data-type="annee_theorique_du_dernier_audit">{{ document.annee_theorique_du_dernier_audit }}</td>
+                            <td class="editable" data-id="{{ document.id }}" data-type="annee_de_realisation">{{ document.annee_de_realisation }}</td>
+                            <td class="editable" data-id="{{ document.id }}" data-type="criticite_issue_de_la_mission_d_audit">{{ document.criticite_issue_de_la_mission_d_audit }}</td>
+                            <td class="editable" data-id="{{ document.id }}" data-type="annee_de_la_prochaine_mission_d_audit">{{ document.annee_de_la_prochaine_mission_d_audit }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-light" data-bs-dismiss="modal" type="button">Annuler</button>
+                <a href="{% url 'services:upload_plan_audit' %}" class="btn btn-sm btn-warning edit-item-btn"><i class="ri-add-line align-bottom me-1"></i>Importer</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        $(document).on("dblclick",".editable",function(){
+            var value=$(this).text();
+            var data_type=$(this).data("type");
+            var input_type="text";
+            if(data_type=="created_at")
+            {
+                input_type="datetime-local";
+            }
+            var input="<input type='"+input_type+"' class='input-data' value='"+value+"' class='form-control'>";
+            $(this).html(input);
+            $(this).removeClass("editable")
+        });
+
+        $(document).on("blur",".input-data",function(){
+            var value=$(this).val();
+            var td=$(this).parent("td");
+            $(this).remove();
+            td.html(value);
+            td.addClass("editable");
+            var type=td.data("type");
+            sendToServer(td.data("id"),value,type);
+        });
+        $(document).on("keypress",".input-data",function(e){
+            var key=e.which;
+            if(key==13){
+                var value=$(this).val();
+                var td=$(this).parent("td");
+                $(this).remove();
+                td.html(value);
+                td.addClass("editable");
+               var type=td.data("type");
+               sendToServer(td.data("id"),value,type);
+            }
+        });
+
+        function sendToServer(id,value,type){
+            console.log(id);
+            console.log(value);
+            console.log(type);
+            $.ajax({
+                url:"http://127.0.0.1:8000/save_document_plan_adit",
+                type:"POST",
+                data:{id:id,type:type,value:value},
+            })
+            .done(function(response){
+                console.log(response);
+            })
+            .fail(function(){
+               console.log("Error Occured");
+            });
+        }
+    });
+</script>

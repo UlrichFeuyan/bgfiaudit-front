@@ -173,11 +173,13 @@
     <script src="{% static 'assets/js/app.js' %}"></script>
     <script src="{% static 'assets/js/choices.min.js' %}"></script>
 
-    {% block special_js %}
-    {% endblock special_js %}
+{% endblock %}
 
-    {% load sweetify %}
-    {% sweetify %}
+{% block special_js %}
+
+{% endblock special_js %}
+
+{% load sweetify %}
+{% sweetify %}
 </body>
 </html>
-{% endblock %}
