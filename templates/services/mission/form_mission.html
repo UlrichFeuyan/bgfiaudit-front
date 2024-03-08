@@ -7,17 +7,41 @@
     {% csrf_token %}
     <div class="modal-body">
         <div class="mb-3" id="modal-id">
-            <label for="libfamillerisk" class="form-label">Famille de Risque </label>
-            <input type="text" id="libfamillerisk" name="libfamillerisk" value="{{data.libfamillerisk}}" class="form-control" placeholder="Famille de rique" />
+            <label for="code_mission" class="form-label">Code Mission </label>
+            <input type="text" id="code_mission" name="code_mission" value="{% if data.code_mission %}{{data.code_mission}}{% endif %}" class="form-control" placeholder="Code mission" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="intitule_mission" class="form-label">Intitule Mission </label>
+            <input type="text" id="intitule_mission" name="intitule_mission" value="{% if data.intitule_mission %}{{data.intitule_mission}}{% endif %}" class="form-control" placeholder="Intitule de la mission" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="theme_mission" class="form-label">Theme Mission </label>
+            <input type="text" id="theme_mission" name="theme_mission" value="{% if data.theme_mission %}{{data.theme_mission}}{% endif %}" class="form-control" placeholder="Theme de la mission" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="debut_theo" class="form-label">Date Debut </label>
+            <input type="text" id="debut_theo" name="debut_theo" value="{% if data.debut_theo %}{{data.debut_theo}}{% endif %}" class="form-control" placeholder="Date de début" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="fin_theo" class="form-label">Date Fin </label>
+            <input type="text" id="fin_theo" name="fin_theo" value="{% if data.fin_theo %}{{data.fin_theo}}{% endif %}" class="form-control" placeholder="Date de fin" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="statut_mission" class="form-label">Statut Mission </label>
+            <input type="text" id="statut_mission" name="statut_mission" value="{% if data.statut_mission %}{{data.statut_mission}}{% endif %}" class="form-control" placeholder="Statut" />
+        </div>
+        <div class="mb-3" id="modal-id">
+            <label for="etat_mission" class="form-label">Etat Mission </label>
+            <input type="text" id="etat_mission" name="etat_mission" value="{% if data.etat_mission %}{{data.etat_mission}}{% endif %}" class="form-control" placeholder="Etat" />
         </div>
     </div>
     <div class="modal-footer">
         <div class="hstack gap-2 justify-content-end">
             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
             {% if not data %}
-                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_famille_de_risques' %}" hx-indicator="#loader">Ajouter</button>
+                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_mission' %}" hx-indicator="#loader">Ajouter</button>
             {% else %}
-                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_famille_de_risques' pk=data.idfamillerisk %}" hx-indicator="#loader" id="edit-btn">modifier</button>
+                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_mission' pk=data.idmission %}" hx-indicator="#loader" id="edit-btn">modifier</button>
             {% endif %}
         </div>
     </div>

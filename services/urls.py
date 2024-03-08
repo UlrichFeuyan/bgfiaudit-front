@@ -316,6 +316,7 @@ urlpatterns = [
     path('validation_plan_annuel', validation_plan_annuel, name='validation_plan_annuel'),
     path('selection_plan_annuel', selection_plan_annuel, name='selection_plan_annuel'),
     path('enregistrer_plan_annuel', enregistrer_plan_annuel, name='enregistrer_plan_annuel'),
+    path('list_planannuel', list_planannuel, name='list_planannuel'),
 
     # systeme
     path('systeme', systeme, name='systeme'),

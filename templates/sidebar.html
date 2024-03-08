@@ -272,7 +272,7 @@
                                     <a href="{% url 'services:planaudit' %}" class="nav-link {% if plan_audit_active == 'True' %}active{% endif %}" data-key="t-orders">Plan d'audit </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link {% if initialisation_active == 'True' %}active{% endif %}" data-key="t-analytics"> Initialisation </a>
+                                    <a href="{% url 'services:initialisation' %}" class="nav-link {% if initialisation_active == 'True' %}active{% endif %}" data-key="t-analytics"> Initialisation </a>
                                 </li>
                                 <li class="nav-item active">
                                     <a href="#" class="nav-link {% if execution_active == 'True' %}active{% endif %}" data-key="t-crm"> Execution </a>

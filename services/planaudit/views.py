@@ -13,6 +13,9 @@ from ..models import Document
 import pandas
 import sweetify
 import unicodedata
+from datetime import datetime
+dt = datetime.now()
+annee_actuelle = dt.strftime('%Y')
 
 def remove_accents(input_str):
     nfkd_form = unicodedata.normalize('NFKD', input_str)
@@ -36,6 +39,22 @@ def list_planaudit(request):
     get_data_filiale = requests.get(gestfiliale)
     data_filiale_list = get_data_filiale.json()
     return render(request, "services/planaudit/list_planaudit.html", locals())
+
+def list_planannuel(request):
+    get_data = requests.get(listeplanaudit)
+    data_list = get_data.json()
+
+    data_list = [data for data in data_list if data["annee_theo_proch"] == annee_actuelle and data["valid_plan"]]
+    get_data_systeme = requests.get(listesysteme)
+    get_data_processus = requests.get(listeProcessus)
+    get_data_site = requests.get(listesite)
+    data_systeme_list = get_data_systeme.json()
+    data_processus_list = get_data_processus.json()
+    data_site_list = get_data_site.json()
+    get_data_filiale = requests.get(gestfiliale)
+    data_filiale_list = get_data_filiale.json()
+    return render(request, "services/planaudit/list_planaudit.html", locals())
+
 
 def edit_planaudit(request, pk):
     get_famillerisk = requests.get(f"{listeplanaudit}{pk}")
