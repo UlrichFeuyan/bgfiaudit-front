@@ -313,6 +313,9 @@ urlpatterns = [
     path('upload_plan_audit', upload_plan_audit, name='upload_plan_audit'),
     path('save_document_plan_adit', save_document_plan_adit, name='save_document_plan_adit'),
     path('validation_plan_audit', validationPlanAuditListView.as_view(), name='validation_plan_audit'),
+    path('validation_plan_annuel', validation_plan_annuel, name='validation_plan_annuel'),
+    path('selection_plan_annuel', selection_plan_annuel, name='selection_plan_annuel'),
+    path('enregistrer_plan_annuel', enregistrer_plan_annuel, name='enregistrer_plan_annuel'),
 
     # systeme
     path('systeme', systeme, name='systeme'),

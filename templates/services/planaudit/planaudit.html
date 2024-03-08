@@ -6,7 +6,6 @@
 {% block special_css %}
     <!-- dropzone css -->
     <link rel="stylesheet" href="{% static 'assets/libs/dropzone/dropzone.css' %}" type="text/css" />
-
     <!-- Filepond css -->
     <link rel="stylesheet" href="{% static 'assets/libs/filepond/filepond.min.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css' %}">
@@ -57,20 +56,18 @@
                                 <table class="table align-middle table-nowrap" id="customerTable">
                                     <thead class="table-light">
                                         <tr>
-                                            <th scope="col" style="width: 50px;">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                                </div>
+                                            <th scope="col" style="width: 25px;">
                                             </th>
-                                            <th class="sort" data-sort="repertoire_racine">Système</th>
-                                            <th class="sort" data-sort="repertoire_racine">Processus</th>
-                                            <th class="sort" data-sort="repertoire_racine">Site</th>
-                                            <th class="sort" data-sort="repertoire_racine">Criticité cartographie</th>
-                                            <th class="sort" data-sort="repertoire_racine">Année théorique dernier audit</th>
-                                            <th class="sort" data-sort="repertoire_racine">Année de réalisation</th>
-                                            <th class="sort" data-sort="repertoire_racine">Criticité mission</th>
-                                            <th class="sort" data-sort="repertoire_racine">Année prochaine mission</th>
-                                            <th class="sort" data-sort="action">Action</th>
+                                            <th>Système</th>
+                                            <th>Processus</th>
+                                            <th>Site</th>
+                                            <th>Criticité cartographie</th>
+                                            <th>Année théorique dernier audit</th>
+                                            <th>Année de réalisation</th>
+                                            <th>Criticité mission</th>
+                                            <th>Année prochaine mission</th>
+                                            <th>État de validation</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody class="list form-check-all" hx-get="{% url 'services:list_planaudit' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
@@ -110,8 +107,9 @@
             <!-- end col -->
         </div>
         <!-- end row -->
-
-
+        <div class="text-end">
+            <button class="btn btn-sm btn-info edit-item-btn" hx-get="{% url 'services:selection_plan_annuel' %}" hx-target="#selection_plan_annuel" data-bs-toggle="modal" data-bs-target="#selectionPlanAnnuelModal"> Validation plan annuel </button>
+        </div>
         <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content" hx-target="this" id="edit_data">
@@ -126,6 +124,13 @@
             </div>
         </div>
         <!-- Modal -->
+        <div class="modal fade zoomIn" id="validationPlanAnnuelModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen modal-dialog-centered">
+                <div class="modal-content" hx-target="this" id="validation_plan_annuel">
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
         <div class="modal fade zoomIn" id="importExcelModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content" hx-target="this" id="import_data">
@@ -136,6 +141,13 @@
         <div class="modal fade zoomIn" id="validationModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content" hx-target="this" id="validatiion_data">
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade zoomIn" id="selectionPlanAnnuelModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" hx-target="this" id="selection_plan_annuel">
                 </div>
             </div>
         </div>
@@ -161,6 +173,5 @@
     <script src="{% static 'assets/libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js' %}"></script>
     <script src="{% static 'assets/libs/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js' %}"></script>
     <script src="{% static 'assets/libs/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js' %}"></script>
-
     <script src="{% static 'assets/js/pages/form-file-upload.init.js' %}"></script>
 {% endblock special_js %}

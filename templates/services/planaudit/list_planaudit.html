@@ -3,9 +3,6 @@
         {% if item.idfiliale == filiale.idfiliale and filiale.sigle_filiale == userFiliale %}
             <tr  id="movie-{{ item.pk }}">
                 <th scope="row">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                    </div>
                 </th>
                 {% if item.idsysteme %}
                     {% for systeme in data_systeme_list %}
@@ -53,6 +50,7 @@
                     {% endif %}
                 </td>
                 <td class="date">{% if item.annee_theo_proch %}{{ item.annee_theo_proch }}{% else %} - {% endif %}</td>
+                <td class="date">{% if item.valid_plan %} <span class="badge bg-success">Validé</span> {% else %}<span class="badge bg-warning">En attente</span> {% endif %}</td>
                 <td>
                     <div class="d-flex gap-2">
                         <div class="edit">

@@ -334,3 +334,94 @@ def save_document_plan_adit(request):
 
     document.save()
     return JsonResponse({"success":"Updated"})
+
+def validation_plan_annuel(request):
+    if request.method == 'POST':
+        get_data_systeme = requests.get(listesysteme)
+        get_data_processus = requests.get(listeProcessus)
+        get_data_site = requests.get(listesite)
+        data_systeme_list = get_data_systeme.json()
+        data_processus_list = get_data_processus.json()
+        data_site_list = get_data_site.json()
+        get_data_filiale = requests.get(gestfiliale)
+        data_filiale_list = get_data_filiale.json()
+        plans_audit_annuel = []
+
+        # Récupérer la liste des plans d'audit
+        get_data = requests.get(listeplanaudit)
+        planaudit_list = get_data.json()
+
+        # Récupérer la filiale de l'utilisateur courant via la session
+        idfiliale = request.session.get('idfiliale')
+
+        # Extraire les plans d'audit de la filiale conrante
+        planaudit_list = [planaudit for planaudit in planaudit_list if planaudit["idfiliale"] == idfiliale]
+
+        # Récupérer les plans d'audit pour l'année à traiter
+        annee = request.POST.get("annee")
+        plans_audit_annuel = [plan for plan in planaudit_list if plan["anne_ref_cycle"] == annee]
+
+        context = {
+            'plans_audit_annuel': plans_audit_annuel,
+            'data_systeme_list': data_systeme_list,
+            'data_processus_list': data_processus_list,
+            'data_site_list': data_site_list,
+            'data_filiale_list': data_filiale_list,
+            'annee_plan_audit': annee,
+        }
+    return render(request, "services/planaudit/validation_plan_annuel.html", context)
+
+def selection_plan_annuel(request):
+    annees_planifies = []
+    # Récupérer la liste des plans d'audit
+    get_data = requests.get(listeplanaudit)
+    planaudit_list = get_data.json()
+
+    # Récupérer la filiale de l'utilisateur courant via la session
+    idfiliale = request.session.get('idfiliale')
+
+    # Faire remonter les années de référence pour les plans d'audit de la filiale courante
+    for plan in [planaudit for planaudit in planaudit_list if planaudit["idfiliale"] == idfiliale]:
+        annee_reference = plan["anne_ref_cycle"]
+        if annee_reference:
+            if annee_reference.isdigit() and annee_reference not in annees_planifies:
+                annees_planifies.append(annee_reference)
+
+    context = {
+        'annees_planifies': annees_planifies,
+    }
+    return render(request, "services/planaudit/selection_plan_annuel.html", context)
+
+def enregistrer_plan_annuel(request):
+    if request.method == "POST":
+        # Récupérer la liste des plans d'audit
+        get_data = requests.get(listeplanaudit)
+        planaudit_list = get_data.json()
+
+        annee_reference = request.POST.get("annee_reference")
+
+        # Récupérer la filiale de l'utilisateur courant via la session
+        idfiliale = request.session.get('idfiliale')
+
+        # Extraire les plans d'audit de la filiale conrante
+        planaudit_list = [planaudit for planaudit in planaudit_list if planaudit["idfiliale"] == idfiliale and planaudit["anne_ref_cycle"] == annee_reference]
+
+        # Identifier les variables cochées
+        for plan in planaudit_list:
+            id_plan = plan["id"]
+            etat_validation = request.POST.get(f"planaudit{id_plan}")
+            print(etat_validation)
+            if etat_validation == 'on':
+                data = {
+                "valid_plan": 1,
+                }
+                # Faire une requête POST à l'API
+                response = requests.patch(f"{listeplanaudit}{id_plan}/", data=data)
+                print(f"plan {id_plan} validé!")
+            else:
+                response = requests.delete(f"{listeplanaudit}{id_plan}")
+                print("enregistrement Supprimé.")
+        sweetify.success(request, f"Plan de l'année {annee_reference} validé !", showConfirmButton=False, timer=2000, allowOutsideClick=True, confirmButtonText="OK", toast=True, timerProgressBar=True, position="top")
+        return redirect("services:planaudit")
+    sweetify.error(request, "ÉCHEC de validation!", showConfirmButton=False, timer=2000, allowOutsideClick=True, confirmButtonText="OK", toast=True, timerProgressBar=True, position="top")
+    return redirect("services:planaudit")

@@ -34,14 +34,15 @@ def edit_systeme(request, pk):
     data_systeme = get_systeme.json()
     get_systeme_processus = requests.get(f"{listesys_processus}")
     data_systeme_processus = get_systeme_processus.json()
-    processus = []
-
+    processus_systeme = []
     for process_systeme in data_systeme_processus:
         if data_systeme["id_sys"] == process_systeme["id_sys"]:
             id_processus = process_systeme["id_processus"]
-            get_processus = requests.get(f"{listeProcessus}{id_processus}")
-            data_processus = get_processus.json()
-            processus.append(data_processus)
+            for processu in processus:
+                if processu["idprocessus"] == id_processus:
+                    processus_systeme.append(processu)
+    print(processus_systeme)
+
 
     if request.method == "POST":
         libsys = request.POST.get('libsys')
