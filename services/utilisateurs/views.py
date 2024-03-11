@@ -12,10 +12,13 @@ def utilisateurs(request):
     return render(request, 'services/utilisateurs/utilisateurs.html', locals())
 
 def list_utilisateurs(request):
+    idfiliale = request.session.get('idfiliale')
     get_filiale_liste = requests.get(listeFiliale)
     filiale_liste = get_filiale_liste.json()
     get_data = requests.get(ges_user)
     data_list = get_data.json()
+    if idfiliale:
+        data_list = [user for user in data_list if user["idfiliale"] == idfiliale]
     return render(request, "services/utilisateurs/list_utilisateurs.html", locals())
 
 def edit_utilisateurs(request, pk):
