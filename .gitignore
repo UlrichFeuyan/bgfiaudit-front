@@ -138,3 +138,4 @@ apiRessource/endpointList.py*
 frontEnd/settings.py
 frontEnd/settings.py*
 templates/services/planaudit/validation_excel.html
+requirements.txt

@@ -87,6 +87,18 @@
                                             <form action="{% url 'services:signIn' %}" method="post">
                                                 {% csrf_token %}
                                                 <div class="mb-3">
+                                                    <label class="form-label">Choisir une filiale</label>
+                                                   <select class="form-select" aria-label="Default select example" id="filiale-select" name="filiale_id">
+                                                        <option value="no-value" selected></option>
+                                                        <option value="" >--------------</option>
+                                                        {% for fil in filialeList %}
+                                                         <option value="{{ fil.idfiliale }}" >{{ fil.sigle_filiale }}</option>
+                                                        {% empty %}
+                                                           <option value="">Pas d'elements trouvés</option>
+                                                       {% endfor %}
+                                                   </select>
+                                               </div>
+                                                <div class="mb-3">
                                                     <label for="username" class="form-label">Username</label>
                                                     <input type="text" class="form-control" id="username" name="username" placeholder="Entrer username" required>
                                                 </div>
@@ -97,22 +109,11 @@
                                                         <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3">
-                                                     <label class="form-label">Choisir une filiale</label>
-                                                    <select class="form-select" aria-label="Default select example" name="filiale_id">
-                                                      <option selected>--------------</option>
-                                                        {% for fil in filialeList %}
-                                                          <option value="{{ fil.idfiliale }}" >{{ fil.sigle_filiale }}</option>
-                                                         {% empty %}
-                                                            <option value="">Pas d'elements trouvés</option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </div>
                                                 <div class="mt-4">
-                                                    <button class="btn w-100" style="background-color:#105a90;color:white;" name="filiale_btn" type="submit">Sign In</button>
+                                                    <button class="btn w-100" style="background-color:#105a90;color:white;" id="singin_button" name="filiale_btn" type="submit">Sign In</button>
                                                 </div>
                                                  <div class="mt-4">
-                                                    <button class="btn w-100" style="background-color:#a4ac8b;color:white;" name="sAdmin_btn" type="submit">Sign In as Super Admin</button>
+                                                    <button class="btn w-100" style="background-color:#a4ac8b;color:white;" id="singin_superuser_button" name="sAdmin_btn" type="submit">Sign In as Super Admin</button>
                                                 </div>
 
                                             </form>
@@ -152,5 +153,46 @@
 
     <!-- App js -->
     <script src="{% static 'assets/js/app.js' %}"></script>
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Sélection de la filiale
+            var filialeSelect = document.getElementById("filiale-select");
+    
+            // Champs Username et Password
+            var usernameInput = document.getElementById("username");
+            var passwordInput = document.getElementById("password-input");
+            
+            var singinButton = document.getElementById("singin_button");
+            var singinSuperuserButton = document.getElementById("singin_superuser_button");
+    
+            // Désactiver les champs Username et Password au chargement de la page
+            usernameInput.disabled = true;
+            passwordInput.disabled = true;
+            singinButton.disabled = true;
+            singinSuperuserButton.disabled = true;
+    
+            // Écouter l'événement de changement sur la sélection de la filiale
+            filialeSelect.addEventListener("change", function() {
+                // Vérifier si une filiale est sélectionnée
+                if (filialeSelect.value !== "no-value") {
+                    // Activer les champs Username et Password
+                    usernameInput.disabled = false;
+                    passwordInput.disabled = false;
+                    if (filialeSelect.value == ""){
+                        singinSuperuserButton.disabled = false;
+                        singinButton.disabled = true;
+                    } else {
+                        singinButton.disabled = false;
+                        singinSuperuserButton.disabled = true;
+                    }
+                } else {
+                    // Désactiver les champs Username et Password, et les deux boutons si aucune filiale n'est sélectionnée
+                    usernameInput.disabled = true;
+                    passwordInput.disabled = true;
+                    singinButton.disabled = true;
+                    singinSuperuserButton.disabled = true;
+                }
+            });
+        });
+    </script>
 </body>
