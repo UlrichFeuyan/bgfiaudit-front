@@ -378,7 +378,7 @@ def validation_plan_annuel(request):
 
         # Récupérer les plans d'audit pour l'année à traiter
         annee = request.POST.get("annee")
-        plans_audit_annuel = [plan for plan in planaudit_list if plan["anne_ref_cycle"] == annee]
+        plans_audit_annuel = [plan for plan in planaudit_list if plan["anne_ref_cycle"] == annee and plan["valid_plan"] == False ]
 
         context = {
             'plans_audit_annuel': plans_audit_annuel,
@@ -398,9 +398,9 @@ def selection_plan_annuel(request):
 
     # Récupérer la filiale de l'utilisateur courant via la session
     idfiliale = request.session.get('idfiliale')
-
+    print(planaudit_list)
     # Faire remonter les années de référence pour les plans d'audit de la filiale courante
-    for plan in [planaudit for planaudit in planaudit_list if planaudit["idfiliale"] == idfiliale]:
+    for plan in [planaudit for planaudit in planaudit_list if planaudit["idfiliale"] == idfiliale and planaudit["valid_plan"] == False]:
         annee_reference = plan["anne_ref_cycle"]
         if annee_reference:
             if annee_reference.isdigit() and annee_reference not in annees_planifies:
