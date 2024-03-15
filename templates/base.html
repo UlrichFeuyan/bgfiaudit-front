@@ -8,19 +8,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Dashboard" name="description" />
     <meta content="Dashboard" name="author" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{% static 'assets/images/fav-icon.png' %}">
 
-    <!-- Layout config Js -->
-    <script src="{% static 'assets/js/layout.js' %}"></script>
-    <!-- Bootstrap Css -->
-    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
-    <!-- custom Css-->
-    <link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
+    {% block base_css %}
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{% static 'assets/images/fav-icon.png' %}">
+
+        <!-- Layout config Js -->
+        <script src="{% static 'assets/js/layout.js' %}"></script>
+        <!-- Bootstrap Css -->
+        <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
+        <!-- custom Css-->
+        <link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />    
+    {% endblock base_css %}
+        
+
     {% block special_css %}
     {% endblock special_css %}
 </head>
@@ -148,10 +153,12 @@
 <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" hx-target="this" id="edit_dialog" role="document"></div>
 </div>
+<script src="{% static 'plugins/htmx/htmx.min.js' %} "></script>
+<!-- SweetAlert2 -->
+<script src="{% static 'plugins/sweetalert2/11.6.5/sweetalert2.all.min.js' %}"></script>
 
 {% block script %}
     <!-- JAVASCRIPT -->
-    <script src="{% static 'plugins/htmx/htmx.min.js' %} "></script>
     <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
     <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
@@ -159,8 +166,6 @@
     <script src="{% static 'assets/js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
     <script src="{% static 'assets/js/plugins.js' %}"></script>
 
-    <!-- SweetAlert2 -->
-    <script src="{% static 'plugins/sweetalert2/11.6.5/sweetalert2.all.min.js' %}"></script>
 
     <!-- apexcharts -->
     <script src="{% static 'assets/libs/apexcharts/apexcharts.min.js' %}"></script>
@@ -172,7 +177,6 @@
     <!-- App js -->
     <script src="{% static 'assets/js/app.js' %}"></script>
     <script src="{% static 'assets/js/choices.min.js' %}"></script>
-
 {% endblock %}
 
 {% block special_js %}
