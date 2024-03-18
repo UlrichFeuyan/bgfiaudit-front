@@ -41,16 +41,15 @@ def edit_systeme(request, pk):
             for processu in processus:
                 if processu["idprocessus"] == id_processus:
                     processus_systeme.append(processu)
-    print(processus_systeme)
 
 
     if request.method == "POST":
         systeme_id = data_systeme["id_sys"]
         # Traitement des modifications sur les processus liés au système
+        processus_selectionnes = request.POST.getlist('processus')
         for process in processus:
             process_id = process["idprocessus"]
-            item = request.POST.get(f"processus{process_id}")
-            if item == "on":
+            if process["libprocessus"] in processus_selectionnes:
                 if (systeme_id, process_id) in [(process_systeme["id_sys"], process_systeme["id_processus"]) for process_systeme in data_systeme_processus]:
                     pass
                 else:
@@ -65,6 +64,24 @@ def edit_systeme(request, pk):
                     response = requests.delete(f"{listesys_processus}{id_sys_process}")
                 else:
                     pass
+        # for process in processus:
+        #     process_id = process["idprocessus"]
+        #     item = request.POST.get(f"processus{process_id}")
+        #     if item == "on":
+        #         if (systeme_id, process_id) in [(process_systeme["id_sys"], process_systeme["id_processus"]) for process_systeme in data_systeme_processus]:
+        #             pass
+        #         else:
+        #             data = {
+        #             "id_sys": int(systeme_id),
+        #             "id_processus": int(process_id),
+        #             }
+        #             response = requests.post(f"{listesys_processus}", data=data)
+        #     else:
+        #         if (systeme_id, process_id) in [(process_systeme["id_sys"], process_systeme["id_processus"]) for process_systeme in data_systeme_processus]:
+        #             id_sys_process = [process_systeme["id"] for process_systeme in data_systeme_processus if process_systeme["id_sys"] == systeme_id and process_systeme["id_processus"] == process_id][0]
+        #             response = requests.delete(f"{listesys_processus}{id_sys_process}")
+        #         else:
+        #             pass
         libsys = request.POST.get('libsys')
         idfiliale = request.POST.get('idfiliale')
         # Données à envoyer dans la requête POST

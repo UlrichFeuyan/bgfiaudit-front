@@ -53,7 +53,7 @@
                 {% endif %}
             </select>
             <label for="processus_list" class="form-label mt-3"> Processus </label>
-            <div class="form-row" id="processus_list">
+            {% comment %} <div class="form-row" id="processus_list">
                 {% for processu in processus %}
                     <div class="form-check form-switch form-check-inline my-2">
                         <input class="form-check-input" type="checkbox" role="switch" name="processus{{processu.idprocessus}}" id="formCheck{{forloop.counter}}" {% if processu in processus_systeme %} checked {% endif %}>
@@ -61,27 +61,16 @@
                     </div>
                     {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
                 {% endfor %}
-            </div>
+            </div> {% endcomment %}
 
             <div class="row">
                 <div class="col">
                     <div>
-                        <form>
-                            <select required multiple="multiple" name="favorite_fruits" id="multiselect-basic">
-                                <option selected>Apple</option>
-                                <option>Banana</option>
-                                <option selected>Blueberry</option>
-                                <option selected>Cherry</option>
-                                <option>Coconut</option>
-                                <option>Grapefruit</option>
-                                <option>Kiwi</option>
-                                <option>Lemon</option>
-                                <option>Lime</option>
-                                <option>Mango</option>
-                                <option>Orange</option>
-                                <option>Papaya</option>
-                            </select>
-                        </form>
+                        <select multiple="multiple" name="processus" id="multiselect-basic">
+                            {% for processu in processus %}
+                                <option {% if processu in processus_systeme %} selected {% endif %}>{{processu.libprocessus}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
             </div>
