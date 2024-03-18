@@ -125,6 +125,31 @@ def add_systeme(request):
             return JsonResponse({"error": f"{str(e)}"})
         # Faire une requête POST à l'API
         response = requests.post(f"{listesysteme}", data=data)
+        
+        get_systeme = requests.get(f"{listesysteme}")
+        data_systemes = get_systeme.json()
+        data_systeme = [data for data in data_systemes if data["libsys"] == libsys and data["idfiliale"] == int(idfiliale)][0]
+        systeme_id = data_systeme["id_sys"]
+        processus_selectionnes = request.POST.getlist('processus')
+        get_systeme_processus = requests.get(f"{listesys_processus}")
+        data_systeme_processus = get_systeme_processus.json()
+        for process in processus:
+            process_id = process["idprocessus"]
+            if process["libprocessus"] in processus_selectionnes:
+                if (systeme_id, process_id) in [(process_systeme["id_sys"], process_systeme["id_processus"]) for process_systeme in data_systeme_processus]:
+                    pass
+                else:
+                    data = {
+                    "id_sys": int(systeme_id),
+                    "id_processus": int(process_id),
+                    }
+                    response = requests.post(f"{listesys_processus}", data=data)
+            else:
+                if (systeme_id, process_id) in [(process_systeme["id_sys"], process_systeme["id_processus"]) for process_systeme in data_systeme_processus]:
+                    id_sys_process = [process_systeme["id"] for process_systeme in data_systeme_processus if process_systeme["id_sys"] == systeme_id and process_systeme["id_processus"] == process_id][0]
+                    response = requests.delete(f"{listesys_processus}{id_sys_process}")
+                else:
+                    pass
         return HttpResponse(
                 status=204,
                 headers={
