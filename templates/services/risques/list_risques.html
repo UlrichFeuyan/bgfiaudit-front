@@ -6,7 +6,15 @@
             </div>
         </th>
         <td class="date">{{ item.coderisk }}</td>
-        <td class="date">{{ item.sigle_filiale }}</td>
+        {% if item.idfiliale %}
+            {% for filiale in data_filiale_list %}
+                {% if filiale.idfiliale == item.idfiliale %}
+                    <td class="date">{{filiale.sigle_filiale}}</td>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <td class="date"> - </td>
+        {% endif %}
         <td>
             <div class="d-flex gap-2">
                 <div class="edit">

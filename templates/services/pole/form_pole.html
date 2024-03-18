@@ -18,7 +18,6 @@
             <label for="libfamillerisk" class="form-label">Filiale </label>
             <select class="form-select" aria-label="Default select example" name="idfiliale">
                 {% if not data.idfiliale %}
-                    <option value="" selected>--------------</option>
                     {% for filiale in data_filiale_list %}
                         <option value="{{ filiale.idfiliale }}" >{{ filiale.sigle_filiale }}</option>
                     {% empty %}
@@ -27,7 +26,7 @@
                 {% else %}
                     <option value="">--------------</option>
                     {% for filiale in data_filiale_list %}
-                        <option value="{{ filiale.idfiliale }}" {% if data.idfiliale == filiale.idfiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
+                        <option value="{{ filiale.idfiliale }}" {% if data.idfiliale == filiale.idfiliale %}selected{% endif %} {% if filiale_courante == filiale.sigle_filiale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
                     {% empty %}
                         <option value="">Pas d'elements trouvés</option>
                     {% endfor %}

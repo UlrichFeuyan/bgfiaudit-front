@@ -66,7 +66,7 @@
             <div class="row">
                 <div class="col">
                     <div>
-                        <select multiple="multiple" name="processus" id="multiselect-basic">
+                        <select multiple="multiple" name="processus" id="multiselect-header">
                             {% for processu in processus %}
                                 <option {% if processu in processus_systeme %} selected {% endif %}>{{processu.libprocessus}}</option>
                             {% endfor %}

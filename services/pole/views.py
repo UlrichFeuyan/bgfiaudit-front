@@ -25,6 +25,8 @@ def edit_pole(request, pk):
     data = get_famillerisk.json()
     get_data_filiale = requests.get(gestfiliale)
     data_filiale_list = get_data_filiale.json()
+    filiale = request.session.get('filiale')
+    data_filiale_list = [data for data in data_filiale_list if data["sigle_filiale"] == filiale]
     if request.method == "POST":
         libpole = request.POST.get('libpole')
         managerpole = request.POST.get('managerpole')
@@ -51,6 +53,8 @@ def edit_pole(request, pk):
 def add_pole(request):
     get_data_filiale = requests.get(gestfiliale)
     data_filiale_list = get_data_filiale.json()
+    filiale_courante = request.session.get('filiale')
+    data_filiale_list = [data for data in data_filiale_list if data["sigle_filiale"] == filiale_courante]
     if request.method == "POST":
         libpole = request.POST.get('libpole')
         managerpole = request.POST.get('managerpole')

@@ -15,18 +15,24 @@ def risques(request):
 def list_risques(request):
     get_data = requests.get(listerisque)
     data_list = get_data.json()
+    get_data_filiale = requests.get(gestfiliale)
+    data_filiale_list = get_data_filiale.json()
     return render(request, "services/risques/list_risques.html", locals())
 
 def edit_risques(request, pk):
     get_famillerisk = requests.get(f"{listerisque}{pk}")
     data = get_famillerisk.json()
+    get_data_filiale = requests.get(gestfiliale)
+    data_filiale_list = get_data_filiale.json()
+    filiale = request.session.get('filiale')
+    data_filiale_list = [data for data in data_filiale_list if data["sigle_filiale"] == filiale]
     if request.method == "POST":
         coderisk = request.POST.get('coderisk')
-        sigle_filiale = request.POST.get('sigle_filiale')
-         # Données à envoyer dans la requête POST
+        idfiliale = request.POST.get('idfiliale')
+        # Données à envoyer dans la requête POST
         data = {
                 "coderisk": coderisk,
-                "sigle_filiale": sigle_filiale,
+                "idfiliale": int(idfiliale),
                 }
         # Faire une requête POST à l'API
         response = requests.patch(f"{listerisque}{pk}/", data=data)
@@ -42,13 +48,17 @@ def edit_risques(request, pk):
     return render(request, "services/risques/form_risques.html", locals())
 
 def add_risques(request):
+    get_data_filiale = requests.get(gestfiliale)
+    data_filiale_list = get_data_filiale.json()
+    filiale = request.session.get('filiale')
+    data_filiale_list = [data for data in data_filiale_list if data["sigle_filiale"] == filiale]
     if request.method == "POST":
         coderisk = request.POST.get('coderisk')
-        sigle_filiale = request.POST.get('sigle_filiale')
+        idfiliale = request.POST.get('idfiliale')
         # Données à envoyer dans la requête POST
         data = {
                 "coderisk": coderisk,
-                "sigle_filiale": sigle_filiale,
+                "idfiliale": int(idfiliale),
                 }
         # Faire une requête POST à l'API
         response = requests.post(f"{listerisque}", data=data)

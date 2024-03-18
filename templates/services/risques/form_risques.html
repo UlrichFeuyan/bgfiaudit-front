@@ -11,8 +11,23 @@
             <input type="text" id="coderisk" name="coderisk" value="{{data.coderisk}}" class="form-control" placeholder="Risque" />
         </div>
         <div class="mb-3" id="modal-id">
-            <label for="sigle_filiale" class="form-label">Famille de Risque </label>
-            <input type="text" id="sigle_filiale" name="sigle_filiale" value="{{data.sigle_filiale}}" class="form-control" placeholder="Filiale" />
+            <label for="sigle_filiale" class="form-label">Filiale</label>
+            <select class="form-select" aria-label="Default select example" name="idfiliale">
+                {% if not data.idfiliale %}
+                    {% for filiale in data_filiale_list %}
+                        <option value="{{ filiale.idfiliale }}" >{{ filiale.sigle_filiale }}</option>
+                    {% empty %}
+                        <option value="">Pas d'elements trouvés</option>
+                    {% endfor %}
+                {% else %}
+                    <option value="">--------------</option>
+                    {% for filiale in data_filiale_list %}
+                        <option value="{{ filiale.idfiliale }}" {% if data.idfiliale == filiale.idfiliale %}selected{% endif %} {% if filiale_courante == filiale.sigle_filiale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
+                    {% empty %}
+                        <option value="">Pas d'elements trouvés</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
         </div>
     </div>
     <div class="modal-footer">
