@@ -1,0 +1,10 @@
+.dropdown.no-arrow .dropdown-toggle::after {
+  display: none;
+}
+
+.topbar-divider {
+  width: 0;
+  border-right: 1px solid #e3e6f0;
+  height: calc(5rem - 2rem);
+  margin: auto 1rem;
+}
