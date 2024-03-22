@@ -5,8 +5,8 @@
                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
             </div>
         </th>
-        <td class="date">{{ item.lib_competences }}</td>
-        <td class="date">
+        <td class="align-middle">{{ item.lib_competences }}</td>
+        <td class="align-middle">
             {% for utilisateur in utilisateurs %}
                 {% if utilisateur.idprofil_user == 2 %}
                     {{ utilisateur.username }}
@@ -16,10 +16,10 @@
         <td>
             <div class="d-flex gap-2">
                 <div class="edit">
-                    <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:edit_matrice_de_competence_param' pk=item.idcompetences %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
+                    <button class="btn btn-success btn-sm" hx-get="{% url 'services:edit_matrice_de_competence_param' pk=item.idcompetences %}" hx-target="#dialog">Modifier</button>
                 </div>
                 <div class="remove">
-                    <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_matrice_de_competence_param' pk=item.idcompetences %}" hx-target="#delete_data" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
+                    <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_matrice_de_competence_param' pk=item.idcompetences %}" hx-target="#dialog" >Supprimer</button>
                 </div>
             </div>
         </td>

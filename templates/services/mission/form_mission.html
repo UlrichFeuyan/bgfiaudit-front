@@ -41,7 +41,7 @@
             {% if not data %}
                 <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_mission' %}" hx-indicator="#loader">Ajouter</button>
             {% else %}
-                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_mission' pk=data.idmission %}" hx-indicator="#loader" id="edit-btn">modifier</button>
+                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_mission' pk=data.idmission %}" hx-indicator="#loader" hx-target="#dialog" id="edit-btn">modifier</button>
             {% endif %}
         </div>
     </div>

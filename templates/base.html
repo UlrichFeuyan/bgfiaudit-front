@@ -1,189 +1,230 @@
+<!DOCTYPE html>
 {% load static %}
-<!doctype html>
-<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none">
-<head>
+{% load l10n %}
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> {% block title %} Home | File Epurator {% endblock title %}</title>
+        <!-- Logo Icon -->
+        <link href="{% static 'assets/images/fav-icon.png' %}" rel="icon" type="image/png">
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+        <link rel="stylesheet" href="{% static 'dist/css/general_style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/frontcustom.css' %}">
+        {% block special_css %}
+        {% endblock special_css %}
+        <style>
+            @font-face {
+              font-family: 'SourceSansPro';
+              src: url('{% static "font/source-sans-pro-cdnfonts/SourceSansPro-Regular.otf" %}') format('opentype');
+            }
 
-    <meta charset="utf-8" />
-    <title>{% block title %} {% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Dashboard" name="description" />
-    <meta content="Dashboard" name="author" />
+            body {
+              font-family: 'SourceSansPro', sans-serif;
+            }
+        </style>
+    </head>
+    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+        <div class="wrapper">
 
-    {% block base_css %}
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="{% static 'assets/images/fav-icon.png' %}">
+            <!-- Navbar -->
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+                <!-- Left navbar links -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                    </li>
+                </ul>
 
-        <!-- Layout config Js -->
-        <script src="{% static 'assets/js/layout.js' %}"></script>
-        <!-- Bootstrap Css -->
-        <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
-        <!-- Icons Css -->
-        <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
-        <!-- App Css-->
-        <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
-        <!-- custom Css-->
-        <link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />    
-    {% endblock base_css %}
-        
+                <!-- Right navbar links -->
+                <ul class="navbar-nav ml-auto">
+                    <div class="topbar-divider d-none d-sm-block"></div>
+                    <li class="nav-item dropdown no-arrow">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle mx-0 pl-0"
+                           data-toggle="dropdown"
+                           href="#" id="userDropdown" role="button">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{user.CodeUser}} </span>
+                            <img class="img-profile rounded-circle" src=" {% static 'dist/img/undraw_profile.svg' %} "
+                                 width="45px">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div aria-labelledby="userDropdown"
+                             class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                            <a class="dropdown-item" href="{% url 'services:profil' %}">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" data-target="#logoutModal" data-toggle="modal"
+                               href="#">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Déconnexion
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.navbar -->
 
-    {% block special_css %}
-    {% endblock special_css %}
-</head>
+            <!-- Main Sidebar Container -->
+            {% include 'sidebar.html' %}
 
-<body>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                {% include 'header.html' with breadcrumb=breadcrumb header_title=header_title %}
+                <!-- /.content-header -->
 
-    <!-- Begin page -->
-    <div id="layout-wrapper">
+                <!-- Main content -->
+                {% block content %}
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
 
-        <header id="page-topbar">
-    <div class="layout-width">
-        <div class="navbar-header">
-            <div class="d-flex">
-                <!-- LOGO -->
-                <div class="navbar-brand-box horizontal-logo">
-                    <a href="#" class="logo logo-dark">
-                        <span class="logo-sm">
-                            <img src="{% static 'assets/images/fav-icon.png' %}" alt="" height="22">
-                        </span>
-                        <span class="logo-lg">
-                            <img src="{% static 'assets/images/horizontal_logo.jpeg' %}" alt="" width="200px" height="auto">
-                        </span>
-                    </a>
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's
+                                            content.
+                                        </p>
 
-                    <a href="#" class="logo logo-light">
-                       <span class="logo-sm">
-                            <img src="{% static 'assets/images/fav-icon.png' %}" alt="" height="22">
-                        </span>
-                        <span class="logo-lg">
-                            <img src="{% static 'assets/images/horizontal_logo.jpeg' %}" alt="" width="200px" height="auto">
-                        </span>
-                    </a>
+                                        <a href="#" class="card-link">Card link</a>
+                                        <a href="#" class="card-link">Another link</a>
+                                    </div>
+                                </div>
+
+                                <div class="card card-primary card-outline">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+
+                                        <p class="card-text">
+                                            Some quick example text to build on the card title and make up the bulk of the
+                                            card's
+                                            content.
+                                        </p>
+                                        <a href="#" class="card-link">Card link</a>
+                                        <a href="#" class="card-link">Another link</a>
+                                    </div>
+                                </div><!-- /.card -->
+                            </div>
+                            <!-- /.col-md-6 -->
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="m-0">Featured</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="card-title">Special title treatment</h6>
+
+                                        <p class="card-text">With supporting text below as a natural lead-in to additional
+                                            content.</p>
+                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    </div>
+                                </div>
+
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h5 class="m-0">Featured</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="card-title">Special title treatment</h6>
+
+                                        <p class="card-text">With supporting text below as a natural lead-in to additional
+                                            content.</p>
+                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.col-md-6 -->
+                        </div>
+                        <!-- /.row -->
+                    </div><!-- /.container-fluid -->
                 </div>
-
-                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger"
-                    id="topnav-hamburger-icon">
-                    <span class="hamburger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
-                </button>
-
-                <!-- App Search-->
-
+                {% endblock content %}
+                <!-- /.content -->
             </div>
+            <!-- /.content-wrapper -->
 
-            <div class="d-flex align-items-center">
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Control sidebar content goes here -->
+                <div class="p-3">
+                    <h5>Title</h5>
+                    <p>Sidebar content</p>
+                </div>
+            </aside>
+            <!-- /.control-sidebar -->
 
-                <div class="dropdown ms-sm-3 header-item topbar-user">
-                    <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <span class="d-flex align-items-center">
+            <!-- Main Footer -->
+            <footer class="main-footer">
+                <div class="row justify-content-center">
+                    <strong>Copyright &copy; 2024 <a href="https://www.expertiz-consulting.com/">Expert'iz
+                        Consulting</a>.</strong> All rights reserved.
+                </div>
+            </footer>
+        </div>
+        <!-- ./wrapper -->
 
-                            <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text" style="color:white;">{{ userName }}</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text" style="color:white;">{{ userRole }}{% if userFiliale %} - {{ userFiliale }} {% endif %}</span>
-                            </span>
-                        </span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <h6 class="dropdown-header">Welcome {{ userName }}!</h6>
-                        <a class="dropdown-item" href="{% url 'services:profil' %}"><i
-                                class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
-                                class="align-middle">Profile</span></a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'services:deconnexion' %}"><i
-                                class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
-                                class="align-middle" data-key="t-logout">Déconnexion</span></a>
+        <!-- Logout Modal-->
+        <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="logoutModal" role="dialog"
+             tabindex="-1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Prêt à vous déconnecter ?</h5>
+                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Sélectionnez "Déconnexion" ci-dessous si vous êtes prêt à faire mettre fin à la
+                        session.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal" type="button">Annuler</button>
+                        <a class="btn btn-dark" href="{% url 'services:deconnexion' %}">Déconnexion</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
 
-        {% block appNavbarMenu %}
-            {% include 'sidebar.html' %}
-        {% endblock %}
-        <!-- ============================================================== -->
-        <!-- Debut de la partie centrale du dashboard -->
-        <!-- ============================================================== -->
-    <div class="main-content">
-       {% block central  %}
+        <!-- Placeholder for the modal -->
+        <div class="modal fade" id="modal" role="status">
+            <div class="modal-dialog {{modal_size}}" hx-target="this" id="dialog" role="document"></div>
+        </div>
 
-        {% endblock %}
-        <!-- Fin de la partie centrale-->
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+            <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div id="toast-body" class="toast-body"></div>
+            </div>
+        </div>
 
-        <!-- ============================================================== -->
-        <!-- Debut du footer -->
-        <!-- ============================================================== -->
-        {% block footer %}
-        <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <script>document.write(new Date().getFullYear())</script> © dashboard.
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="text-sm-end d-none d-sm-block">
-                                Dashboard
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        {% endblock %}
-         <!-- Fin du footer-->
-    </div>
+        <!-- REQUIRED SCRIPTS -->
 
-</div>
-<!-- END layout-wrapper -->
+        <!-- jQuery -->
+        <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+        <!-- Bootstrap 4 -->
+        <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <!-- SweetAlert2 -->
+        <script src="{% static 'plugins/sweetalert2/11.6.5/sweetalert2.all.min.js' %}"></script>
+        <!-- Toastr -->
+        <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+        <!-- AdminLTE App -->
+        <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+        <script src="{% static 'js/frontcustom.js' %}"></script>
+        <script src="{% static 'js/htmx.min.js' %} "></script>
+        <script src="{% static 'js/dialog.js' %}"></script>
+        <script src="{% static 'js/toast.js' %}"></script>
+        {% block special_js %}
+        {% endblock special_js %}
 
-
-{% block features_back_to_top %}
-    <!--start back-to-top-->
-    <button onclick="topFunction()" class="btn btn-icon" style="background-color: #bac7a1; " id="back-to-top">
-        <i class="ri-arrow-up-line" style="color: white;"></i>
-    </button>
-    <!--end back-to-top-->
-{% endblock %}
-
- <!-- Placeholder for the modal -->
-<div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" hx-target="this" id="edit_dialog" role="document"></div>
-</div>
-<script src="{% static 'plugins/htmx/htmx.min.js' %} "></script>
-<!-- SweetAlert2 -->
-<script src="{% static 'plugins/sweetalert2/11.6.5/sweetalert2.all.min.js' %}"></script>
-
-{% block script %}
-    <!-- JAVASCRIPT -->
-    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
-    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
-    <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>
-    <script src="{% static 'assets/js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
-    <script src="{% static 'assets/js/plugins.js' %}"></script>
-
-
-    <!-- apexcharts -->
-    <script src="{% static 'assets/libs/apexcharts/apexcharts.min.js' %}"></script>
-
-    <!-- Dashboard init -->
-    <script src="{% static 'assets/js/pages/dashboard-crm.init.js' %}"></script>
-    <script src=" {% static 'vendor/jquery/jquery.min.js' %} "></script>
-
-    <!-- App js -->
-    <script src="{% static 'assets/js/app.js' %}"></script>
-    <script src="{% static 'assets/js/choices.min.js' %}"></script>
-{% endblock %}
-
-{% block special_js %}
-
-{% endblock special_js %}
-
-{% load sweetify %}
-{% sweetify %}
-</body>
+        {% load sweetify %}
+        {% sweetify %}
+    </body>
 </html>
+

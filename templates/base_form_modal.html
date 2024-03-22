@@ -1,0 +1,23 @@
+<form class="modal-content" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' hx-post="{{ action }}">
+    <div class="modal-header">
+        <h5 class="modal-title">{{ modal_title }}</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        {% block form_modal %}
+            
+        {% endblock form_modal %}
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" type="button">Annuler</button>
+        {% block action_button %}
+            {% if not data %}
+                <button class="btn btn-primary" type="submit">Ajouter</button>
+            {% else %}
+                <button class="btn btn-primary" type="submit">modifier</button>
+            {% endif %}        
+        {% endblock action_button %}
+    </div>
+</form>

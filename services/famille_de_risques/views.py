@@ -5,6 +5,7 @@ from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
+from django.urls import reverse_lazy, reverse
 
 
 def famille_de_risques(request):
@@ -18,6 +19,9 @@ def list_famille_de_risques(request):
     return render(request, "services/famille_de_risques/list_famille_de_risques.html", locals())
 
 def edit_famille_de_risques(request, pk):
+    modal_title = "Famille de risque"
+    action = reverse("services:edit_famille_de_risques",  kwargs={'pk': pk})
+    print(action)
     get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":
@@ -40,6 +44,8 @@ def edit_famille_de_risques(request, pk):
     return render(request, "services/famille_de_risques/form_famille_de_risques.html", locals())
 
 def add_famille_de_risques(request):
+    modal_title = "Famille de risque"
+    action = reverse("services:add_famille_de_risques")
     if request.method == "POST":
         value = request.POST.get('libfamillerisk')
          # Données à envoyer dans la requête POST
@@ -62,6 +68,8 @@ def add_famille_de_risques(request):
 def del_famille_de_risques(request, pk):
     get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
     data = get_famillerisk.json()
+    modal_title = "Famille de risque"
+    action = reverse("services:del_famille_de_risques",  kwargs={'pk': pk})
     if request.method == "POST":
         response = requests.delete(f"{listefamillerisk}{pk}")
         # sweetify.info(request, "Enregistrement supprimé", showConfirmButton=False, timer=2000, allowOutsideClick=True, confirmButtonText="OK", toast=True, timerProgressBar=True, position="top")

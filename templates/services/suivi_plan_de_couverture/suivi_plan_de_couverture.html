@@ -1,113 +1,91 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Famille de risque {% endblock %}
-{% block central %}
-<div class="page-content">
-    <div class="container-fluid">
-        <!-- start page title -->
-        <div class="row">
-            <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Familles de risque</h4>
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Familles de risque</li>
-                        </ol>
+{% block title %} Suivi du plan de couverture | BGFI {% endblock title %}
+{% block special_css %}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+{% endblock special_css %}
+
+{% block content %}
+    <section class="content mx-5">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 ">
+                <div class="row">
+                    <div class="col">
+                        <h6 class="m-0 font-weight-bold text-primary">Suivi du plan de couverture</h6>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-success btn-sm float-right" hx-get="{% url 'services:add_suivi_plan_de_couverture' %}" hx-target="#dialog"><i class="ri-add-line align-bottom me-1"></i>Ajouter</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" hx-get="{% url 'services:list_suivi_plan_de_couverture' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
+                <div class="row justify-content-center center htmx-indicator" id="loader">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">chargement ...</span>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end page title -->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                    </div><!-- end card header -->
-                    <div class="card-body">
-                        <div id="customerList">
-                            <div class="row g-4 mb-3">
-                                <div class="col-sm-auto">
-                                    <div>
-                                        <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:add_famille_de_risques' %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i>Ajouter</button>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    <div class="d-flex justify-content-sm-end">
-                                        <div class="search-box ms-2">
-                                            <input type="text" class="form-control search" placeholder="Search...">
-                                            <i class="ri-search-line search-icon"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="table-responsive table-card mt-3 mb-1">
-                                <table class="table align-middle table-nowrap" id="customerTable">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th scope="col" style="width: 50px;">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                                </div>
-                                            </th>
-                                            <th class="sort" data-sort="repertoire_racine">Familles de risque</th>
-                                            <th class="sort" data-sort="action">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="list form-check-all" hx-get="{% url 'services:list_famille_de_risques' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
-                                        <tr>
-                                            <div class="d-flex justify-content-center htmx-indicator" id="loader">
-                                                <div class="spinner-border" role="status">
-                                                  <span class="visually-hidden">Loading...</span>
-                                                </div>
-                                            </div>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="noresult" style ="display: none">
-                                    <div class="text-center">
-                                        <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
-                                        <h5 class="mt-2">Sorry! No Result Found</h5>
-                                        <p class="text-muted mb-0">We've searched more than 150+ Orders We did not find any orders for you search.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <div class="pagination-wrap hstack gap-2">
-                                    <a class="page-item pagination-prev disabled" href="#">
-                                        Précédent
-                                    </a>
-                                    <ul class="pagination listjs-pagination mb-0"></ul>
-                                    <a class="page-item pagination-next" href="#">
-                                        Suivant
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- end card -->
-                </div>
-                <!-- end col -->
-            </div>
-            <!-- end col -->
-        </div>
-        <!-- end row -->
-
-
-        <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content" hx-target="this" id="edit_data">
-                </div>
-            </div>
-        </div>
-        <!-- Modal -->
-        <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content" hx-target="this" id="delete_data">
-                </div>
-            </div>
-        </div>
-        <!--end modal -->
-    </div>
-    <!-- container-fluid -->
-</div>
+        {% comment %} <button hx-get="{% url 'account:add_user' %}" hx-target="#dialog" class="btn btn-primary">
+            Ajouter un utilisateur
+        </button> {% endcomment %}
+    </section>
 {% endblock %}
+
+{% block special_js %}
+    <!-- DataTables  & Plugins -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+    <script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+    <script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+    <script>
+        $(function () {
+            $('#suivi_plan_de_couverture').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Tous"] ],
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+                language: {
+                    processing:     "Traitement en cours...",
+                    search:         "Rechercher&nbsp;:",
+                    lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+                    info:           "Affichage de _START_ &agrave; _END_ sur _TOTAL_",
+                    infoEmpty:      "Affichage de 0 &agrave; 0 sur 0",
+                    infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    infoPostFix:    "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable:     "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first:      "Premier",
+                        previous:   "Pr&eacute;c&eacute;dent",
+                        next:       "Suivant",
+                        last:       "Dernier"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock special_js %}

@@ -18,7 +18,7 @@
 }
 
 .link-secondary {
-  color: #6c757d;
+  color: #BAC7A1;
 }
 .link-secondary:hover, .link-secondary:focus {
   color: #565e64;
@@ -60,7 +60,7 @@
 }
 
 .link-dark {
-  color: #212529;
+  color: #838fb9;
 }
 .link-dark:hover, .link-dark:focus {
   color: #1a1e21;
@@ -468,7 +468,7 @@
 }
 
 .border-secondary {
-  border-color: #6c757d !important;
+  border-color: #BAC7A1 !important;
 }
 
 .border-success {
@@ -1349,7 +1349,7 @@
 
 .text-muted {
   --bs-text-opacity: 1;
-  color: #6c757d !important;
+  color: #BAC7A1 !important;
 }
 
 .text-black-50 {

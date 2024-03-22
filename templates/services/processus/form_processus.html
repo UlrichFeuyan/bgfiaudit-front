@@ -1,48 +1,31 @@
-{% load static %}
-<div class="modal-header bg-light p-3">
-    <h5 class="modal-title" id="exampleModalLabel"></h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
-</div>
-<form>
-    {% csrf_token %}
-    <div class="modal-body">
-        <div class="mb-3" id="modal-id">
-            <label for="libprocessus" class="form-label"> Processus </label>
-            <input type="text" id="libprocessus" name="libprocessus" value="{{data.libprocessus}}" class="form-control" placeholder="Processus" />
-        </div>
-        <div class="mb-3" id="modal-id">
-            <label for="piloteprocessus" class="form-label"> Pilote </label>
-            <input type="text" id="piloteprocessus" name="piloteprocessus" value="{{data.piloteprocessus}}" class="form-control" placeholder="Pilote" />
-        </div>
-        <div class="mb-3" id="modal-id">
-            <label for="idpole" class="form-label"> Pole </label>
-            <select class="form-select" aria-label="Default select example" name="idpole">
-                {% if not data.idpole %}
-                    <option selected>--------------</option>
-                    {% for pole in data_list_pole %}
-                        <option value="{{ pole.idpole }}" >{{ pole.libpole }}</option>
-                        {% empty %}
-                            <option value="">Pas d'elements trouvés</option>
-                    {% endfor %}
-                {% else %}
-                    <option value="">--------------</option>
-                    {% for pole in data_list_pole %}
-                        <option value="{{ pole.idpole }}" {% if data.idpole == pole.idpole %}selected{% endif %} >{{ pole.libpole }}</option>
+{% extends 'base_form_modal.html' %}
+{% block form_modal %}
+    <div class="mb-3" id="modal-id">
+        <label for="libprocessus" class="form-label"> Processus </label>
+        <input type="text" id="libprocessus" name="libprocessus" value="{{data.libprocessus}}" class="form-control" placeholder="Processus" />
+    </div>
+    <div class="mb-3" id="modal-id">
+        <label for="piloteprocessus" class="form-label"> Pilote </label>
+        <input type="text" id="piloteprocessus" name="piloteprocessus" value="{{data.piloteprocessus}}" class="form-control" placeholder="Pilote" />
+    </div>
+    <div class="mb-3" id="modal-id">
+        <label for="idpole" class="form-label"> Pole </label>
+        <select class="form-select" aria-label="Default select example" name="idpole">
+            {% if not data.idpole %}
+                <option selected>--------------</option>
+                {% for pole in data_list_pole %}
+                    <option value="{{ pole.idpole }}" >{{ pole.libpole }}</option>
                     {% empty %}
                         <option value="">Pas d'elements trouvés</option>
-                    {% endfor %}
-                {% endif %}
-            </select>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <div class="hstack gap-2 justify-content-end">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
-            {% if not data %}
-                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_processus' %}" hx-indicator="#loader">Ajouter</button>
+                {% endfor %}
             {% else %}
-                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_processus' pk=data.idprocessus %}" hx-indicator="#loader" id="edit-btn">modifier</button>
+                <option value="">--------------</option>
+                {% for pole in data_list_pole %}
+                    <option value="{{ pole.idpole }}" {% if data.idpole == pole.idpole %}selected{% endif %} >{{ pole.libpole }}</option>
+                {% empty %}
+                    <option value="">Pas d'elements trouvés</option>
+                {% endfor %}
             {% endif %}
-        </div>
-    </div>
-</form>
+        </select>
+    </div> 
+{% endblock form_modal %}

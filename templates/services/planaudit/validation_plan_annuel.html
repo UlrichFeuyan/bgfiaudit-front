@@ -40,35 +40,35 @@
                         <tr  id="movie-{{ item.pk }}">
                             <th scope="row">
                             </th>
-                            <td class="date">{% if item.anne_ref_cycle %}{{ item.anne_ref_cycle }}{% else %} - {% endif %}</td>
+                            <td class="align-middle">{% if item.anne_ref_cycle %}{{ item.anne_ref_cycle }}{% else %} - {% endif %}</td>
                             {% if item.idsysteme %}
                                 {% for systeme in data_systeme_list %}
                                     {% if systeme.id_sys == item.idsysteme %}
-                                        <td class="date">{{systeme.libsys}}</td>
+                                        <td class="align-middle">{{systeme.libsys}}</td>
                                     {% endif %}
                                 {% endfor %}
                             {% else %}
-                                <td class="date"> - </td>
+                                <td class="align-middle"> - </td>
                             {% endif %}
                             {% if item.idprocessus %}
                                 {% for processus in data_processus_list %}
                                     {% if processus.idprocessus == item.idprocessus %}
-                                        <td class="date">{{processus.libprocessus}}</td>
+                                        <td class="align-middle">{{processus.libprocessus}}</td>
                                     {% endif %}
                                 {% endfor %}
                             {% else %}
-                                <td class="date"> - </td>
+                                <td class="align-middle"> - </td>
                             {% endif %}
                             {% if item.idsite %}
                                 {% for site in data_site_list %}
                                     {% if site.id_site == item.idsite %}
-                                        <td class="date">{{site.lib_site}}</td>
+                                        <td class="align-middle">{{site.lib_site}}</td>
                                     {% endif %}
                                 {% endfor %}
                             {% else %}
-                                <td class="date"> - </td>
+                                <td class="align-middle"> - </td>
                             {% endif %}
-                            <td class="date">
+                            <td class="align-middle">
                                 {% if item.criticite_carto == '1' %}Faible
                                     {% elif item.criticite_carto == '2' %}Modéré
                                     {% elif item.criticite_carto == '3' %}Élevé
@@ -76,9 +76,9 @@
                                     {% else %} -
                                 {% endif %}
                             </td>
-                            <td class="date">{% if item.annee_theo_last_audit %}{{ item.annee_theo_last_audit }}{% else %} - {% endif %}</td>
-                            <td class="date">{% if item.annee_eff_last_audit %}{{ item.annee_eff_last_audit }}{% else %} - {% endif %}</td>
-                            <td class="date">
+                            <td class="align-middle">{% if item.annee_theo_last_audit %}{{ item.annee_theo_last_audit }}{% else %} - {% endif %}</td>
+                            <td class="align-middle">{% if item.annee_eff_last_audit %}{{ item.annee_eff_last_audit }}{% else %} - {% endif %}</td>
+                            <td class="align-middle">
                                 {% if item.criticite_audit == '1' %}Faible
                                     {% elif item.criticite_audit == '2' %}Modéré
                                     {% elif item.criticite_audit == '3' %}Élevé
@@ -86,8 +86,8 @@
                                     {% else %} -
                                 {% endif %}
                             </td>
-                            <td class="date">{% if item.annee_theo_proch %}{{ item.annee_theo_proch }}{% else %} - {% endif %}</td>
-                            <td class="date">{% if item.valid_plan %} Validé {% else %} En attente {% endif %}</td>
+                            <td class="align-middle">{% if item.annee_theo_proch %}{{ item.annee_theo_proch }}{% else %} - {% endif %}</td>
+                            <td class="align-middle">{% if item.valid_plan %} Validé {% else %} En attente {% endif %}</td>
                             <td>
                                 <input class="form-check-input form-check-lg" type="checkbox" name="planaudit{{item.id}}" style="text-size: 1.5em;">
                             </td>

@@ -1,227 +1,271 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Initialisation {% endblock %}
-{% block central %}
-<div class="page-content">
-    <div class="container-fluid">
-        <!-- start page title -->
-        <div class="row">
-            <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Initialisation</h4>
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Initialisation</li>
-                        </ol>
+{% block title %} Initialisation | BGFI {% endblock title %}
+{% block special_css %}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/frontcustom.css' %}">
+{% endblock special_css %}
+
+{% block content %}
+    <!-- Main page content-->
+    <div class="container-fluid px-4 mt-n10">
+        <!-- Wizard card example with navigation-->
+        <div class="card">
+            <div class="card-header border-bottom">
+                <!-- Wizard navigation-->
+                <div class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
+                    <!-- Wizard navigation item 1-->
+                    <a class="nav-item nav-link active" id="wizard1-tab" href="#wizard1" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
+                        <div class="wizard-step-icon">1</div>
+                        <div class="wizard-step-text">
+                            <div class="wizard-step-text-name">PROGRAMME ANNUEL</div>
+                        </div>
+                    </a>
+                    <!-- Wizard navigation item 2-->
+                    <a class="nav-item nav-link wizard-item2" id="wizard2-tab" href="#wizard2" data-bs-toggle="tab" role="tab" aria-controls="wizard2" aria-selected="true">
+                        <div class="wizard-step-icon">2</div>
+                        <div class="wizard-step-text">
+                            <div class="wizard-step-text-name">MISSIONS</div>
+                        </div>
+                    </a>
+                    <!-- Wizard navigation item 3-->
+                    <a class="nav-item nav-link" id="wizard3-tab" href="#wizard3" data-bs-toggle="tab" role="tab" aria-controls="wizard3" aria-selected="true">
+                        <div class="wizard-step-icon">3</div>
+                        <div class="wizard-step-text">
+                            <div class="wizard-step-text-name">PROGRAMME DE TRAVAIL</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="cardTabContent">
+                    <!-- Wizard tab pane item 1-->
+                    <div class="tab-pane py-5 py-xl-10 fade show active" id="wizard1" role="tabpanel" aria-labelledby="wizard1-tab">
+                        <div class="row justify-content-center">
+                            <div class="col-xxl-10 col-xl-10">
+                                <h3 class="text-primary">Step 1</h3>
+                                <h5 class="card-title mb-4">Informations générales sur le plan annuel</h5>
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3 ">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h6 class="m-0 font-weight-bold text-primary">Plan Annuel</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" hx-get="{% url 'services:list_planannuel' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
+                                        <div class="row justify-content-center center htmx-indicator" id="loader">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="sr-only">chargement ...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Wizard tab pane item 2-->
+                    <div class="tab-pane py-5 py-xl-10 fade" id="wizard2" role="tabpanel" aria-labelledby="wizard2-tab">
+                        <div class="row justify-content-center">
+                            <div class="col-xxl-10 col-xl-10">
+                                <h3 class="text-primary">Step 2</h3>
+                                <h5 class="card-title mb-4">Enter your billing details</h5>
+                                <form>
+                                    <div class="mb-3">
+                                            <label class="small mb-1" for="reference_facture">Reférence Facture :</label>
+                                            <input class="form-control" name="reference_facture" id="reference_facture" type="text" />
+                                    </div>
+                                    <div class="row gx-3">
+
+                                        <div class="mb-3 col-md-6">
+                                            <label class="small mb-1" for="montant_facture">Montant facture</label>
+                                            <input class="form-control" name="montant_facture" id="montant_facture" type="text" />
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <label class="small mb-1" for="devise_facture">Devise facture</label>
+                                            <input class="form-control" name="devise_facture" id="devise_facture" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="row gx-3">
+                                        <div class="col-md-4 mb-4 mb-md-0">
+                                            <label class="small mb-1" for="taux_applique">Taux appliqué</label>
+                                            <input class="form-control" name="taux_applique" id="taux_applique" type="text" />
+                                        </div>
+                                        <div class="col-md-4 mb-4 mb-md-0">
+                                            <label class="small mb-1" for="montant_facture_xaf">Montant de la facture en XAF</label>
+                                            <input class="form-control" name="montant_facture_xaf" id="montant_facture_xaf" type="text" />
+                                        </div>
+                                        <div class="col-md-4 mb-0">
+                                            <label class="small mb-1" for="facture_definitive">Facture définitive</label>
+                                            <input class="form-control" id="facture_definitive" type="text" />
+                                        </div>
+                                        <div class="col-md-4 mb-0">
+                                            <label class="small mb-1" for="ref_facture_definitive">Facture définitive</label>
+                                            <input class="form-control" id="ref_facture_definitive" type="text" />
+                                        </div>
+                                        <div class="col-md-4 mb-0">
+                                            <label class="small mb-1" for="montant_facture_definitive">Facture définitive</label>
+                                            <input class="form-control" name="montant_facture_definitive" id="montant_facture_definitive" type="text" />
+                                        </div>
+                                    </div>
+                                    <hr class="my-4" />
+                                    <div class="d-flex justify-content-between">
+                                        <button class="btn btn-light" type="button">Annuler</button>
+                                    <button class="btn btn-primary" type="button">Valider</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Wizard tab pane item 3-->
+                    <div class="tab-pane py-5 py-xl-10 fade" id="wizard3" role="tabpanel" aria-labelledby="wizard3-tab">
+                        <div class="row justify-content-center">
+                            <div class="col-xxl-10 col-xl-10">
+                                <h3 class="text-primary">Step 3</h3>
+                                <h5 class="card-title mb-4">Choose when you want to receive email notifications</h5>
+                                <form>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" id="checkAccountChanges" type="checkbox" checked />
+                                        <label class="form-check-label" for="checkAccountChanges">Changes made to your account</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" id="checkAccountGroups" type="checkbox" checked />
+                                        <label class="form-check-label" for="checkAccountGroups">Changes are made to groups you're part of</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" id="checkProductUpdates" type="checkbox" checked />
+                                        <label class="form-check-label" for="checkProductUpdates">Product updates for products you've purchased or starred</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" id="checkProductNew" type="checkbox" checked />
+                                        <label class="form-check-label" for="checkProductNew">Information on new products and services</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" id="checkPromotional" type="checkbox" />
+                                        <label class="form-check-label" for="checkPromotional">Marketing and promotional offers</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" id="checkSecurity" type="checkbox" checked disabled />
+                                        <label class="form-check-label" for="checkSecurity">Security alerts</label>
+                                    </div>
+                                    <hr class="my-4" />
+                                    <div class="d-flex justify-content-between">
+                                        <button class="btn btn-light" type="button">Annuler</button>
+                                    <button class="btn btn-primary" type="button">Valider</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Wizard tab pane item 4-->
+                    <div class="tab-pane py-5 py-xl-10 fade" id="wizard4" role="tabpanel" aria-labelledby="wizard4-tab">
+                        <div class="row justify-content-center">
+                            <div class="col-xxl-10 col-xl-10">
+                                <h3 class="text-primary">Step 4</h3>
+                                <h5 class="card-title mb-4">Review the following information and submit</h5>
+                                <div class="row small text-muted">
+                                    <div class="col-sm-3 text-truncate"><em>Username:</em></div>
+                                    <div class="col">username</div>
+                                </div>
+                                <div class="row small text-muted">
+                                    <div class="col-sm-3 text-truncate"><em>Name:</em></div>
+                                    <div class="col">Valerie Luna</div>
+                                </div>
+                                <div class="row small text-muted">
+                                    <div class="col-sm-3 text-truncate"><em>Organization Name:</em></div>
+                                    <div class="col">Start Bootstrap</div>
+                                </div>
+                                <div class="row small text-muted">
+                                    <div class="col-sm-3 text-truncate"><em>Location:</em></div>
+                                    <div class="col">San Francisco, CA</div>
+                                </div>
+                                <div class="row small text-muted">
+                                    <div class="col-sm-3 text-truncate"><em>Email Address:</em></div>
+                                    <div class="col">name@example.com</div>
+                                </div>
+                                <div class="row small text-muted">
+                                    <div class="col-sm-3 text-truncate"><em>Phone Number:</em></div>
+                                    <div class="col">555-123-4567</div>
+                                </div>
+                                <div class="row small text-muted">
+                                    <div class="col-sm-3 text-truncate"><em>Birthday:</em></div>
+                                    <div class="col">06/10/1988</div>
+                                </div>
+                                <div class="row small text-muted">
+                                    <div class="col-sm-3 text-truncate"><em>Credit Card Number:</em></div>
+                                    <div class="col">**** **** **** 1111</div>
+                                </div>
+                                <div class="row small text-muted">
+                                    <div class="col-sm-3 text-truncate"><em>Credit Card Expiration:</em></div>
+                                    <div class="col">06/2024</div>
+                                </div>
+                                <hr class="my-4" />
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-light" type="button">Annuler</button>
+                                    <button class="btn btn-primary" type="button">Valider</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end page title -->
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title mb-0">Menus</h4>
-                    </div><!-- end card header -->
-                    <div class="card-body form-steps">
-                        <form action="#">
-                            <div class="step-arrow-nav mb-4">
-                                <ul class="nav nav-pills custom-nav nav-justified" role="tablist">
-                                    <li class="nav-item active" role="presentation">
-                                        <button class="nav-link done" id="steparrow-gen-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-gen-info" type="button" role="tab" aria-controls="steparrow-gen-info" aria-selected="true">PROGRAMME ANNUEL</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="steparrow-description-info-tab" data-bs-toggle="pill" data-bs-target="#steparrow-description-info" type="button" role="tab" aria-controls="steparrow-description-info" aria-selected="false">MISSIONS</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="pills-experience-tab" data-bs-toggle="pill" data-bs-target="#pills-experience" type="button" role="tab" aria-controls="pills-experience" aria-selected="false">PROGRAMME DE TRAVAIL</button>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="steparrow-gen-info" role="tabpanel" aria-labelledby="steparrow-gen-info-tab">
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div id="customerList">
-                                                            <div class="table-responsive table-card mt-3 mb-1">
-                                                                <table class="table align-middle table-nowrap" id="customerTable">
-                                                                    <thead class="table-light">
-                                                                        <tr>
-                                                                            <th scope="col" style="width: 25px;">
-                                                                            </th>
-                                                                            <th>Système</th>
-                                                                            <th>Processus</th>
-                                                                            <th>Site</th>
-                                                                            <th>Criticité cartographie</th>
-                                                                            <th>Année théorique dernier audit</th>
-                                                                            <th>Année de réalisation</th>
-                                                                            <th>Criticité mission</th>
-                                                                            <th>Année prochaine mission</th>
-                                                                            <th>État de validation</th>
-                                                                            <th>Action</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody class="list form-check-all" hx-get="{% url 'services:list_planannuel' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
-                                                                        <tr>
-                                                                            <div class="d-flex justify-content-center htmx-indicator" id="loader">
-                                                                                <div class="spinner-border" role="status">
-                                                                                  <span class="visually-hidden">Loading...</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <div class="noresult" style ="display: none">
-                                                                    <div class="text-center">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="d-flex justify-content-end">
-                                                                <div class="pagination-wrap hstack gap-2">
-                                                                    <a class="page-item pagination-prev disabled" href="#">
-                                                                        Précédent
-                                                                    </a>
-                                                                    <ul class="pagination listjs-pagination mb-0"></ul>
-                                                                    <a class="page-item pagination-next" href="#">
-                                                                        Suivant
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div><!-- end card -->
-                                                </div>
-                                                <!-- end col -->
-                                            </div>
-                                            <!-- end col -->
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-start gap-3 mt-4">
-                                        <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="steparrow-description-info-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Go to more info</button>
-                                    </div>
-                                </div>
-                                <!-- end tab pane -->
-
-                                <div class="tab-pane fade" id="steparrow-description-info" role="tabpanel" aria-labelledby="steparrow-description-info-tab">
-                                    <div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                    </div><!-- end card header -->
-                                                    <div class="card-body">
-                                                        <div id="customerList">
-                                                            <div class="row g-4 mb-3">
-                                                                <div class="col-sm-auto">
-                                                                    <div>
-                                                                        <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:add_mission' %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i>Ajouter</button>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm">
-                                                                    <div class="d-flex justify-content-sm-end">
-                                                                        <div class="search-box ms-2">
-                                                                            <input type="text" class="form-control search" placeholder="Search...">
-                                                                            <i class="ri-search-line search-icon"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="table-responsive table-card mt-3 mb-1">
-                                                                <table class="table align-middle table-nowrap" id="customerTable">
-                                                                    <thead class="table-light">
-                                                                        <tr>
-                                                                            <th scope="col" style="width: 25px;">
-                                                                            </th>
-                                                                            <th class="sort" data-sort="repertoire_racine">Code Mission</th>
-                                                                            <th class="sort" data-sort="repertoire_racine">Intitule Mission</th>
-                                                                            <th class="sort" data-sort="repertoire_racine">Theme Mission</th>
-                                                                            <th class="sort" data-sort="repertoire_racine">Date Debut</th>
-                                                                            <th class="sort" data-sort="repertoire_racine">Date Fin</th>
-                                                                            <th class="sort" data-sort="repertoire_racine">Statut_mission</th>
-                                                                            <th class="sort" data-sort="repertoire_racine">Etat Mission</th>
-                                                                            <th class="sort" data-sort="action">Action</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody class="list form-check-all" hx-get="{% url 'services:list_mission' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
-                                                                        <tr>
-                                                                            <div class="d-flex justify-content-center htmx-indicator" id="loader">
-                                                                                <div class="spinner-border" role="status">
-                                                                                  <span class="visually-hidden">Loading...</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <div class="noresult" style ="display: none">
-                                                                    <div class="text-center">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="d-flex justify-content-end">
-                                                                <div class="pagination-wrap hstack gap-2">
-                                                                    <a class="page-item pagination-prev disabled" href="#">
-                                                                        Précédent
-                                                                    </a>
-                                                                    <ul class="pagination listjs-pagination mb-0"></ul>
-                                                                    <a class="page-item pagination-next" href="#">
-                                                                        Suivant
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div><!-- end card -->
-                                                </div>
-                                                <!-- end col -->
-                                            </div>
-                                            <!-- end col -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end tab pane -->
-
-                                <div class="tab-pane fade" id="pills-experience" role="tabpanel">
-                                    <div class="text-center">
-
-                                        <div class="avatar-md mt-5 mb-4 mx-auto">
-                                            <div class="avatar-title bg-light text-success display-4 rounded-circle">
-                                                <i class="ri-checkbox-circle-fill"></i>
-                                            </div>
-                                        </div>
-                                        <h5>Well Done !</h5>
-                                        <p class="text-muted">You have Successfully Signed Up</p>
-                                    </div>
-                                </div>
-                                <!-- end tab pane -->
-                            </div>
-                            <!-- end tab content -->
-                        </form>
-                    </div>
-                    <!-- end card body -->
-                </div>
-                <!-- end card -->
-            </div>
-        </div>
-        <!-- end row -->
-        <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content" hx-target="this" id="edit_data">
-                </div>
-            </div>
-        </div>
-        <!-- Modal -->
-        <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content" hx-target="this" id="delete_data">
-                </div>
-            </div>
-        </div>
-        <!--end modal -->
     </div>
-    <!-- container-fluid -->
-</div>
 {% endblock %}
+
+{% block special_js %}
+    <!-- DataTables  & Plugins -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+    <script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+    <script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+    <script>
+        $(function () {
+            $('#planaudit').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Tous"] ],
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+                language: {
+                    processing:     "Traitement en cours...",
+                    search:         "Rechercher&nbsp;:",
+                    lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+                    info:           "Affichage de _START_ &agrave; _END_ sur _TOTAL_",
+                    infoEmpty:      "Affichage de 0 &agrave; 0 sur 0",
+                    infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    infoPostFix:    "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable:     "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first:      "Premier",
+                        previous:   "Pr&eacute;c&eacute;dent",
+                        next:       "Suivant",
+                        last:       "Dernier"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock special_js %}

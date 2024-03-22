@@ -282,7 +282,7 @@ div.dt-button-collection div.dt-btn-split-wrapper {
 }
 div.dt-button-collection button.dt-btn-split-drop-button {
   width: 100%;
-  color: #212529;
+  color: #838fb9;
   border: none;
   background-color: white;
   border-radius: 0px;
@@ -357,8 +357,8 @@ div.dt-btn-split-wrapper:active:not(.disabled) button, div.dt-btn-split-wrapper.
 }
 div.dt-btn-split-wrapper:active:not(.disabled) button.dt-btn-split-drop, div.dt-btn-split-wrapper.active:not(.disabled) button.dt-btn-split-drop {
   box-shadow: none;
-  background-color: #6c757d;
-  border-color: #6c757d;
+  background-color: #BAC7A1;
+  border-color: #BAC7A1;
 }
 div.dt-btn-split-wrapper:active:not(.disabled) button:hover, div.dt-btn-split-wrapper.active:not(.disabled) button:hover {
   background-color: #5a6268;
@@ -383,7 +383,7 @@ div.dataTables_wrapper div.dt-buttons.btn-group div.btn-group:last-child:first-c
   border-bottom-right-radius: 4px !important;
 }
 div.dataTables_wrapper div.dt-buttons.btn-group div.btn-group button.dt-btn-split-drop:last-child {
-  border: 1px solid #6c757d;
+  border: 1px solid #BAC7A1;
 }
 div.dataTables_wrapper div.dt-buttons.btn-group div.btn-group div.dt-btn-split-wrapper {
   border: none;
@@ -410,7 +410,7 @@ div.dt-button-collection div.btn-group button:last-child:first-child {
   border-bottom-right-radius: 4px !important;
 }
 div.dt-button-collection div.btn-group button.dt-btn-split-drop:last-child {
-  border: 1px solid #6c757d;
+  border: 1px solid #BAC7A1;
 }
 div.dt-button-collection div.btn-group div.dt-btn-split-wrapper {
   border: none;

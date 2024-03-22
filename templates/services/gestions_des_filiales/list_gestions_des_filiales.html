@@ -1,151 +1,136 @@
 {% load static %}
-  <!-- App favicon -->
-  <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico' %}">
 
-  <!--datatable css-->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
-  <!--datatable responsive css-->
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" />
-
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
-  
-
-  <!-- Layout config Js -->
-  <script src="{% static 'assets/js/layout.js' %}"></script>
-  <!-- Bootstrap Css -->
-  <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
-  <!-- Icons Css -->
-  <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
-  <!-- App Css-->
-  <link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
-  <!-- custom Css-->
-  <link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
-
-
-     <!-- JAVASCRIPT -->
-     <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-     <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
-     <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
-     <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>
-     <script src="{% static 'assets/js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
-     <script src="{% static 'assets/js/plugins.js' %}"></script>
- 
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
- 
-     <!--datatable js-->
-     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-     <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-     <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
-     <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
- 
-     <script src="{% static 'assets/js/pages/datatables.init.js' %}"></script>
-     <!-- App js -->
-     <script src="{% static 'assets/js/app.js' %}"></script>
-
+<!-- DataTables  & Plugins -->
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+<!-- Page level custom scripts -->
 <script>
-    $(function () {
-        $('#customerTable').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Tout"] ],
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": true,
-            "responsive": true,
-            language: {
-                processing:     "Traitement en cours...",
-                search:         "Rechercher&nbsp;:",
-                lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
-                info:           "Affichage de _START_ &agrave; _END_ sur _TOTAL_",
-                infoEmpty:      "Affichage de 0 &agrave; 0 sur 0",
-                infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-                infoPostFix:    "",
-                loadingRecords: "Chargement en cours...",
-                zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                emptyTable:     "Aucune donnée disponible dans le tableau",
-                paginate: {
-                    first:      "Premier",
-                    previous:   "Pr&eacute;c&eacute;dent",
-                    next:       "Suivant",
-                    last:       "Dernier"
-                },
-                aria: {
-                    sortAscending:  ": activer pour trier la colonne par ordre croissant",
-                    sortDescending: ": activer pour trier la colonne par ordre décroissant"
+        $(function () {
+            $('#filiales').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Tous"] ],
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+                language: {
+                    processing:     "Traitement en cours...",
+                    search:         "Rechercher&nbsp;:",
+                    lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+                    info:           "Affichage de _START_ &agrave; _END_ sur _TOTAL_",
+                    infoEmpty:      "Affichage de 0 &agrave; 0 sur 0",
+                    infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    infoPostFix:    "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable:     "Aucune donnée disponible.",
+                    paginate: {
+                        first:      "Premier",
+                        previous:   "Pr&eacute;c&eacute;dent",
+                        next:       "Suivant",
+                        last:       "Dernier"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
                 }
-            }
+            });
         });
-    });
-</script>
-<!--end datatable js-->
 
-{% if userFiliale %}
-    {% for item in data_list %}
-        {% if item.sigle_filiale == userFiliale %}
-            <tr  id="movie-{{ item.pk }}">
-                <td class="text">{% if item.sigle_filiale %} {{ item.sigle_filiale }} {% endif %}</td>
-                <td class="text">{% if item.nom_filiale %} {{ item.nom_filiale }} {% endif %}</td>
-                <td class="text">{% if item.code_pays %} {{ item.code_pays }} {% endif %}</td>
-                <td class="text">{% if item.dg_filiale %} {{ item.dg_filiale }} {% endif %}</td>
-                <td class="text">{% if item.adresse_filiale %} {{ item.adresse_filiale }} {% endif %}</td>
-                <td class="text">{% if item.ville_filiale %} {{ item.ville_filiale }} {% endif %}</td>
-                <td class="text">{% if item.description_filiale %} {{ item.description_filiale }} {% endif %}</td>
-                <td class="text">{% if item.tel_filiale %} {{ item.tel_filiale }} {% endif %}</td>
-                <td class="text">{% if item.mob_filiale %} {{ item.mob_filiale }} {% endif %}</td>
-                <td class="text">{% if item.fax_filiale %} {{ item.fax_filiale }} {% endif %}</td>
-                <td class="text">{% if item.email_filiale %} {{ item.email_filiale }} {% endif %}</td>
-                <td class="text">{% if item.adresseip_smtp %} {{ item.adresseip_smtp }} {% endif %}</td>
-                <td class="text">{% if item.port_smtp %} {{ item.port_smtp }} {% endif %}</td>
-                <td class="text">{% if item.j_relances %} {{ item.j_relances }} {% endif %}</td>
-                <td class="text">{% if item.j_statistiques %} {{ item.j_statistiques }} {% endif %}</td>
-                <td class="text">{% if item.smtp_user %} {{ item.smtp_user }} {% endif %}</td>
-                <td class="text">{% if item.smtp_password %} {{ item.smtp_password }} {% endif %}</td>
-                <td>
-                    <div class="d-flex gap-2">
-                        <div class="edit">
-                            <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:edit_gestions_des_filiales' pk=item.idfiliale %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
-                        </div>
-                    </div>
-                </td>
+</script>
+
+<div class="table-responsive">
+    <table class="table table-bordered" id="filiales" width="100%" cellspacing="0">
+        <thead>
+            <tr class="text-center">
+                <th>SIGLE </th>
+                <th>NOM FILILALE </th>
+                <th>PAYS </th>
+                <th>DG FILIALE </th>
+                <th>ADRESSE </th>
+                <th>VILLE </th>
+                <th>DESCRIPTION </th>
+                <th>TELEPHONE FIXE </th>
+                <th>TELEPHONE MOBILE </th>
+                <th>FAX </th>
+                <th>EMAIL </th>
+                <th>Adresse IP Serveur SMTP </th>
+                <th>PORT SMTP </th>
+                <th>JOUR DES RELANCES </th>
+                <th>JOUR DES STATISTIQUES </th>
+                <th>SMTP USER </th>
+                <th>SMTP PASSWORD</th>
+                <th>Action</th>
             </tr>
-        {% endif %}
-    {% endfor %}
-{% else %}
-    {% for item in data_list %}
-        <tr  id="movie-{{ item.pk }}">
-            <td class="text">{% if item.sigle_filiale %} {{ item.sigle_filiale }} {% endif %}</td>
-            <td class="text">{% if item.nom_filiale %} {{ item.nom_filiale }} {% endif %}</td>
-            <td class="text">{% if item.code_pays %} {{ item.code_pays }} {% endif %}</td>
-            <td class="text">{% if item.dg_filiale %} {{ item.dg_filiale }} {% endif %}</td>
-            <td class="text">{% if item.adresse_filiale %} {{ item.adresse_filiale }} {% endif %}</td>
-            <td class="text">{% if item.ville_filiale %} {{ item.ville_filiale }} {% endif %}</td>
-            <td class="text">{% if item.description_filiale %} {{ item.description_filiale|truncatewords:10 }} {% endif %}</td>
-            <td class="text">{% if item.tel_filiale %} {{ item.tel_filiale }} {% endif %}</td>
-            <td class="text">{% if item.mob_filiale %} {{ item.mob_filiale }} {% endif %}</td>
-            <td class="text">{% if item.fax_filiale %} {{ item.fax_filiale }} {% endif %}</td>
-            <td class="text">{% if item.email_filiale %} {{ item.email_filiale }} {% endif %}</td>
-            <td class="text">{% if item.adresseip_smtp %} {{ item.adresseip_smtp }} {% endif %}</td>
-            <td class="text">{% if item.port_smtp %} {{ item.port_smtp }} {% endif %}</td>
-            <td class="text">{% if item.j_relances %} {{ item.j_relances }} {% endif %}</td>
-            <td class="text">{% if item.j_statistiques %} {{ item.j_statistiques }} {% endif %}</td>
-            <td class="text">{% if item.smtp_user %} {{ item.smtp_user }} {% endif %}</td>
-            <td class="text">{% if item.smtp_password %} {{ item.smtp_password }} {% endif %}</td>
-            <td>
-                <div class="d-flex gap-2">
-                    <div class="edit">
-                        <button class="btn btn-sm btn-success edit-item-btn" hx-get="{% url 'services:edit_gestions_des_filiales' pk=item.idfiliale %}" hx-target="#edit_data"  data-bs-toggle="modal" data-bs-target="#showModal">Modifier</button>
-                    </div>
-                    <div class="remove">
-                        <button class="btn btn-sm btn-danger remove-item-btn" hx-get="{% url 'services:del_gestions_des_filiales' pk=item.idfiliale %}" hx-target="#delete_data" data-bs-toggle="modal" data-bs-target="#deleteRecordModal">Supprimer</button>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    {% endfor %}
-{% endif %}
+        </thead>
+        <tbody>
+            {% if userFiliale %}
+                {% for item in data_list %}
+                    {% if item.sigle_filiale == userFiliale %}
+                        <tr class="text-center" id="movie-{{ item.pk }}">
+                            <td class="align-middle">{% if item.sigle_filiale %} {{ item.sigle_filiale }} {% endif %}</td>
+                            <td class="align-middle">{% if item.nom_filiale %} {{ item.nom_filiale }} {% endif %}</td>
+                            <td class="align-middle">{% if item.code_pays %} {{ item.code_pays }} {% endif %}</td>
+                            <td class="align-middle">{% if item.dg_filiale %} {{ item.dg_filiale }} {% endif %}</td>
+                            <td class="align-middle">{% if item.adresse_filiale %} {{ item.adresse_filiale }} {% endif %}</td>
+                            <td class="align-middle">{% if item.ville_filiale %} {{ item.ville_filiale }} {% endif %}</td>
+                            <td class="align-middle">{% if item.description_filiale %} {{ item.description_filiale }} {% endif %}</td>
+                            <td class="align-middle">{% if item.tel_filiale %} {{ item.tel_filiale }} {% endif %}</td>
+                            <td class="align-middle">{% if item.mob_filiale %} {{ item.mob_filiale }} {% endif %}</td>
+                            <td class="align-middle">{% if item.fax_filiale %} {{ item.fax_filiale }} {% endif %}</td>
+                            <td class="align-middle">{% if item.email_filiale %} {{ item.email_filiale }} {% endif %}</td>
+                            <td class="align-middle">{% if item.adresseip_smtp %} {{ item.adresseip_smtp }} {% endif %}</td>
+                            <td class="align-middle">{% if item.port_smtp %} {{ item.port_smtp }} {% endif %}</td>
+                            <td class="align-middle">{% if item.j_relances %} {{ item.j_relances }} {% endif %}</td>
+                            <td class="align-middle">{% if item.j_statistiques %} {{ item.j_statistiques }} {% endif %}</td>
+                            <td class="align-middle">{% if item.smtp_user %} {{ item.smtp_user }} {% endif %}</td>
+                            <td class="align-middle">{% if item.smtp_password %} {{ item.smtp_password }} {% endif %}</td>
+                            <td class="align-middle">
+                                <button class="btn btn-primary btn-sm" hx-get="{% url 'services:edit_gestions_des_filiales' pk=item.idfiliale %}" hx-target="#dialog">Modifier</button>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% for item in data_list %}
+                    <tr class="text-center" id="movie-{{ item.pk }}">
+                        <td class="align-middle">{% if item.sigle_filiale %} {{ item.sigle_filiale }} {% endif %}</td>
+                        <td class="align-middle">{% if item.nom_filiale %} {{ item.nom_filiale }} {% endif %}</td>
+                        <td class="align-middle">{% if item.code_pays %} {{ item.code_pays }} {% endif %}</td>
+                        <td class="align-middle">{% if item.dg_filiale %} {{ item.dg_filiale }} {% endif %}</td>
+                        <td class="align-middle">{% if item.adresse_filiale %} {{ item.adresse_filiale }} {% endif %}</td>
+                        <td class="align-middle">{% if item.ville_filiale %} {{ item.ville_filiale }} {% endif %}</td>
+                        <td class="align-middle">{% if item.description_filiale %} {{ item.description_filiale }} {% endif %}</td>
+                        <td class="align-middle">{% if item.tel_filiale %} {{ item.tel_filiale }} {% endif %}</td>
+                        <td class="align-middle">{% if item.mob_filiale %} {{ item.mob_filiale }} {% endif %}</td>
+                        <td class="align-middle">{% if item.fax_filiale %} {{ item.fax_filiale }} {% endif %}</td>
+                        <td class="align-middle">{% if item.email_filiale %} {{ item.email_filiale }} {% endif %}</td>
+                        <td class="align-middle">{% if item.adresseip_smtp %} {{ item.adresseip_smtp }} {% endif %}</td>
+                        <td class="align-middle">{% if item.port_smtp %} {{ item.port_smtp }} {% endif %}</td>
+                        <td class="align-middle">{% if item.j_relances %} {{ item.j_relances }} {% endif %}</td>
+                        <td class="align-middle">{% if item.j_statistiques %} {{ item.j_statistiques }} {% endif %}</td>
+                        <td class="align-middle">{% if item.smtp_user %} {{ item.smtp_user }} {% endif %}</td>
+                        <td class="align-middle">{% if item.smtp_password %} {{ item.smtp_password }} {% endif %}</td>
+                        <td class="align-middle">
+                            <button class="btn btn-success btn-sm m-1" hx-get="{% url 'services:edit_gestions_des_filiales' pk=item.idfiliale %}" hx-target="#dialog">Modifier</button>
+                            <button class="btn btn-sm btn-danger remove-item-btn m-1" hx-get="{% url 'services:del_gestions_des_filiales' pk=item.idfiliale %}" hx-target="#dialog" >Supprimer</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>

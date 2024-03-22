@@ -1,7 +1,7 @@
 <div class="modal-header">
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-close"></button>
 </div>
-<form class="modal-body" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' hx-indicator="#loader" hx-post="{% url 'services:validation_plan_annuel' %}" hx-target="#validation_plan_annuel">
+<form class="modal-body" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' hx-indicator="#loader" hx-target="#dialog" hx-post="{% url 'services:validation_plan_annuel' %}" hx-target="#validation_plan_annuel">
     <div class="mt-2 text-center">
         <h4>Année de reférence</h4>
         <p>Veillez sélectionner l'année de référence du plan d'audit.</p>
@@ -17,6 +17,6 @@
     </div>
     <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
         <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Fermer</button>
-        <button type="submit" class="btn w-sm btn-primary" data-bs-toggle="modal" data-bs-target="#validationPlanAnnuelModal"> Continuer → </button>
+        <button type="submit" class="btn w-sm btn-primary"  data-bs-target="#validationPlanAnnuelModal"> Continuer → </button>
     </div>
 </form>

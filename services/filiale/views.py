@@ -4,11 +4,23 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def gestions_des_filiales(request):
     gestion_filiale_active = 'True'
+    header_title= "Gestion des filiales"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'gestion des filiales',
+                'path': reverse('services:gestions_des_filiales'),
+            },
+        ]
     return render(request, 'services/gestions_des_filiales/gestions_des_filiales.html', locals())
 
 def list_gestions_des_filiales(request):

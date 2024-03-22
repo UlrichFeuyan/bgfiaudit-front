@@ -23,6 +23,7 @@ def list_systeme(request):
 def edit_systeme(request, pk):
     get_famillerisk = requests.get(f"{listesysteme}{pk}")
     data = get_famillerisk.json()
+    modal_size = "modal-xl"
 
     get_processus = requests.get(listeProcessus)
     processus = get_processus.json()
@@ -111,6 +112,7 @@ def add_systeme(request):
 
     get_processus = requests.get(listeProcessus)
     processus = get_processus.json()
+    modal_size = "modal-xl"
 
     if request.method == "POST":
         libsys = request.POST.get('libsys')

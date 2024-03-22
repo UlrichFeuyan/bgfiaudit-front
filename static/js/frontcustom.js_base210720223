@@ -1,0 +1,820 @@
+// Désactiver tous les liens de navigation sauf le premier
+const wizardNavLinks = document.querySelectorAll('.nav-link');
+
+//etape general
+var importateur = document.getElementById('importateur');
+var fournisseur = document.getElementById('fournisseur');
+var type = document.getElementById('type');
+var have_contrat = document.getElementById('have_contrat');
+var ref_contrat = document.getElementById('ref_contrat');
+var pays_dest = document.getElementById('pays_dest');
+var rel_client = document.getElementById('rel_client');
+var num_dossier = document.getElementById('num_dossier');
+var motif = document.getElementById('motif');
+var date_execution = document.getElementById('date_execution');
+var delai_justif = document.getElementById('delai_justif');
+var date_limite = document.getElementById('date_limite');
+var type_financement = document.getElementById('type_financement');
+var num_domiciliation = document.getElementById('num_domiciliation');
+var montant_domiciation = document.getElementById('montant_domiciation');
+var ref_sgs = document.getElementById('ref_sgs');
+var ref_pr = document.getElementById('ref_pr');
+
+//etape financier
+var ref_facture = document.getElementById('ref_facture');
+var montant_facture = document.getElementById('montant_facture');
+var devise_facture = document.getElementById('devise_facture');
+var taux_applique = document.getElementById('taux_applique');
+var montant_facture_xaf = document.getElementById('montant_facture_xaf');
+var facture_definitive = document.getElementById('facture_definitive');
+var reference_facture_definitive = document.getElementById('reference_facture_definitive');
+var montant_facture_definitive = document.getElementById('montant_facture_definitive');
+var montant_transfert = document.getElementById('montant_transfert');
+var taux_applique_transfert = document.getElementById('taux_applique_transfert');
+var montant_transfert_xaf = document.getElementById('montant_transfert_xaf');
+var mt103_202 = document.getElementById('mt103_202');
+var date_mt103_202 = document.getElementById('date_mt103_202');
+var mt950_mt940 = document.getElementById('mt950_mt940');
+
+//etape douane
+var bl = document.getElementById('bl');
+var ref_bl = document.getElementById('ref_bl');
+var quittance_douane = document.getElementById('quittance_douane');
+var ref_quittance_douane = document.getElementById('ref_quittance_douane');
+var montant_quittance_douane = document.getElementById('montant_quittance_douane');
+var reference_declaration_im4 = document.getElementById('reference_declaration_im4');
+var montant_declaration_im4 = document.getElementById('montant_declaration_im4');
+var declaration_im4 = document.getElementById('declaration_im4');
+
+//etape apurement
+var document_realisation_suivi = document.getElementById('document_realisation_suivi');
+var date_previsionnelle_apurement = document.getElementById('date_previsionnelle_apurement');
+var statut_apurement = document.getElementById('statut_apurement');
+var reference_mise_demeure = document.getElementById('reference_mise_demeure');
+var date_mise_demeure = document.getElementById('date_mise_demeure');
+var rvc = document.getElementById('rvc');
+var document_fournis = document.getElementById('document_fournis');
+var document_manquant = document.getElementById('document_manquant');
+var observations = document.getElementById('observations');
+var controle_beac = document.getElementById('controle_beac');
+
+//etape autre
+var contrat_po = document.getElementById('contrat_po');
+var bon_declaration = document.getElementById('bon_declaration');
+var bon_transport = document.getElementById('bon_transport');
+var phy = document.getElementById('phy');
+
+
+//Validation verification general
+importateur.addEventListener('input', function() {
+  validateField(importateur);
+});
+
+fournisseur.addEventListener('input', function() {
+  validateField(fournisseur);
+});
+
+type.addEventListener('input', function() {
+  validateField(type);
+});
+
+have_contrat.addEventListener('input', function() {
+  validateField(have_contrat);
+});
+ref_contrat.addEventListener('input', function() {
+  validateField(ref_contrat);
+});
+pays_dest.addEventListener('input', function() {
+  validateField(pays_dest);
+});
+rel_client.addEventListener('input', function() {
+  validateField(have_contrat);
+});
+num_dossier.addEventListener('input', function() {
+  validateField(num_dossier);
+});
+motif.addEventListener('input', function() {
+  validateField(motif);
+});
+date_execution.addEventListener('input', function() {
+  validateField(date_execution);
+});
+delai_justif.addEventListener('input', function() {
+  validateField(delai_justif);
+});
+date_limite.addEventListener('input', function() {
+  validateField(have_contrat);
+});
+type_financement.addEventListener('input', function() {
+  validateField(type_financement);
+});
+num_domiciliation.addEventListener('input', function() {
+  validateField(num_domiciliation);
+});
+montant_domiciation.addEventListener('input', function() {
+  validateField(montant_domiciation);
+});
+ref_sgs.addEventListener('input', function() {
+  validateField(ref_sgs);
+});
+ref_pr.addEventListener('input', function() {
+  validateField(ref_pr);
+});
+
+
+//Validation verification finance
+ref_facture.addEventListener('input', function() {
+  validateField(ref_facture);
+});
+montant_facture.addEventListener('input', function() {
+  validateField(montant_facture);
+});
+devise_facture.addEventListener('input', function() {
+  validateField(devise_facture);
+});
+taux_applique.addEventListener('input', function() {
+  validateField(taux_applique);
+});
+montant_facture_xaf.addEventListener('input', function() {
+  validateField(montant_facture_xaf);
+});
+facture_definitive.addEventListener('input', function() {
+  validateField(facture_definitive);
+});
+reference_facture_definitive.addEventListener('input', function() {
+  validateField(reference_facture_definitive);
+});
+montant_facture_definitive.addEventListener('input', function() {
+  validateField(montant_facture_definitive);
+});
+montant_transfert.addEventListener('input', function() {
+  validateField(montant_transfert);
+});
+taux_applique_transfert.addEventListener('input', function() {
+  validateField(taux_applique_transfert);
+});
+montant_transfert_xaf.addEventListener('input', function() {
+  validateField(montant_transfert_xaf);
+});
+mt103_202.addEventListener('input', function() {
+  validateField(mt103_202);
+});
+date_mt103_202.addEventListener('input', function() {
+  validateField(date_mt103_202);
+});
+mt950_mt940.addEventListener('input', function() {
+  validateField(mt950_mt940);
+});
+
+
+
+//Validation verification douane
+bl.addEventListener('input', function() {
+  validateField(bl);
+});
+ref_bl.addEventListener('input', function() {
+  validateField(ref_bl);
+});
+quittance_douane.addEventListener('input', function() {
+  validateField(quittance_douane);
+});
+ref_quittance_douane.addEventListener('input', function() {
+  validateField(ref_quittance_douane);
+});
+montant_quittance_douane.addEventListener('input', function() {
+  validateField(montant_quittance_douane);
+});
+montant_declaration_im4.addEventListener('input', function() {
+  validateField(montant_declaration_im4);
+});
+declaration_im4.addEventListener('input', function() {
+  validateField(declaration_im4);
+});
+reference_declaration_im4.addEventListener('input', function() {
+  validateField(declaration_im4);
+});
+
+
+
+
+
+//Validation verification apurement
+document_realisation_suivi.addEventListener('input', function() {
+  validateField(document_realisation_suivi);
+});
+date_previsionnelle_apurement.addEventListener('input', function() {
+  validateField(date_previsionnelle_apurement);
+});
+statut_apurement.addEventListener('input', function() {
+  validateField(statut_apurement);
+});
+reference_mise_demeure.addEventListener('input', function() {
+  validateField(reference_mise_demeure);
+});
+date_mise_demeure.addEventListener('input', function() {
+  validateField(date_mise_demeure);
+});
+rvc.addEventListener('input', function() {
+  validateField(rvc);
+});
+document_fournis.addEventListener('input', function() {
+  validateField(document_fournis);
+});
+document_manquant.addEventListener('input', function() {
+  validateField(document_manquant);
+});
+observations.addEventListener('input', function() {
+  validateField(observations);
+});
+controle_beac.addEventListener('input', function() {
+  validateField(controle_beac);
+});
+
+
+
+
+
+//Validation verification autres
+contrat_po.addEventListener('input', function() {
+  validateField(contrat_po);
+});
+bon_declaration.addEventListener('input', function() {
+  validateField(bon_declaration);
+});
+bon_transport.addEventListener('input', function() {
+  validateField(bon_transport);
+});
+phy.addEventListener('input', function() {
+  validateField(phy);
+});
+
+
+
+
+
+
+/*for (let i = 10; i < wizardNavLinks.length; i++) {
+  //wizardNavLinks[i].classList.add('disabled');
+  //wizardNavLinks[i].removeAttribute('data-bs-toggle');
+}*/
+
+// Activer le lien de la prochaine étape lors de la validation du formulaire
+function validateForm1() {
+  const formInputs = document.querySelectorAll('#vert-tabs-general input');
+  let isFormValid = true;
+  for (let i = 0; i < formInputs.length; i++) {
+    if (formInputs[i].value === '') {
+      isFormValid = false;
+      break;
+    }
+  }
+  if (importateur.value == '') {
+    importateur.classList.add('is-invalid');
+  } else {
+    importateur.classList.remove('is-invalid');
+    importateur.classList.add('is-valid');
+  }
+  if (fournisseur.value=='') {
+    fournisseur.classList.add('is-invalid');
+  } else {
+    fournisseur.classList.remove('is-invalid');
+    fournisseur.classList.add('is-valid');
+  }
+  if (type.value=='') {
+    type.classList.add('is-invalid');
+  } else {
+    type.classList.remove('is-invalid');
+    type.classList.add('is-valid');
+  }
+  if (have_contrat.value=='') {
+    have_contrat.classList.add('is-invalid');
+  } else {
+    have_contrat.classList.remove('is-invalid');
+    have_contrat.classList.add('is-valid');
+  }
+  /*if (ref_contrat.value=='') {
+    ref_contrat.classList.add('is-invalid');
+  } else {
+    ref_contrat.classList.remove('is-invalid');
+    ref_contrat.classList.add('is-valid');
+  }*/
+  if (pays_dest.value=='') {
+    pays_dest.classList.add('is-invalid');
+  } else {
+    pays_dest.classList.remove('is-invalid');
+    pays_dest.classList.add('is-valid');
+  }
+  if (rel_client.value=='') {
+    rel_client.classList.add('is-invalid');
+  } else {
+    rel_client.classList.remove('is-invalid');
+    rel_client.classList.add('is-valid');
+  }
+  if (num_dossier.value=='') {
+    num_dossier.classList.add('is-invalid');
+  } else {
+    num_dossier.classList.remove('is-invalid');
+    num_dossier.classList.add('is-valid');
+  }
+  if (motif.value=='') {
+    motif.classList.add('is-invalid');
+  } else {
+    motif.classList.remove('is-invalid');
+    motif.classList.add('is-valid');
+  }
+  if (date_execution.value=='') {
+    date_execution.classList.add('is-invalid');
+  } else {
+    date_execution.classList.remove('is-invalid');
+    date_execution.classList.add('is-valid');
+  }
+  if (delai_justif.value=='') {
+    delai_justif.classList.add('is-invalid');
+  } else {
+    delai_justif.classList.remove('is-invalid');
+    delai_justif.classList.add('is-valid');
+  }
+  if (date_limite.value=='') {
+    date_limite.classList.add('is-invalid');
+  } else {
+    date_limite.classList.remove('is-invalid');
+    date_limite.classList.add('is-valid');
+  }
+  if (type_financement.value=='') {
+    type_financement.classList.add('is-invalid');
+  } else {
+    type_financement.classList.remove('is-invalid');
+    type_financement.classList.add('is-valid');
+  }
+  if (num_domiciliation.value=='') {
+    num_domiciliation.classList.add('is-invalid');
+  } else {
+    num_domiciliation.classList.remove('is-invalid');
+    num_domiciliation.classList.add('is-valid');
+  }
+  if (montant_domiciation.value=='') {
+    montant_domiciation.classList.add('is-invalid');
+  } else {
+    montant_domiciation.classList.remove('is-invalid');
+    montant_domiciation.classList.add('is-valid');
+  }
+  if (ref_sgs.value=='') {
+    ref_sgs.classList.add('is-invalid');
+  } else {
+    ref_sgs.classList.remove('is-invalid');
+    ref_sgs.classList.add('is-valid');
+  }
+  if (ref_pr.value=='') {
+    ref_pr.classList.add('is-invalid');
+  } else {
+    ref_pr.classList.remove('is-invalid');
+    ref_pr.classList.add('is-valid');
+  }
+  if (isFormValid) {
+    // Activer le lien de la prochaine étape
+    wizardNavLinks[10].classList.remove('disabled');
+    wizardNavLinks[11].classList.remove('disabled');
+
+    // Activer l'onglet de la prochaine étape
+    const nextTab = document.querySelector('#vert-tabs-finance-tab');
+    nextTab.classList.add('active');
+
+    // Désactiver l'onglet de l'étape actuelle
+    const currentTab = document.querySelector('#vert-tabs-general-tab');
+    currentTab.classList.remove('show', 'active');
+
+    // Mettre à jour l'onglet actif dans la navigation
+    wizardNavLinks[10].classList.remove('active');
+    wizardNavLinks[11].classList.add('active');
+
+    // Passer aria-selected="false" à vert-tabs-general-tab
+    const generalTab = document.querySelector('#vert-tabs-general-tab');
+    generalTab.setAttribute('aria-selected', 'false');
+
+    // Passer aria-selected="true" à vert-tabs-finance-tab
+    const financeTab = document.querySelector('#vert-tabs-finance-tab');
+    financeTab.setAttribute('aria-selected', 'true');
+
+    //masquer le formulaire actuel
+    const actualForm = document.querySelector('#vert-tabs-general');
+    actualForm.classList.remove('active','show');
+
+    // Afficher le formulaire de l'étape suivante
+    const nextForm = document.querySelector('#vert-tabs-finance');
+    nextForm.classList.add('active','show');
+  }
+  validateForm2();
+  validateForm3();
+  validateForm4();
+  validateForm5();
+}
+
+function validateForm2() {
+  const formInputs = document.querySelectorAll('#vert-tabs-finance input');
+  let isFormValid = true;
+  for (let i = 0; i < formInputs.length; i++) {
+    if (formInputs[i].value === '') {
+      isFormValid = false;
+      break;
+    }
+  }
+  if (ref_facture.value == '') {
+    ref_facture.classList.add('is-invalid');
+  } else {
+    ref_facture.classList.remove('is-invalid');
+    ref_facture.classList.add('is-valid');
+  }
+  if (montant_facture.value == '') {
+    montant_facture.classList.add('is-invalid');
+  } else {
+    montant_facture.classList.remove('is-invalid');
+    montant_facture.classList.add('is-valid');
+  }
+  if (devise_facture.value == '') {
+    devise_facture.classList.add('is-invalid');
+  } else {
+    devise_facture.classList.remove('is-invalid');
+    devise_facture.classList.add('is-valid');
+  }
+  if (taux_applique.value == '') {
+    taux_applique.classList.add('is-invalid');
+  } else {
+    taux_applique.classList.remove('is-invalid');
+    taux_applique.classList.add('is-valid');
+  }
+  if (montant_facture_xaf.value == '') {
+    montant_facture_xaf.classList.add('is-invalid');
+  } else {
+    montant_facture_xaf.classList.remove('is-invalid');
+    montant_facture_xaf.classList.add('is-valid');
+  }
+  if (facture_definitive.value == '') {
+    facture_definitive.classList.add('is-invalid');
+  } else {
+    facture_definitive.classList.remove('is-invalid');
+    facture_definitive.classList.add('is-valid');
+  }
+  if (reference_facture_definitive.value == '') {
+    reference_facture_definitive.classList.add('is-invalid');
+  } else {
+    reference_facture_definitive.classList.remove('is-invalid');
+    reference_facture_definitive.classList.add('is-valid');
+  }
+  if (montant_facture_definitive.value == '') {
+    montant_facture_definitive.classList.add('is-invalid');
+  } else {
+    montant_facture_definitive.classList.remove('is-invalid');
+    montant_facture_definitive.classList.add('is-valid');
+  }
+  if (montant_transfert.value == '') {
+    montant_transfert.classList.add('is-invalid');
+  } else {
+    montant_transfert.classList.remove('is-invalid');
+    montant_transfert.classList.add('is-valid');
+  }
+  if (taux_applique_transfert.value == '') {
+    taux_applique_transfert.classList.add('is-invalid');
+  } else {
+    taux_applique_transfert.classList.remove('is-invalid');
+    taux_applique_transfert.classList.add('is-valid');
+  }
+  if (montant_transfert_xaf.value == '') {
+    montant_transfert_xaf.classList.add('is-invalid');
+  } else {
+    montant_transfert_xaf.classList.remove('is-invalid');
+    montant_transfert_xaf.classList.add('is-valid');
+  }
+  if (mt103_202.value == '') {
+    mt103_202.classList.add('is-invalid');
+  } else {
+    mt103_202.classList.remove('is-invalid');
+    mt103_202.classList.add('is-valid');
+  }
+  /*if (date_mt103_202.value == '') {
+    date_mt103_202.classList.add('is-invalid');
+  } else {
+    date_mt103_202.classList.remove('is-invalid');
+    date_mt103_202.classList.add('is-valid');
+  }*/
+  if (mt950_mt940.value == '') {
+    mt950_mt940.classList.add('is-invalid');
+  } else {
+    mt950_mt940.classList.remove('is-invalid');
+    mt950_mt940.classList.add('is-valid');
+  }
+  
+}
+
+function validateForm3() {
+  const formInputs = document.querySelectorAll('#vert-tabs-douane input');
+  let isFormValid = true;
+  for (let i = 0; i < formInputs.length; i++) {
+    if (formInputs[i].value === '') {
+      isFormValid = false;
+      break;
+    }
+  }
+  if (bl.value == '') {
+    bl.classList.add('is-invalid');
+  } else {
+    bl.classList.remove('is-invalid');
+    bl.classList.add('is-valid');
+  }
+  /*if (ref_bl.value == '') {
+    ref_bl.classList.add('is-invalid');
+  } else {
+    ref_bl.classList.remove('is-invalid');
+    ref_bl.classList.add('is-valid');
+  }*/
+  if (quittance_douane.value == '') {
+    quittance_douane.classList.add('is-invalid');
+  } else {
+    quittance_douane.classList.remove('is-invalid');
+    quittance_douane.classList.add('is-valid');
+  }
+  /*if (ref_quittance_douane.value == '') {
+    ref_quittance_douane.classList.add('is-invalid');
+  } else {
+    ref_quittance_douane.classList.remove('is-invalid');
+    ref_quittance_douane.classList.add('is-valid');
+  }*/
+  if (montant_quittance_douane.value == '') {
+    montant_quittance_douane.classList.add('is-invalid');
+  } else {
+    montant_quittance_douane.classList.remove('is-invalid');
+    montant_quittance_douane.classList.add('is-valid');
+  }
+  if (declaration_im4.value == '') {
+    declaration_im4.classList.add('is-invalid');
+  } else {
+    declaration_im4.classList.remove('is-invalid');
+    declaration_im4.classList.add('is-valid');
+  }
+  /*if (reference_declaration_im4.value == '') {
+    reference_declaration_im4.classList.add('is-invalid');
+  } else {
+    reference_declaration_im4.classList.remove('is-invalid');
+    reference_declaration_im4.classList.add('is-valid');
+  }*/
+  if (montant_declaration_im4.value == '') {
+    montant_declaration_im4.classList.add('is-invalid');
+  } else {
+    montant_declaration_im4.classList.remove('is-invalid');
+    montant_declaration_im4.classList.add('is-valid');
+  }
+}
+
+function validateForm4() {
+  const formInputs = document.querySelectorAll('#vert-tabs-apurement input');
+  let isFormValid = true;
+  for (let i = 0; i < formInputs.length; i++) {
+    if (formInputs[i].value === '') {
+      isFormValid = false;
+      break;
+    }
+  }
+  if (document_realisation_suivi.value == '') {
+    document_realisation_suivi.classList.add('is-invalid');
+  } else {
+    document_realisation_suivi.classList.remove('is-invalid');
+    document_realisation_suivi.classList.add('is-valid');
+  }
+  if (date_previsionnelle_apurement.value == '') {
+    date_previsionnelle_apurement.classList.add('is-invalid');
+  } else {
+    date_previsionnelle_apurement.classList.remove('is-invalid');
+    date_previsionnelle_apurement.classList.add('is-valid');
+  }
+  if (statut_apurement.value == '') {
+    statut_apurement.classList.add('is-invalid');
+  } else {
+    statut_apurement.classList.remove('is-invalid');
+    statut_apurement.classList.add('is-valid');
+  }
+  if (reference_mise_demeure.value == '') {
+    reference_mise_demeure.classList.add('is-invalid');
+  } else {
+    reference_mise_demeure.classList.remove('is-invalid');
+    reference_mise_demeure.classList.add('is-valid');
+  }
+  if (date_mise_demeure.value == '') {
+    date_mise_demeure.classList.add('is-invalid');
+  } else {
+    date_mise_demeure.classList.remove('is-invalid');
+    date_mise_demeure.classList.add('is-valid');
+  }
+  if (rvc.value == '') {
+    rvc.classList.add('is-invalid');
+  } else {
+    rvc.classList.remove('is-invalid');
+    rvc.classList.add('is-valid');
+  }
+  if (document_fournis.value == '') {
+    document_fournis.classList.add('is-invalid');
+  } else {
+    document_fournis.classList.remove('is-invalid');
+    document_fournis.classList.add('is-valid');
+  }
+  if (document_manquant.value == '') {
+    document_manquant.classList.add('is-invalid');
+  } else {
+    document_manquant.classList.remove('is-invalid');
+    document_manquant.classList.add('is-valid');
+  }
+  if (observations.value == '') {
+    observations.classList.add('is-invalid');
+  } else {
+    observations.classList.remove('is-invalid');
+    observations.classList.add('is-valid');
+  }
+  if (controle_beac.value == '') {
+    controle_beac.classList.add('is-invalid');
+  } else {
+    controle_beac.classList.remove('is-invalid');
+    controle_beac.classList.add('is-valid');
+  }
+}
+
+function validateForm5() {
+  const formInputs = document.querySelectorAll('#vert-tabs-autres input');
+  let isFormValid = true;
+  for (let i = 0; i < formInputs.length; i++) {
+    if (formInputs[i].value === '') {
+      isFormValid = false;
+      break;
+    }
+  }
+  if (contrat_po.value == '') {
+    contrat_po.classList.add('is-invalid');
+  } else {
+    contrat_po.classList.remove('is-invalid');
+    contrat_po.classList.add('is-valid');
+  }
+  if (bon_declaration.value == '') {
+    bon_declaration.classList.add('is-invalid');
+  } else {
+    bon_declaration.classList.remove('is-invalid');
+    bon_declaration.classList.add('is-valid');
+  }
+  if (bon_transport.value == '') {
+    bon_transport.classList.add('is-invalid');
+  } else {
+    bon_transport.classList.remove('is-invalid');
+    bon_transport.classList.add('is-valid');
+  }
+  if (phy.value == '') {
+    phy.classList.add('is-invalid');
+  } else {
+    phy.classList.remove('is-invalid');
+    phy.classList.add('is-valid');
+  }
+}
+
+function toggleRefContrat(selectElement) {
+  var refContratInput = document.getElementById("ref_contrat");
+  if (selectElement.value === "Oui") {
+    refContratInput.readOnly = false;
+    if (ref_contrat.value=='') {
+      ref_contrat.classList.add('is-invalid');
+    } else {
+      ref_contrat.classList.remove('is-invalid');
+      ref_contrat.classList.add('is-valid');
+    }
+  } else {
+    ref_contrat.classList.remove('is-invalid');
+    ref_contrat.classList.remove('is-valid');
+    refContratInput.value="";
+    refContratInput.readOnly = true;
+  }
+}
+
+function toggleRefBl(selectElement){
+  if(selectElement.value === "Oui"){
+    ref_bl.readOnly = false;
+    if (ref_bl.value == '') {
+      ref_bl.classList.add('is-invalid');
+    } else {
+      ref_bl.classList.remove('is-invalid');
+      ref_bl.classList.add('is-valid');
+    }
+  }else{
+    ref_bl.classList.remove('is-invalid');
+    ref_bl.classList.remove('is-valid');
+    ref_bl.readOnly = true;
+    ref_bl.value="";
+  }
+}
+
+function toggleQuittanceDouane(selectElement){
+  if(selectElement.value === "Oui"){
+    ref_quittance_douane.readOnly = false;
+    if (ref_quittance_douane.value == '') {
+      ref_quittance_douane.classList.add('is-invalid');
+    } else {
+      ref_quittance_douane.classList.remove('is-invalid');
+      ref_quittance_douane.classList.add('is-valid');
+    }
+  }else{
+    ref_quittance_douane.classList.remove('is-invalid');
+    ref_quittance_douane.classList.remove('is-valid');
+    ref_quittance_douane.readOnly = true;
+    ref_quittance_douane.value="";
+  }
+}
+
+function toggleDeclarationIM4(selectElement){
+  if(selectElement.value === "Oui"){
+    reference_declaration_im4.readOnly = false;
+    if (reference_declaration_im4.value == '') {
+      reference_declaration_im4.classList.add('is-invalid');
+    } else {
+      reference_declaration_im4.classList.remove('is-invalid');
+      reference_declaration_im4.classList.add('is-valid');
+    }
+  }else{
+    reference_declaration_im4.classList.remove('is-invalid');
+    reference_declaration_im4.classList.remove('is-valid');
+    reference_declaration_im4.readOnly = true;
+    reference_declaration_im4.value="";
+  }
+}
+
+function toggleDateMit103(selectElement){
+  if(selectElement.value === "Oui"){
+    date_mt103_202.readOnly = false;
+    if (date_mt103_202.value == '') {
+      date_mt103_202.classList.add('is-invalid');
+    } else {
+      date_mt103_202.classList.remove('is-invalid');
+      date_mt103_202.classList.add('is-valid');
+    }
+  }else{
+    date_mt103_202.classList.remove('is-invalid');
+    date_mt103_202.classList.remove('is-valid');
+    date_mt103_202.readOnly = true;
+    date_mt103_202.value="";
+  }
+}
+
+
+// Récupérer la liste des pays depuis l'API REST Countries
+fetch("https://restcountries.com/v3.1/all")
+.then((response) => response.json())
+.then((data) => {
+  var countryList = document.getElementById("country_list");
+
+  // Ajouter les options des pays à la liste de suggestions
+  data.forEach(function (country) {
+    var option = document.createElement("option");
+    option.text = country.name.common;
+    option.value = country.name.common;
+    countryList.appendChild(option);
+  });
+})
+.catch((error) => {
+  console.log("Erreur lors de la récupération des pays:", error);
+});
+
+
+//gerer les coloris des barres
+$(document).ready(function() {
+  // Lorsqu'un onglet est cliqué
+  $('.nav-link').on('click', function() {
+    var activeTab = $(this).attr('aria-controls');
+    var contentMenu = $('#content-part-menu');
+    var contentbar = $('#vert-tabs-tab');
+    // Modifier la classe de la div content-part-menu en fonction de l'onglet actif
+    if (activeTab === 'vert-tabs-general') {
+      contentMenu.css('border-top', '3px solid rgb(67, 67, 186)');
+      contentbar.css('border-right', '2px solid rgb(67, 67, 186)');
+    } else if (activeTab === 'vert-tabs-finance') {
+      contentMenu.css('border-top', '3px solid tomato');
+      contentbar.css('border-right', '2px solid tomato');
+
+    } else if (activeTab === 'vert-tabs-douane') {
+      contentMenu.css('border-top', '3px solid lightseagreen');
+      contentbar.css('border-right', '2px solid lightseagreen');
+
+    } else if (activeTab === 'vert-tabs-apurement') {
+      contentMenu.css('border-top', '3px solid goldenrod');
+      contentbar.css('border-right', '2px solid goldenrod');
+
+    } else if (activeTab === 'vert-tabs-autres') {
+      contentMenu.css('border-top', '3px solid gray');
+      contentbar.css('border-right', '2px solid gray');
+
+    }
+
+  });
+});
+
+
+//Verifier la validite pendant la saisie
+function validateField(field) {
+  if (field.value === '') {
+    field.classList.add('is-invalid');
+  } else {
+    field.classList.remove('is-invalid');
+    field.classList.add('is-valid');
+  }
+}

@@ -1,110 +1,53 @@
+{% extends 'base_form_modal.html' %}
 {% load static %}
-<!-- App favicon -->
-<link rel="shortcut icon" href="{% static 'assets/images/fav-icon.png' %}">
-
-<!-- multi.js css -->
-<link rel="stylesheet" type="text/css" href="{% static 'assets/libs/multi.js/multi.min.css' %}" />
-<!-- autocomplete css -->
-<link rel="stylesheet" href="{% static 'assets/libs/%40tarekraafat/autocomplete.js/css/autoComplete.css' %}">
-
-<!-- Layout config Js -->
-<script src="{% static 'assets/js/layout.js' %}"></script>
-<!-- Bootstrap Css -->
-<link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
-<!-- Icons Css -->
-<link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
-<!-- App Css-->
-<link href="{% static 'assets/css/app.min.css' %}" rel="stylesheet" type="text/css" />
-<!-- custom Css-->
-<link href="{% static 'assets/css/custom.min.css' %}" rel="stylesheet" type="text/css" />
-
-
-
-<div class="modal-header bg-light p-3">
-    <h5 class="modal-title" id="exampleModalLabel"></h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
-</div>
-<form>
-    {% csrf_token %}
-    <div class="modal-body">
-        <div class="mb-3" id="modal-id">
-            <label for="libsys" class="form-label">Système </label>
-            <input type="text" id="libsys" name="libsys" value="{{data.libsys}}" class="form-control" placeholder="Système" />
-        </div>
-        <div class="mb-3" id="modal-id">
-            <label for="libfamillerisk" class="form-label">Filiale </label>
-            <select class="form-select" aria-label="Default select example" name="idfiliale">
-                {% if not data.idfiliale %}
-                    {% for filiale in data_filiale_list %}
-                        {% if IdFiliale == filiale.idfiliale %}
-                            <option value="{{ IdFiliale }}" >{{ filiale.sigle_filiale }}</option>
-                        {% endif %}
-                    {% empty %}
-                        <option value="">Pas d'elements trouvés</option>
-                    {% endfor %}
-                {% else %}
-                    {% for filiale in data_filiale_list %}
-                        {% if IdFiliale == filiale.idfiliale %}
-                            <option value="{{ IdFiliale }}" {% if data.idfiliale == filiale.idfiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
-                        {% endif %}
-                    {% empty %}
-                        <option value="">Pas d'elements trouvés</option>
-                    {% endfor %}
-                {% endif %}
-            </select>
-            <label for="processus_list" class="form-label mt-3"> Processus </label>
-            {% comment %} <div class="form-row" id="processus_list">
-                {% for processu in processus %}
-                    <div class="form-check form-switch form-check-inline my-2">
-                        <input class="form-check-input" type="checkbox" role="switch" name="processus{{processu.idprocessus}}" id="formCheck{{forloop.counter}}" {% if processu in processus_systeme %} checked {% endif %}>
-                        <label class="form-check-label" for="formCheck{{forloop.counter}}">{{processu.libprocessus}}</label>
-                    </div>
-                    {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
+{% block modal-size %}modal-xl{% endblock modal-size %}
+{% block form_modal %}
+    <div class="mb-3" id="modal-id">
+        <label for="libsys" class="form-label">Système </label>
+        <input type="text" id="libsys" name="libsys" value="{{data.libsys}}" class="form-control" placeholder="Système" />
+    </div>
+    <div class="mb-3" id="modal-id">
+        <label for="libfamillerisk" class="form-label">Filiale </label>
+        <select class="form-select" aria-label="Default select example" name="idfiliale">
+            {% if not data.idfiliale %}
+                {% for filiale in data_filiale_list %}
+                    {% if IdFiliale == filiale.idfiliale %}
+                        <option value="{{ IdFiliale }}" >{{ filiale.sigle_filiale }}</option>
+                    {% endif %}
+                {% empty %}
+                    <option value="">Pas d'elements trouvés</option>
                 {% endfor %}
-            </div> {% endcomment %}
+            {% else %}
+                {% for filiale in data_filiale_list %}
+                    {% if IdFiliale == filiale.idfiliale %}
+                        <option value="{{ IdFiliale }}" {% if data.idfiliale == filiale.idfiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
+                    {% endif %}
+                {% empty %}
+                    <option value="">Pas d'elements trouvés</option>
+                {% endfor %}
+            {% endif %}
+        </select>
+        <label for="processus_list" class="form-label mt-3"> Processus </label>
+        {% comment %} <div class="form-row" id="processus_list">
+            {% for processu in processus %}
+                <div class="form-check form-switch form-check-inline my-2">
+                    <input class="form-check-input" type="checkbox" role="switch" name="processus{{processu.idprocessus}}" id="formCheck{{forloop.counter}}" {% if processu in processus_systeme %} checked {% endif %}>
+                    <label class="form-check-label" for="formCheck{{forloop.counter}}">{{processu.libprocessus}}</label>
+                </div>
+                {% if forloop.counter|divisibleby:3 %}<div class="clearfix"></div>{% endif %}
+            {% endfor %}
+        </div> {% endcomment %}
 
-            <div class="row">
-                <div class="col">
-                    <div>
-                        <select multiple="multiple" name="processus" id="multiselect-header">
-                            {% for processu in processus %}
-                                <option {% if processu in processus_systeme %} selected {% endif %}>{{processu.libprocessus}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+        <div class="row">
+            <div class="col">
+                <div>
+                    <select multiple="multiple" name="processus" id="multiselect-header">
+                        {% for processu in processus %}
+                            <option {% if processu in processus_systeme %} selected {% endif %}>{{processu.libprocessus}}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal-footer">
-        <div class="hstack gap-2 justify-content-end">
-            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
-            {% if not data %}
-                <button type="submit" data-bs-dismiss="modal" class="btn btn-success" id="add-btn" hx-post="{% url 'services:add_systeme' %}" hx-indicator="#loader">Ajouter</button>
-            {% else %}
-                <button type="button" data-bs-dismiss="modal" class="btn btn-success" hx-post="{% url 'services:edit_systeme' pk=data.id_sys %}" hx-indicator="#loader" id="edit-btn">modifier</button>
-            {% endif %}
-        </div>
-    </div>
-</form>
-
-    <!-- JAVASCRIPT -->
-    <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
-    <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
-    <script src="{% static 'assets/libs/feather-icons/feather.min.js' %}"></script>
-    <script src="{% static 'assets/js/pages/plugins/lord-icon-2.1.0.js' %}"></script>
-    <script src="{% static 'assets/js/plugins.js' %}"></script>
-
-    <!-- multi.js -->
-    <script src="{% static 'assets/libs/multi.js/multi.min.js' %}"></script>
-    <!-- autocomplete js -->
-    <script src="{% static 'assets/libs/%40tarekraafat/autocomplete.js/autoComplete.min.js' %}"></script>
-
-    <!-- init js -->
-    <script src="{% static 'assets/js/pages/form-advanced.init.js' %}"></script>
-    <!-- input spin init -->
-    <script src="{% static 'assets/js/pages/form-input-spin.init.js' %}"></script>
-
-    <!-- App js -->
-    <script src="{% static 'assets/js/app.js' %}"></script>
+{% endblock form_modal %}
