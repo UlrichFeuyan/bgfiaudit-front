@@ -113,13 +113,13 @@ div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria .form-control {
   display: inline-block;
 }
 div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-condition {
-  border-color: #28a745;
+  border-color: #0AB39C;
 }
 div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-data {
-  border-color: #dc3545;
+  border-color: #F06548;
 }
 div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-value, div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-value {
-  border-color: #007bff;
+  border-color: #105A90;
 }
 div.dtsb-searchBuilder div.dtsb-group div.dtsb-logicContainer {
   border-radius: 4px;

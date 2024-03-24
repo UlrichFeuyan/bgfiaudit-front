@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def profil_auditeur(request):
     profile_auditeur_active = 'True'
     dropdown_profils = 'True'
+    header_title= "Profil auditeur"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'profils',
+            },
+            {
+                'name': 'profil auditeur',
+            },
+        ]
     return render(request, 'services/profil_auditeur/profil_auditeur.html', locals())
 
 def list_profil_auditeur(request):

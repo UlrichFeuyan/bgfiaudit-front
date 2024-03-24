@@ -1078,13 +1078,13 @@
 }
 
 .direct-chat-primary .right > .direct-chat-text {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #105A90;
+  border-color: #105A90;
   color: #fff;
 }
 
 .direct-chat-primary .right > .direct-chat-text::after, .direct-chat-primary .right > .direct-chat-text::before {
-  border-left-color: #007bff;
+  border-left-color: #105A90;
 }
 
 .direct-chat-secondary .right > .direct-chat-text {
@@ -1098,13 +1098,13 @@
 }
 
 .direct-chat-success .right > .direct-chat-text {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #0AB39C;
+  border-color: #0AB39C;
   color: #fff;
 }
 
 .direct-chat-success .right > .direct-chat-text::after, .direct-chat-success .right > .direct-chat-text::before {
-  border-left-color: #28a745;
+  border-left-color: #0AB39C;
 }
 
 .direct-chat-info .right > .direct-chat-text {
@@ -1128,13 +1128,13 @@
 }
 
 .direct-chat-danger .right > .direct-chat-text {
-  background-color: #dc3545;
-  border-color: #dc3545;
+  background-color: #F06548;
+  border-color: #F06548;
   color: #fff;
 }
 
 .direct-chat-danger .right > .direct-chat-text::after, .direct-chat-danger .right > .direct-chat-text::before {
-  border-left-color: #dc3545;
+  border-left-color: #F06548;
 }
 
 .direct-chat-light .right > .direct-chat-text {
@@ -1218,13 +1218,13 @@
 }
 
 .direct-chat-blue .right > .direct-chat-text {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #105A90;
+  border-color: #105A90;
   color: #fff;
 }
 
 .direct-chat-blue .right > .direct-chat-text::after, .direct-chat-blue .right > .direct-chat-text::before {
-  border-left-color: #007bff;
+  border-left-color: #105A90;
 }
 
 .direct-chat-indigo .right > .direct-chat-text {
@@ -1258,13 +1258,13 @@
 }
 
 .direct-chat-red .right > .direct-chat-text {
-  background-color: #dc3545;
-  border-color: #dc3545;
+  background-color: #F06548;
+  border-color: #F06548;
   color: #fff;
 }
 
 .direct-chat-red .right > .direct-chat-text::after, .direct-chat-red .right > .direct-chat-text::before {
-  border-left-color: #dc3545;
+  border-left-color: #F06548;
 }
 
 .direct-chat-orange .right > .direct-chat-text {
@@ -1288,13 +1288,13 @@
 }
 
 .direct-chat-green .right > .direct-chat-text {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #0AB39C;
+  border-color: #0AB39C;
   color: #fff;
 }
 
 .direct-chat-green .right > .direct-chat-text::after, .direct-chat-green .right > .direct-chat-text::before {
-  border-left-color: #28a745;
+  border-left-color: #0AB39C;
 }
 
 .direct-chat-teal .right > .direct-chat-text {

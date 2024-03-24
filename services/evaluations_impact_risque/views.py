@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def evaluations_impact_risque(request):
     dropdown_parametre_generaux = 'True'
     evaluation_impact_risque_active = 'True'
+    header_title= "Evaluation impact de risque"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+             {
+                'name': 'paramétrages',
+            },
+            {
+                'name': 'évaluation impact de risque',
+            },
+        ]
     return render(request, 'services/evaluations_impact_risque/evaluations_impact_risque.html', locals())
 
 def list_evaluations_impact_risque(request):

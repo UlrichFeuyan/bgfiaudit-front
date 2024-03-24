@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def site(request):
     dropdown_parametre_filiale = 'True'
     site_active = 'True'
+    header_title= "Site"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'paramétrages filiale',
+            },
+            {
+                'name': 'site',
+            },
+        ]
     return render(request, 'services/site/site.html', locals())
 
 def list_site(request):

@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def corps_de_controles(request):
     dropdown_parametre_generaux = 'True'
     corps_control_active = 'True'
+    header_title= "Corps de contrôle"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'paramétrages',
+            },
+            {
+                'name': 'corps de controle',
+            },
+        ]
     return render(request, 'services/corps_de_controles/corps_de_controles.html', locals())
 
 def list_corps_de_controles(request):

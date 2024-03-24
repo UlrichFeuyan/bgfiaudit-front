@@ -8,7 +8,7 @@
                 <ol class="breadcrumb float-sm-right">
                     {% for item in breadcrumb %}
                         {% if not forloop.last %}
-                            <li class="breadcrumb-item">
+                            <li class="breadcrumb-item text-primary">
                                 {% if item.path %}
                                     <a href="{{ item.path }}">{{ item.name }}</a>
                                 {% else %}

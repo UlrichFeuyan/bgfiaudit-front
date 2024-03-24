@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def pole(request):
     dropdown_parametre_filiale = 'True'
     pole_active = 'True'
+    header_title= "Pole"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'paramétrages filiale',
+            },
+            {
+                'name': 'pole',
+            },
+        ]
     return render(request, 'services/pole/pole.html', locals())
 
 def list_pole(request):

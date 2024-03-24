@@ -18,7 +18,6 @@ def gestions_des_filiales(request):
             },
             {
                 'name': 'gestion des filiales',
-                'path': reverse('services:gestions_des_filiales'),
             },
         ]
     return render(request, 'services/gestions_des_filiales/gestions_des_filiales.html', locals())

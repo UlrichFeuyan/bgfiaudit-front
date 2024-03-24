@@ -4,6 +4,7 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
@@ -11,6 +12,19 @@ def type_de_missions(request):
     dropdown_parametre_generaux = 'True'
     dropdown_parametre_filiale = 'True'
     type_mission_active = 'True'
+    header_title= "Type de  mission"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'paramétrages',
+            },
+            {
+                'name': 'type de mission',
+            },
+        ]
     return render(request, 'services/type_de_missions/type_de_missions.html', locals())
 
 def list_type_de_missions(request):

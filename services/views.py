@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Sum, Count
 from rest_framework.response import Response
+from django.urls import reverse
 import sweetify
 
 from apiRessource.authenticate_user import authenticate_user
@@ -94,9 +95,29 @@ def profil(request):
     nom = request.session.get('nom_user')
     prenom = request.session.get('prenom_user')
     email = request.session.get('email_user')
+    header_title= "Profil"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'profil',
+            },
+        ]
     return render(request, 'services/signIn/profil.html', locals())
 
 def change_password(request):
+    header_title= "Changement de mot de passe"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'changement de mot de passe',
+            },
+        ]
     if request.method == "POST":
         last_password = request.POST.get('old_password')
         new_password = request.POST.get('new_password1')

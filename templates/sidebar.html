@@ -45,40 +45,46 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                     {% endif %}
-                        <i class="nav-icon fas fa-file-contract"></i>
+                        <i class="nav-icon fas fa-cog"></i>
                             <p>
                                 Paramétrages
-                                <i class="fas fa-angle-left right"></i>
+                                <i class="nav-icon fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{% url 'services:repertoire_racine' %}" class="nav-link {% if repertoire_racine_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Repertoire Racine</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:famille_de_risques' %}" class="nav-link {% if famille_risque_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Famille de risques</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:gravite_de_risques' %}" class="nav-link {% if gravite_risque_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Gravité de Risques</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:evaluations_impact_risque' %}" class="nav-link {% if evaluation_impact_risque_active == 'True' %} active{% endif %}">
-                                    <p>Evaluations Impact risque</p>
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
+                                    <p>Evaluations Impact</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:corps_de_controles' %}" class="nav-link {% if corps_control_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Corps de Controles</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:type_de_missions' %}" class="nav-link {% if type_mission_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Type de Missions</p>
                                 </a>
                             </li>
@@ -93,7 +99,7 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                     {% endif %}
-                        <i class="nav-icon fas fa-file-contract"></i>
+                        <i class="nav-icon fas fa-cogs"></i>
                             <p>
                                 Paramétrages Filiale
                                 <i class="fas fa-angle-left right"></i>
@@ -102,36 +108,43 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{% url 'services:pole' %}" class="nav-link {% if pole_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Pole</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:processus' %}" class="nav-link {% if processus_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Processus</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:systeme' %}" class="nav-link {% if systeme_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Système</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:site' %}" class="nav-link {% if site_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Site</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:matrice_de_competence_param' %}" class="nav-link {% if matrice_competence_param_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Matrice de competence</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link {% if catalogue_formation_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Catalogue de formation</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:type_de_missions' %}" class="nav-link {% if type_mission_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Type de Missions</p>
                                 </a>
                             </li>
@@ -141,7 +154,7 @@
                 {% if gestion_filiale == 'True' %}
                     <li class="nav-item">
                         <a href="{% url 'services:gestions_des_filiales' %}" class="nav-link {% if dashboard_active == 'True' %}active{% endif %}">
-                            <i class="nav-icon fas fa-home"></i>
+                            <i class="nav-icon fas fa-sitemap"></i>
                             <p>
                                 Gestions des Filiales
                             </p>
@@ -156,7 +169,7 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                     {% endif %}
-                        <i class="nav-icon fas fa-file-contract"></i>
+                        <i class="nav-icon fas fa-users-cog"></i>
                             <p>
                                 Profils
                                 <i class="fas fa-angle-left right"></i>
@@ -165,11 +178,13 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{% url 'services:profil_utilisateur' %}" class="nav-link {% if profile_utilisateur_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Profil Utilisateur</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:profil_auditeur' %}" class="nav-link {% if profile_auditeur_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Profil Auditeur</p>
                                 </a>
                             </li>
@@ -179,7 +194,7 @@
                 {% if utilisateur == 'True' %}
                     <li class="nav-item">
                         <a href="{% url 'services:utilisateurs' %}" class="nav-link {% if utilisateurs_active == 'True' %}active{% endif %}">
-                            <i class="nav-icon fas fa-home"></i>
+                            <i class="nav-icon fas fa-users"></i>
                             <p>
                                 Utilisateurs
                             </p>
@@ -194,7 +209,7 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                     {% endif %}
-                        <i class="nav-icon fas fa-file-contract"></i>
+                        <i class="nav-icon fas fa-id-badge"></i>
                             <p>
                                 Auditeurs
                                 <i class="fas fa-angle-left right"></i>
@@ -203,11 +218,13 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="#" class="nav-link {% if matrice_competence_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Matrice de Competence </p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link {% if formation_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Formation</p>
                                 </a>
                             </li>
@@ -217,7 +234,7 @@
                 {% if documents == 'True' %}
                     <li class="nav-item">
                         <a href="{% url 'services:documents' %}" class="nav-link {% if documents_active == 'True' %}active{% endif %}">
-                            <i class="nav-icon fas fa-home"></i>
+                            <i class="nav-icon fas fa-folder"></i>
                             <p>
                                 Documents
                             </p>
@@ -232,7 +249,7 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                     {% endif %}
-                        <i class="nav-icon fas fa-file-contract"></i>
+                        <i class="nav-icon fas fa-tasks"></i>
                             <p>
                                 Activités et Risques
                                 <i class="fas fa-angle-left right"></i>
@@ -241,16 +258,19 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{% url 'services:activites' %}" class="nav-link {% if activite_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Activités</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:risques' %}" class="nav-link {% if risque_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Risques</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:controles' %}" class="nav-link {% if controle_active == 'True' %} active{% endif %}">
+                                    <i class="nav-icon fa caret-right nav-icon"></i>
                                     <p>Contrôles</p>
                                 </a>
                             </li>
@@ -265,7 +285,7 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                     {% endif %}
-                        <i class="nav-icon fas fa-file-contract"></i>
+                        <i class="nav-icon fas fa-folder"></i>
                             <p>
                                 Documents
                                 <i class="fas fa-angle-left right"></i>
@@ -274,11 +294,13 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{% url 'services:categories_de_documents' %}" class="nav-link {% if categorie_document_active == 'True' %} active{% endif %}">
-                                    <p>Categories de Documents</p>
+                                    <i class="fa caret-right nav-icon"></i>
+                                    <p>Categories Documents</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:documents' %}" class="nav-link {% if liste_document_active == 'True' %} active{% endif %}">
+                                    <i class="fa caret-right nav-icon"></i>
                                     <p>Liste de Documents</p>
                                 </a>
                             </li>
@@ -293,7 +315,7 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                     {% endif %}
-                        <i class="nav-icon fas fa-file-contract"></i>
+                        <i class="nav-icon fas fa-clipboard-list"></i>
                             <p>
                                 Mission
                                 <i class="fas fa-angle-left right"></i>
@@ -302,26 +324,31 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{% url 'services:planaudit' %}" class="nav-link {% if plan_audit_active == 'True' %} active{% endif %}">
+                                    <i class="fa caret-right nav-icon"></i>
                                     <p>Plan d'audit </p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'services:initialisation' %}" class="nav-link {% if initialisation_active == 'True' %} active{% endif %}">
+                                    <i class="fa caret-right nav-icon"></i>
                                     <p> Initialisation </p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link {% if execution_active == 'True' %} active{% endif %}">
+                                    <i class="fa caret-right nav-icon"></i>
                                     <p> Execution </p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link {% if finalisation_active == 'True' %} active{% endif %}">
+                                    <i class="fa caret-right nav-icon"></i>
                                     <p> Finalisation </p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link {% if mise_a_jour_tpa_active == 'True' %} active{% endif %}">
+                                    <i class="fa caret-right nav-icon"></i>
                                     <p> Mise a jour TPA </p>
                                 </a>
                             </li>
@@ -331,7 +358,7 @@
                 {% if suivi_recommandation == 'True' %}
                     <li class="nav-item">
                         <a href="#" class="nav-link {% if suivi_recommandation_active == 'True' %}active{% endif %}">
-                            <i class="nav-icon fas fa-home"></i>
+                            <i class="nav-icon fas fa-calendar-check"></i>
                             <p>
                                 Suivi des Recommandations
                             </p>
@@ -341,7 +368,7 @@
                 {% if documents == 'True' %}
                     <li class="nav-item">
                         <a href="#" class="nav-link {% if transmission_justif_active == 'True' %}active{% endif %}">
-                            <i class="nav-icon fas fa-home"></i>
+                            <i class="nav-icon fas fa-share"></i>
                             <p>
                                 Transmission justificatifs
                             </p>
@@ -356,7 +383,7 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                     {% endif %}
-                        <i class="nav-icon fas fa-file-contract"></i>
+                        <i class="nav-icon fas fa-chart-line"></i>
                             <p>
                                 Reporting et statistique
                                 <i class="fas fa-angle-left right"></i>

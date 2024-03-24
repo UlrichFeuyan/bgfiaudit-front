@@ -4,11 +4,22 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def utilisateurs(request):
     utilisateurs_active = 'True'
+    header_title= "Utilisateurs"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'utilistateurs',
+            },
+        ]
     return render(request, 'services/utilisateurs/utilisateurs.html', locals())
 
 def list_utilisateurs(request):

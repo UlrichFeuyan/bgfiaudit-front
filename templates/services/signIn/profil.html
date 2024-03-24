@@ -4,20 +4,6 @@
 {% block content %}
 <div class="page-content">
     <div class="container-fluid">
-        <!-- start page title -->
-        <div class="row">
-            <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0">Profile</h4>
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Profile de l'utilistateur</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- end page title -->
         <div class="row mt-5">
             <div class="col-lg-8 mx-auto">
@@ -33,28 +19,28 @@
                                 </div>
                             </div>
                             <div class="col-md-7">
-                                <table class="table d-inline-block text-left m-4 p-3">
+                                <table class="table">
                                     {% if nom %}
                                         <tr>
-                                            <td class="px-5 mt-1 align-bottom"><b>Nom</b></td>
+                                            <td class=""><b>Nom</b></td>
                                             <td class="align-bottom">&emsp;&emsp;{{ nom }}</td>
                                         </tr>
                                     {% endif %}
                                     {% if prenom %}
                                         <tr>
-                                            <td class="px-5 mt-1 align-bottom"><b>Prénom</b></td>
+                                            <td class=""><b>Prénom</b></td>
                                             <td class="align-bottom">&emsp;&emsp;{{ prenom }}</td>
                                         </tr>
                                     {% endif %}
                                     {% if userRole %}
                                         <tr>
-                                            <td class="px-5 mt-1 align-bottom"><b>Profile</b></td>
+                                            <td class=""><b>Profile</b></td>
                                             <td class="align-bottom">&emsp;&emsp;{{ userRole }}</td>
                                         </tr>
                                     {% endif %}
                                     {% if email %}
                                         <tr>
-                                            <td class="px-5 mt-1 align-bottom"><b>Email</b></td>
+                                            <td class=""><b>Email</b></td>
                                             <td class="align-bottom">&emsp;&emsp;{{ email }}</td>
                                         </tr>
                                     {% endif %}

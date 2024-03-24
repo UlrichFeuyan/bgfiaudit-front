@@ -5,12 +5,26 @@ from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
+from django.urls import reverse
 from django.urls import reverse_lazy, reverse
 
 
 def famille_de_risques(request):
     dropdown_parametre_generaux = 'True'
     famille_risque_active = 'True'
+    header_title= "Famille de risque"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'paramétrages',
+            },
+            {
+                'name': 'famille de risque',
+            },
+        ]
     return render(request, 'services/famille_de_risques/famille_de_risques.html', locals())
 
 def list_famille_de_risques(request):

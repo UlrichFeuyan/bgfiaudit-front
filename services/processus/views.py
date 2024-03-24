@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def processus(request):
     dropdown_parametre_filiale = 'True'
     processus_active = 'True'
+    header_title= "Processus"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'paramétrages filiale',
+            },
+            {
+                'name': 'processus',
+            },
+        ]
     return render(request, 'services/processus/processus.html', locals())
 
 def list_processus(request):

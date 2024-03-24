@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def systeme(request):
     dropdown_parametre_filiale = 'True'
     systeme_active = 'True'
+    header_title= "Système"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'paramétrages filiale',
+            },
+            {
+                'name': 'système',
+            },
+        ]
     return render(request, 'services/systeme/systeme.html', locals())
 
 def list_systeme(request):

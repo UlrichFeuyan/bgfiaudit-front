@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def repertoire_racine(request):
     dropdown_parametre_generaux = 'True'
     repertoire_racine_active = 'True'
+    header_title= "Répertoire racine"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'paramétrages',
+            },
+            {
+                'name': 'répertoire racine',
+            },
+        ]
     return render(request, 'services/repertoire_racine/repertoire_racine.html', locals())
 
 def list_repertoire_racine(request):

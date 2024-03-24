@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def gravite_de_risques(request):
     dropdown_parametre_generaux = 'True'
     gravite_risque_active = 'True'
+    header_title= "Gravité de risque"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'paramétrages',
+            },
+            {
+                'name': 'gravité de risque',
+            },
+        ]
     return render(request, 'services/gravite_de_risques/gravite_de_risques.html', locals())
 
 def list_gravite_de_risques(request):

@@ -629,14 +629,14 @@ a.note-dropdown-item:hover {
 .note-modal .note-nav-link {
     display: block;
     padding: 0.5rem 1rem;
-    color: #007bff;
+    color: #838FB9;
     text-decoration: none;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
 }
 .note-modal .note-nav-link:focus,
 .note-modal .note-nav-link:hover {
-    color: #0056b3;
+    color: #838FB9;
     text-decoration: none;
 }
 .note-modal .note-nav-link.disabled {

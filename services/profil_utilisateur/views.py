@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def profil_utilisateur(request):
     profile_utilisateur_active = 'True'
     dropdown_profils = 'True'
+    header_title= "Profil utilisateur"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'profils',
+            },
+            {
+                'name': 'profil utilisateur',
+            },
+        ]
     return render(request, 'services/profil_utilisateur/profil_utilisateur.html', locals())
 
 def list_profil_utilisateur(request):
