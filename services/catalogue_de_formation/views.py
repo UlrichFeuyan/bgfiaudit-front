@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def catalogue_de_formation(request):
     dropdown_parametre_filiale = 'True'
     catalogue_formation_active = 'True'
+    header_title= "Catalogue de formation"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'paramétrages filiale',
+            },
+            {
+                'name': 'catalogue de formation',
+            },
+        ]
     return render(request, 'services/catalogue_de_formation/catalogue_de_formation.html', locals())
 
 def list_catalogue_de_formation(request):

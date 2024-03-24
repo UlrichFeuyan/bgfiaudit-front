@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def categories_de_documents(request):
     dropdown_document = 'True'
     categorie_document_active = 'True'
+    header_title= "Catégories de document"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'documents',
+            },
+            {
+                'name': 'catégories de document',
+            },
+        ]
     return render(request, 'services/categories_de_documents/categories_de_documents.html', locals())
 
 def list_categories_de_documents(request):

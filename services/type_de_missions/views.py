@@ -19,9 +19,6 @@ def type_de_missions(request):
                 'path': reverse('services:home_superAdmin'),
             },
             {
-                'name': 'paramétrages',
-            },
-            {
                 'name': 'type de mission',
             },
         ]

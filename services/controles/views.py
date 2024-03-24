@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def controles(request):
     dropdown_activite_risque = 'True'
     controle_active = 'True'
+    header_title= "Contrôles"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'activités et risques',
+            },
+            {
+                'name': 'contrôles',
+            },
+        ]
     return render(request, 'services/controles/controles.html', locals())
 
 def list_controles(request):

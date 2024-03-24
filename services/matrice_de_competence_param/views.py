@@ -4,11 +4,25 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 def matrice_de_competence_param(request):
     dropdown_parametre_filiale = 'True'
     matrice_competence_param_active = 'True'
+    header_title= "Matrice de compétence"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'paramétrages filiale',
+            },
+            {
+                'name': 'matrice de compétence',
+            },
+        ]
     return render(request, 'services/matrice_de_competence_param/matrice_de_competence_param.html', locals())
 
 def list_matrice_de_competence_param(request):

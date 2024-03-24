@@ -4,12 +4,26 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
 def risques(request):
     dropdown_activite_risque = 'True'
     risque_active = 'True'
+    header_title= "Risques"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'activités et risques',
+            },
+            {
+                'name': 'risques',
+            },
+        ]
     return render(request, 'services/risques/risques.html', locals())
 
 def list_risques(request):

@@ -4,6 +4,7 @@ from ..decorators import *
 from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 
 
@@ -11,6 +12,19 @@ def documents(request):
     documents_active = 'True'
     dropdown_document = 'True'
     liste_document_active = 'True'
+    header_title= "Liste des documents"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'documents',
+            },
+            {
+                'name': 'liste des documents',
+            },
+        ]
     return render(request, 'services/documents/documents.html', locals())
 
 def list_documents(request):
