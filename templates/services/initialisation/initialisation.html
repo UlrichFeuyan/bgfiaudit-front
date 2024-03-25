@@ -30,13 +30,13 @@
                     <!-- Wizard navigation item 2-->
                     <a class="nav-item nav-link wizard-item2" id="wizard2-tab" href="#wizard2" data-toggle="tab" role="tab" aria-controls="wizard2" aria-selected="true">
                         <div class="wizard-step-text">
-                            <div class="wizard-step-text-name">Planification du travail</div>
+                            <div class="wizard-step-text-name">Mission</div>
                         </div>
                     </a>
                     <!-- Wizard navigation item 3-->
                     <a class="nav-item nav-link" id="wizard3-tab" href="#wizard3" data-toggle="tab" role="tab" aria-controls="wizard3" aria-selected="true">
                         <div class="wizard-step-text">
-                            <div class="wizard-step-text-name">Mission</div>
+                            <div class="wizard-step-text-name">Plan de travail</div>
                         </div>
                     </a>
                 </div>
@@ -68,13 +68,13 @@
                             <div class="card-header py-3 ">
                                 <div class="row">
                                     <div class="col">
-                                        <h6 class="m-0 font-weight-bold text-primary">Planning</h6>
+                                        <h6 class="m-0 font-weight-bold text-primary">Mission</h6>
                                     </div>
                                     <div class="col">
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" hx-get="{% url 'services:list_mission' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
                                 <div class="row justify-content-center center htmx-indicator" id="loader">
                                     <div class="spinner-border text-primary" role="status">
                                         <span class="sr-only">chargement ...</span>
@@ -89,13 +89,13 @@
                             <div class="card-header py-3 ">
                                 <div class="row">
                                     <div class="col">
-                                        <h6 class="m-0 font-weight-bold text-primary">Mission</h6>
+                                        <h6 class="m-0 font-weight-bold text-primary">Planning</h6>
                                     </div>
                                     <div class="col">
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body" hx-get="{% url 'services:list_mission' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
+                            <div class="card-body">
                                 <div class="row justify-content-center center htmx-indicator" id="loader">
                                     <div class="spinner-border text-primary" role="status">
                                         <span class="sr-only">chargement ...</span>
