@@ -74,23 +74,23 @@ $(document).ready(function() {
         var contentbar = $('#vert-tabs-tab');
         // Modifier la classe de la div content-part-menu en fonction de l'onglet actif
         if (activeTab === 'vert-tabs-general') {
-            contentMenu.css('border-top', '3px solid rgb(67, 67, 186)');
-            contentbar.css('border-right', '2px solid rgb(67, 67, 186)');
+            contentMenu.css('border-top', '3px solid #105A90');
+            contentbar.css('border-right', '2px solid #105A90');
         } else if (activeTab === 'vert-tabs-finance') {
-            contentMenu.css('border-top', '3px solid tomato');
-            contentbar.css('border-right', '2px solid tomato');
+            contentMenu.css('border-top', '3px solid #105A90');
+            contentbar.css('border-right', '2px solid #105A90');
 
         } else if (activeTab === 'vert-tabs-douane') {
-            contentMenu.css('border-top', '3px solid lightseagreen');
-            contentbar.css('border-right', '2px solid lightseagreen');
+            contentMenu.css('border-top', '3px solid #105A90');
+            contentbar.css('border-right', '2px solid #105A90');
 
         } else if (activeTab === 'vert-tabs-apurement') {
-            contentMenu.css('border-top', '3px solid goldenrod');
-            contentbar.css('border-right', '2px solid goldenrod');
+            contentMenu.css('border-top', '3px solid #105A90');
+            contentbar.css('border-right', '2px solid #105A90');
 
         } else if (activeTab === 'vert-tabs-autres') {
-            contentMenu.css('border-top', '3px solid gray');
-            contentbar.css('border-right', '2px solid gray');
+            contentMenu.css('border-top', '3px solid #105A90');
+            contentbar.css('border-right', '2px solid #105A90');
         }
     });
 });

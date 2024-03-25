@@ -14,6 +14,8 @@ import pandas
 import sweetify
 import unicodedata
 from datetime import datetime
+from django.urls import reverse
+
 dt = datetime.now()
 annee_actuelle = dt.strftime('%Y')
 
@@ -24,6 +26,19 @@ def remove_accents(input_str):
 def planaudit(request):
     dropdown_mission = "True"
     plan_audit_active = "True"
+    header_title= "Plan d'audit"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'mission',
+            },
+            {
+                'name': "plan d'audit",
+            },
+        ]
     return render(request, 'services/planaudit/planaudit.html', locals())
 
 def list_planaudit(request):
@@ -115,6 +130,7 @@ def add_planaudit(request):
     data_site_list = get_data_site.json()
     get_data_filiale = requests.get(gestfiliale)
     data_filiale_list = get_data_filiale.json()
+    modalsize = "modal-xl"
 
     if request.method == "POST":
         idfiliale = request.POST.get('idfiliale')
@@ -202,6 +218,10 @@ def convert_to_int(value):
         return None
 
 def import_plan_audit(request):
+    modal_title = "Importation - plan d'audit"
+    modalsize = "modal-fullscreen"
+    action = reverse("services:import_plan_audit")
+    
     if request.method == "POST" and request.FILES.get("fichier_excel"):
         fichier_excel = request.FILES['fichier_excel']
         # Importer le fichier Excel et convertir en une liste d'objets Document

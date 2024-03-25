@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Initialisation | BGFI {% endblock title %}
+
+{% block title %} Home | File epurator {% endblock title %}
+
 {% block special_css %}
+    <link rel="stylesheet" href="{% static 'css/frontcustom.css' %}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
     <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
@@ -9,203 +12,94 @@
     <link rel="stylesheet" href="{% static 'css/frontcustom.css' %}">
 {% endblock special_css %}
 
+
 {% block content %}
     <!-- Main page content-->
-    <div class="container-fluid px-4 mt-n10">
+    <div class="container-fluid p-4">
         <!-- Wizard card example with navigation-->
         <div class="card">
             <div class="card-header border-bottom">
                 <!-- Wizard navigation-->
-                <div class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
+                <div class="nav nav-pills nav-justified flex-column flex-xl-row flex-md-row flex-sm-row nav-wizard" id="cardTab" role="tablist">
                     <!-- Wizard navigation item 1-->
-                    <a class="nav-item nav-link active" id="wizard1-tab" href="#wizard1" data-bs-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
-                        <div class="wizard-step-icon">1</div>
+                    <a class="nav-item nav-link active" id="wizard1-tab" href="#wizard1" data-toggle="tab" role="tab" aria-controls="wizard1" aria-selected="true">
                         <div class="wizard-step-text">
-                            <div class="wizard-step-text-name">PROGRAMME ANNUEL</div>
+                            <div class="wizard-step-text-name">Plan annuel</div>
                         </div>
                     </a>
                     <!-- Wizard navigation item 2-->
-                    <a class="nav-item nav-link wizard-item2" id="wizard2-tab" href="#wizard2" data-bs-toggle="tab" role="tab" aria-controls="wizard2" aria-selected="true">
-                        <div class="wizard-step-icon">2</div>
+                    <a class="nav-item nav-link wizard-item2" id="wizard2-tab" href="#wizard2" data-toggle="tab" role="tab" aria-controls="wizard2" aria-selected="true">
                         <div class="wizard-step-text">
-                            <div class="wizard-step-text-name">MISSIONS</div>
+                            <div class="wizard-step-text-name">Planification du travail</div>
                         </div>
                     </a>
                     <!-- Wizard navigation item 3-->
-                    <a class="nav-item nav-link" id="wizard3-tab" href="#wizard3" data-bs-toggle="tab" role="tab" aria-controls="wizard3" aria-selected="true">
-                        <div class="wizard-step-icon">3</div>
+                    <a class="nav-item nav-link" id="wizard3-tab" href="#wizard3" data-toggle="tab" role="tab" aria-controls="wizard3" aria-selected="true">
                         <div class="wizard-step-text">
-                            <div class="wizard-step-text-name">PROGRAMME DE TRAVAIL</div>
+                            <div class="wizard-step-text-name">Mission</div>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body p-3">
                 <div class="tab-content" id="cardTabContent">
                     <!-- Wizard tab pane item 1-->
-                    <div class="tab-pane py-5 py-xl-10 fade show active" id="wizard1" role="tabpanel" aria-labelledby="wizard1-tab">
-                        <div class="row justify-content-center">
-                            <div class="col-xxl-10 col-xl-10">
-                                <h3 class="text-primary">Step 1</h3>
-                                <h5 class="card-title mb-4">Informations générales sur le plan annuel</h5>
-                                <div class="card shadow mb-4">
-                                    <div class="card-header py-3 ">
-                                        <div class="row">
-                                            <div class="col">
-                                                <h6 class="m-0 font-weight-bold text-primary">Plan Annuel</h6>
-                                            </div>
-                                        </div>
+                    <div class="tab-pane pt-4 fade show active" id="wizard1" role="tabpanel" aria-labelledby="wizard1-tab">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <h6 class="m-0 font-weight-bold text-primary">Plan Annuel</h6>
                                     </div>
-                                    <div class="card-body" hx-get="{% url 'services:list_planannuel' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
-                                        <div class="row justify-content-center center htmx-indicator" id="loader">
-                                            <div class="spinner-border text-primary" role="status">
-                                                <span class="sr-only">chargement ...</span>
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="card-body" hx-get="{% url 'services:list_planannuel' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
+                                <div class="row justify-content-center center htmx-indicator" id="loader">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">chargement ...</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Wizard tab pane item 2-->
-                    <div class="tab-pane py-5 py-xl-10 fade" id="wizard2" role="tabpanel" aria-labelledby="wizard2-tab">
-                        <div class="row justify-content-center">
-                            <div class="col-xxl-10 col-xl-10">
-                                <h3 class="text-primary">Step 2</h3>
-                                <h5 class="card-title mb-4">Enter your billing details</h5>
-                                <form>
-                                    <div class="mb-3">
-                                            <label class="small mb-1" for="reference_facture">Reférence Facture :</label>
-                                            <input class="form-control" name="reference_facture" id="reference_facture" type="text" />
+                    <div class="tab-pane py-5 py-xl-10 fade show" id="wizard2" role="tabpanel" aria-labelledby="wizard2-tab">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 ">
+                                <div class="row">
+                                    <div class="col">
+                                        <h6 class="m-0 font-weight-bold text-primary">Planning</h6>
                                     </div>
-                                    <div class="row gx-3">
-
-                                        <div class="mb-3 col-md-6">
-                                            <label class="small mb-1" for="montant_facture">Montant facture</label>
-                                            <input class="form-control" name="montant_facture" id="montant_facture" type="text" />
-                                        </div>
-                                        <div class="mb-3 col-md-6">
-                                            <label class="small mb-1" for="devise_facture">Devise facture</label>
-                                            <input class="form-control" name="devise_facture" id="devise_facture" type="text" />
-                                        </div>
+                                    <div class="col">
                                     </div>
-                                    <div class="row gx-3">
-                                        <div class="col-md-4 mb-4 mb-md-0">
-                                            <label class="small mb-1" for="taux_applique">Taux appliqué</label>
-                                            <input class="form-control" name="taux_applique" id="taux_applique" type="text" />
-                                        </div>
-                                        <div class="col-md-4 mb-4 mb-md-0">
-                                            <label class="small mb-1" for="montant_facture_xaf">Montant de la facture en XAF</label>
-                                            <input class="form-control" name="montant_facture_xaf" id="montant_facture_xaf" type="text" />
-                                        </div>
-                                        <div class="col-md-4 mb-0">
-                                            <label class="small mb-1" for="facture_definitive">Facture définitive</label>
-                                            <input class="form-control" id="facture_definitive" type="text" />
-                                        </div>
-                                        <div class="col-md-4 mb-0">
-                                            <label class="small mb-1" for="ref_facture_definitive">Facture définitive</label>
-                                            <input class="form-control" id="ref_facture_definitive" type="text" />
-                                        </div>
-                                        <div class="col-md-4 mb-0">
-                                            <label class="small mb-1" for="montant_facture_definitive">Facture définitive</label>
-                                            <input class="form-control" name="montant_facture_definitive" id="montant_facture_definitive" type="text" />
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row justify-content-center center htmx-indicator" id="loader">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">chargement ...</span>
                                     </div>
-                                    <hr class="my-4" />
-                                    <div class="d-flex justify-content-between">
-                                        <button class="btn btn-light" type="button">Annuler</button>
-                                    <button class="btn btn-primary" type="button">Valider</button>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!-- Wizard tab pane item 3-->
-                    <div class="tab-pane py-5 py-xl-10 fade" id="wizard3" role="tabpanel" aria-labelledby="wizard3-tab">
-                        <div class="row justify-content-center">
-                            <div class="col-xxl-10 col-xl-10">
-                                <h3 class="text-primary">Step 3</h3>
-                                <h5 class="card-title mb-4">Choose when you want to receive email notifications</h5>
-                                <form>
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" id="checkAccountChanges" type="checkbox" checked />
-                                        <label class="form-check-label" for="checkAccountChanges">Changes made to your account</label>
+                    <div class="tab-pane py-5 py-xl-10 fade show" id="wizard3" role="tabpanel" aria-labelledby="wizard3-tab">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 ">
+                                <div class="row">
+                                    <div class="col">
+                                        <h6 class="m-0 font-weight-bold text-primary">Mission</h6>
                                     </div>
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" id="checkAccountGroups" type="checkbox" checked />
-                                        <label class="form-check-label" for="checkAccountGroups">Changes are made to groups you're part of</label>
+                                    <div class="col">
                                     </div>
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" id="checkProductUpdates" type="checkbox" checked />
-                                        <label class="form-check-label" for="checkProductUpdates">Product updates for products you've purchased or starred</label>
-                                    </div>
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" id="checkProductNew" type="checkbox" checked />
-                                        <label class="form-check-label" for="checkProductNew">Information on new products and services</label>
-                                    </div>
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" id="checkPromotional" type="checkbox" />
-                                        <label class="form-check-label" for="checkPromotional">Marketing and promotional offers</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" id="checkSecurity" type="checkbox" checked disabled />
-                                        <label class="form-check-label" for="checkSecurity">Security alerts</label>
-                                    </div>
-                                    <hr class="my-4" />
-                                    <div class="d-flex justify-content-between">
-                                        <button class="btn btn-light" type="button">Annuler</button>
-                                    <button class="btn btn-primary" type="button">Valider</button>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- Wizard tab pane item 4-->
-                    <div class="tab-pane py-5 py-xl-10 fade" id="wizard4" role="tabpanel" aria-labelledby="wizard4-tab">
-                        <div class="row justify-content-center">
-                            <div class="col-xxl-10 col-xl-10">
-                                <h3 class="text-primary">Step 4</h3>
-                                <h5 class="card-title mb-4">Review the following information and submit</h5>
-                                <div class="row small text-muted">
-                                    <div class="col-sm-3 text-truncate"><em>Username:</em></div>
-                                    <div class="col">username</div>
-                                </div>
-                                <div class="row small text-muted">
-                                    <div class="col-sm-3 text-truncate"><em>Name:</em></div>
-                                    <div class="col">Valerie Luna</div>
-                                </div>
-                                <div class="row small text-muted">
-                                    <div class="col-sm-3 text-truncate"><em>Organization Name:</em></div>
-                                    <div class="col">Start Bootstrap</div>
-                                </div>
-                                <div class="row small text-muted">
-                                    <div class="col-sm-3 text-truncate"><em>Location:</em></div>
-                                    <div class="col">San Francisco, CA</div>
-                                </div>
-                                <div class="row small text-muted">
-                                    <div class="col-sm-3 text-truncate"><em>Email Address:</em></div>
-                                    <div class="col">name@example.com</div>
-                                </div>
-                                <div class="row small text-muted">
-                                    <div class="col-sm-3 text-truncate"><em>Phone Number:</em></div>
-                                    <div class="col">555-123-4567</div>
-                                </div>
-                                <div class="row small text-muted">
-                                    <div class="col-sm-3 text-truncate"><em>Birthday:</em></div>
-                                    <div class="col">06/10/1988</div>
-                                </div>
-                                <div class="row small text-muted">
-                                    <div class="col-sm-3 text-truncate"><em>Credit Card Number:</em></div>
-                                    <div class="col">**** **** **** 1111</div>
-                                </div>
-                                <div class="row small text-muted">
-                                    <div class="col-sm-3 text-truncate"><em>Credit Card Expiration:</em></div>
-                                    <div class="col">06/2024</div>
-                                </div>
-                                <hr class="my-4" />
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-light" type="button">Annuler</button>
-                                    <button class="btn btn-primary" type="button">Valider</button>
+                            <div class="card-body" hx-get="{% url 'services:list_mission' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
+                                <div class="row justify-content-center center htmx-indicator" id="loader">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">chargement ...</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -214,7 +108,7 @@
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock content %}
 
 {% block special_js %}
     <!-- DataTables  & Plugins -->
@@ -235,6 +129,42 @@
     <script>
         $(function () {
             $('#planaudit').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Tous"] ],
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": true,
+                "responsive": true,
+                language: {
+                    processing:     "Traitement en cours...",
+                    search:         "Rechercher&nbsp;:",
+                    lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+                    info:           "Affichage de _START_ &agrave; _END_ sur _TOTAL_",
+                    infoEmpty:      "Affichage de 0 &agrave; 0 sur 0",
+                    infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    infoPostFix:    "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable:     "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first:      "Premier",
+                        previous:   "Pr&eacute;c&eacute;dent",
+                        next:       "Suivant",
+                        last:       "Dernier"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $('#mission').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "Tous"] ],

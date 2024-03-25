@@ -115,6 +115,9 @@ def change_password(request):
                 'path': reverse('services:home_superAdmin'),
             },
             {
+                'name': 'profil',
+            },
+            {
                 'name': 'changement de mot de passe',
             },
         ]

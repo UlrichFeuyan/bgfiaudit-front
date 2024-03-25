@@ -9,7 +9,7 @@
 {% endblock special_css %}
 
 {% block content %}
-    <section class="content mx-5">
+    <section class="content mx-2">
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 ">
@@ -26,7 +26,7 @@
             <div class="card-body" hx-get="{% url 'services:list_planaudit' %}" hx-trigger="load, ListChanged from:body" hx-target="this" hx-indicator="#loader">
                 <div class="row justify-content-center center htmx-indicator" id="loader">
                     <div class="spinner-border text-primary" role="status">
-                        <span class="sr-only">chargement ...</span>
+                        <span class="sr-only">chargement ...</span>e
                     </div>
                 </div>
             </div>

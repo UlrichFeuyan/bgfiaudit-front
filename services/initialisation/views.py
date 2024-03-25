@@ -5,11 +5,25 @@ from django.contrib import messages
 from apiRessource.endpointList import *
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
+from django.urls import reverse
 
 
 def initialisation(request):
     dropdown_mission = 'True'
     initialisation_active = 'True'
+    header_title= "Initialisation"
+    breadcrumb = [
+            {
+                'name': 'Accueil',
+                'path': reverse('services:home_superAdmin'),
+            },
+            {
+                'name': 'mission',
+            },
+            {
+                'name': "initialisation",
+            },
+        ]
     return render(request, 'services/initialisation/initialisation.html', locals())
 
 def list_initialisation(request):

@@ -2671,13 +2671,13 @@ fieldset:disabled a.btn {
 
 .btn-success:hover {
   color: #fff;
-  background-color: #218838;
+  background-color: #099885;
   border-color: #1e7e34;
 }
 
 .btn-success:focus, .btn-success.focus {
   color: #fff;
-  background-color: #218838;
+  background-color: #099885;
   border-color: #1e7e34;
   box-shadow: 0 0 0 0 rgba(72, 180, 97, 0.5);
 }
@@ -34308,7 +34308,7 @@ blockquote.quote-gray-dark h6 {
 }
 
 .bg-gradient-success.btn:hover {
-  background: #0AB39C linear-gradient(180deg, #429a56, #218838) repeat-x !important;
+  background: #0AB39C linear-gradient(180deg, #429a56, #099885) repeat-x !important;
   border-color: #1e7e34;
   color: #ececec;
 }
@@ -34840,7 +34840,7 @@ blockquote.quote-gray-dark h6 {
 }
 
 .bg-gradient-green.btn:hover {
-  background: #0AB39C linear-gradient(180deg, #429a56, #218838) repeat-x !important;
+  background: #0AB39C linear-gradient(180deg, #429a56, #099885) repeat-x !important;
   border-color: #1e7e34;
   color: #ececec;
 }

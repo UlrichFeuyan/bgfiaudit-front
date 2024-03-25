@@ -35,7 +35,6 @@ def list_famille_de_risques(request):
 def edit_famille_de_risques(request, pk):
     modal_title = "Famille de risque"
     action = reverse("services:edit_famille_de_risques",  kwargs={'pk': pk})
-    print(action)
     get_famillerisk = requests.get(f"{listefamillerisk}{pk}")
     data = get_famillerisk.json()
     if request.method == "POST":

@@ -1,6 +1,6 @@
 /* Onglet gÃ©nÃ©ral */
 .nav-link.general-tab.active {
-    background-color: rgb(67, 67, 186);
+    background-color: #105A90;
     color: white;
   }
 
@@ -9,11 +9,11 @@
   }
 
   .my_first_divider{
-    border-top: 2px solid rgb(67, 67, 186);
+    border-top: 2px solid #105A90;
   }
   /* Onglet finance */
   .nav-link.finance-tab.active {
-    background-color: tomato;
+    background-color: #105A90;
     color: white;
   }
 
@@ -22,13 +22,13 @@
   }
 
   .my_second_divider{
-    border-top: 2px solid tomato;
+    border-top: 2px solid #105A90;
   }
 
   /* Onglet douane */
   .nav-link.douane-tab.active {
     color: white;
-    background-color: lightseagreen;
+    background-color: #105A90;
   }
 
   .nav-link.douane-tab {
@@ -36,13 +36,13 @@
   }
 
   .my_third_divider{
-    border-top: 2px solid lightseagreen;
+    border-top: 2px solid #105A90;
   }
 
   /* Onglet apurement */
   .nav-link.apurement-tab.active {
     color: white;
-    background-color: goldenrod;
+    background-color: #105A90;
   }
 
   .nav-link.apurement-tab {
@@ -50,13 +50,13 @@
   }
 
   .my_fourth_divider{
-    border-top: 2px solid goldenrod;
+    border-top: 2px solid #105A90;
   }
 
   /* Onglet autres */
   .nav-link.autres-tab.active {
     color: white;
-    background-color: gray;
+    background-color: #105A90;
   }
 
   .nav-link.autres-tab {
@@ -64,17 +64,17 @@
   }
 
   .my_fifth_divider{
-    border-top: 2px solid gray;
+    border-top: 2px solid #105A90;
   } 
 
   /**/
 .card-primary.card-outline {
-    border-top: 3px solid rgb(67, 67, 186);
+    border-top: 3px solid #105A90;
 }
 
 .nav-tabs.flex-column {
   border-bottom: 0;
-  border-right: 1px solid rgb(67, 67, 186);
+  border-right: 1px solid #105A90;
 }
 
 

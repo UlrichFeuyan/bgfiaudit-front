@@ -194,7 +194,17 @@
 
         <!-- Placeholder for the modal -->
         <div class="modal fade" id="modal" role="status">
-            <div class="modal-dialog {{ modalsize }}" hx-target="this" id="dialog" role="document"></div>
+            <div class="modal-dialog modal-dialog-centered modal-xl" hx-target="this" id="dialog" role="status"></div>
+        </div>
+
+        <!-- Placeholder for the modal XL -->
+        <div class="modal fade" id="modalxl" role="config">
+            <div class="modal-dialog modal-dialog-centered modal-xl" hx-target="this" id="dialogxl" role="config"></div>
+        </div>
+
+        <!-- Placeholder for the modal FullScreen -->
+        <div class="modal modal-fullscreen fade my-full-modal" id="modallg" role="validation">
+            <div class="modal-dialog modal-dialog-centered modal-full" hx-target="this" id="dialogfs" role="validation"></div>
         </div>
 
         <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
