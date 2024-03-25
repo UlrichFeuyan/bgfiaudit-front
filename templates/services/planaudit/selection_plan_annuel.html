@@ -6,7 +6,7 @@
         <h4>Année de reférence</h4>
         <p>Veillez sélectionner l'année de référence du plan d'audit.</p>
         <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
-            <select class="form-select" aria-label="Default select example" name="annee">
+            <select class="custom-select" aria-label="Default select example" name="annee">
                 {% for annee in annees_planifies %}
                     <option value="{{ annee }}" >{{ annee }}</option>
                 {% empty %}

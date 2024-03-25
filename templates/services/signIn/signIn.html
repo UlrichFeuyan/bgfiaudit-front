@@ -88,7 +88,7 @@
                                                 {% csrf_token %}
                                                 <div class="mb-3">
                                                     <label class="form-label">Choisir une filiale</label>
-                                                   <select class="form-select" aria-label="Default select example" id="filiale-select" name="filiale_id">
+                                                   <select class="custom-select" aria-label="Default select example" id="filiale-select" name="filiale_id">
                                                         <option value="no-value" selected></option>
                                                         <option value="" >--------------</option>
                                                         {% for fil in filialeList %}

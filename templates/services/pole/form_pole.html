@@ -10,7 +10,7 @@
     </div>
     <div class="mb-3" id="modal-id">
         <label for="libfamillerisk" class="form-label">Filiale </label>
-        <select class="form-select" aria-label="Default select example" name="idfiliale">
+        <select class="custom-select" aria-label="Default select example" name="idfiliale">
             {% if not data.idfiliale %}
                 {% for filiale in data_filiale_list %}
                     <option value="{{ filiale.idfiliale }}" >{{ filiale.sigle_filiale }}</option>

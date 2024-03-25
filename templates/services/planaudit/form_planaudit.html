@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col col-4">
             <label for="idfiliale" class="form-label">Filiale </label>
-            <select class="form-select mb-3 d-none" aria-label="Default select example" id="" name="idfiliale">
+            <select class="custom-select mb-3 d-none" aria-label="Default select example" id="" name="idfiliale">
                 {% if userFiliale %}
                     {% for filiale in data_filiale_list %}
                         <option value="{{ filiale.idfiliale }}" {% if filiale.sigle_filiale == userFiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
@@ -29,7 +29,7 @@
                     {% endif %}
                 {% endif %}
             </select>
-            <select class="form-select mb-3" aria-label="Default select example" id="idfiliale" name="idfiliale" {% if userFiliale %}disabled{% endif %}>
+            <select class="custom-select mb-3" aria-label="Default select example" id="idfiliale" name="idfiliale" {% if userFiliale %}disabled{% endif %}>
                 {% if userFiliale %}
                     {% for filiale in data_filiale_list %}
                         <option value="{{ filiale.idfiliale }}" {% if filiale.sigle_filiale == userFiliale %}selected{% endif %} >{{ filiale.sigle_filiale }}</option>
@@ -62,7 +62,7 @@
             <h5 class="fs-15 mb-3">Domaine à auditer</h5>
             <div class="mb-3" id="modal-id">
                 <label for="idsysteme" class="form-label">Système </label>
-                <select class="form-select" aria-label="Default select example" id="idsysteme" name="idsysteme">
+                <select class="custom-select" aria-label="Default select example" id="idsysteme" name="idsysteme">
                     {% if not data.idsysteme %}
                         <option value="" selected>--------------</option>
                         {% for systeme in data_systeme_list %}
@@ -82,7 +82,7 @@
             </div>
             <div class="mb-3" id="modal-id">
                 <label for="idprocessus" class="form-label">Processus </label>
-                <select class="form-select" aria-label="Default select example" id="idprocessus" name="idprocessus">
+                <select class="custom-select" aria-label="Default select example" id="idprocessus" name="idprocessus">
                 {% if not data.idprocessus %}
                         <option value="" selected>--------------</option>
                         {% for processus in data_processus_list %}
@@ -102,7 +102,7 @@
             </div>
             <div class="mb-3" id="modal-id">
                 <label for="idsite" class="form-label">Site </label>
-                <select class="form-select" aria-label="Default select example" id="idsite" name="idsite">
+                <select class="custom-select" aria-label="Default select example" id="idsite" name="idsite">
                     {% if not data.idsite %}
                         <option value="" selected>--------------</option>
                         {% for site in data_site_list %}
@@ -124,7 +124,7 @@
         <div class="col col-4">
             <div class="mb-3" id="modal-id">
                 <label for="criticite_carto" class="form-label">Criticité cartographie</label>
-                <select class="form-select" aria-label="Default select example" id="criticite_carto" name="criticite_carto">
+                <select class="custom-select" aria-label="Default select example" id="criticite_carto" name="criticite_carto">
                     <option value="" {% if not data.criticite_carto %}selected{% endif %}>--------------</option>
                     <option value="1" {% if data.criticite_carto == '1'  %}selected{% endif %}>Faible</option>
                     <option value="2" {% if data.criticite_carto == '2'  %}selected{% endif %}>Modéré</option>
@@ -142,7 +142,7 @@
             </div>
             <div class="mb-3" id="modal-id">
                 <label for="criticite_audit" class="form-label">Criticité mission </label>
-                <select class="form-select" aria-label="Default select example" id="criticite_audit" name="criticite_audit">
+                <select class="custom-select" aria-label="Default select example" id="criticite_audit" name="criticite_audit">
                     <option value="" {% if not data.criticite_audit %}selected{% endif %}>--------------</option>
                     <option value="1" {% if data.criticite_audit == '1'  %}selected{% endif %}>Faible</option>
                     <option value="2" {% if data.criticite_audit == '2'  %}selected{% endif %}>Modéré</option>

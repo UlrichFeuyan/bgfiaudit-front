@@ -18,7 +18,7 @@
     </div>
     <div class="mb-3" id="modal-id">
         <label for="idprofil_user" class="form-label">Profil</label>
-        <select class="form-select" aria-label="Default select example" name="idprofil_user">
+        <select class="custom-select" aria-label="Default select example" name="idprofil_user">
             {% if not data.idprofil_user %}
                 <option value="" selected>--------------</option>
                 {% for profil in profilList %}
@@ -37,7 +37,7 @@
     </div>
     <div class="mb-3" id="modal-id">
         <label for="idfiliale" class="form-label">Filiale</label>
-        <select class="form-select" aria-label="Default select example" name="idfiliale">
+        <select class="custom-select" aria-label="Default select example" name="idfiliale">
             {% if not data.idfiliale %}
                 <option selected>--------------</option>
                 {% for filiale in filialeList %}
